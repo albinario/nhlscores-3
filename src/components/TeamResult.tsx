@@ -1,37 +1,30 @@
-import { useEffect, useState } from 'react'
 import { Team } from '../types'
 import { logos } from '../util/config'
 
 const TeamResult = (
-	props: {
-		team: Team
-		away: boolean
-		showResults: boolean
-		startTime?: Date
-	}) => {
-	const [startTime, setStartTime] = useState('')
-
-	useEffect(() => {
-		if (props.away && !props.showResults && props.startTime) {
-			setStartTime(
-				('0'+props.startTime.getHours()).slice(-2)
-				+':'+
-				('0'+props.startTime.getMinutes()).slice(-2)
-			)
+		props: {
+			team: Team
+			away: boolean
+			showResults: boolean
+			score: number
+			winner: boolean
+			endType: string
+			startTime?: string
 		}
-	}, [])
+	) => {
 
 	return (
 		<div className='d-flex justify-content-between'>
 			<div>
 				<img
-					src={`${logos}/${props.team.team.id}.svg`}
-					alt={props.team.team.name}
-				/> {props.team.team.name}
+					src={`${logos}/${props.team.id}.svg`}
+					alt={props.team.name}
+				/> {props.team.name}
 			</div>
 			<div>
-				{props.showResults && props.team.score}
-				{props.away && !props.showResults && startTime}
+				{props.showResults && props.winner && props.endType}
+				{props.showResults && props.score}
+				{props.away && !props.showResults && props.startTime}
 			</div>
 		</div>
 	)

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { Game} from './types'
+import moment from 'moment'
+import { Game } from './types'
 import { dateFormat, nhlApi } from './util/config'
 import GameCard from './components/GameCard'
-import moment from 'moment'
 
 const App = () => {
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
@@ -15,7 +15,27 @@ const App = () => {
 	useEffect(() => {
 		fetch(`${nhlApi}/schedule?date=${date}`)
 			.then(res => res.json())
-			.then(games => games.totalGames ? setGames(games.dates[0].games) : setGames([]))
+			.then(games => {
+				if (games.dates.length) {
+					Promise.all(
+						games.dates[0].games.map( async (game: any) => {
+							const res = await fetch(`${nhlApi}/game/${game.gamePk}/feed/live`)
+
+							if (!res.ok) {
+								throw new Error(`${res.status} ${res.statusText}`)
+							}
+
+							return await res.json()
+						})
+						)
+						.then((transformedGames: Game[]) => {
+							setGames(transformedGames)
+						})
+						.catch(err => console.error(err))
+				} else {
+					setGames([])
+				}
+			})
 			.catch(err => console.error(err))
 		getDateTitle()
 	}, [date])

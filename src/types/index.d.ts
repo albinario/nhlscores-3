@@ -1,11 +1,30 @@
 export type Game = {
 	gameDate: string
-	teams: {
-		away: Team
-		home: Team
+	gamePk: number
+	gameData: {
+		teams: {
+			away: Team
+			home: Team
+		}
+		datetime: {
+			dateTime: string
+		}
+		status: {
+			statusCode: string
+		}
 	}
-	status: {
-		codedGameState: string
+	liveData: {
+		linescore: {
+			currentPeriodOrdinal: string
+			teams: {
+				away: {
+					goals: number
+				}
+				home: {
+					goals: number
+				}
+			}
+		}
 	}
 }
 
@@ -19,15 +38,6 @@ export type Player = {
 }
 
 export type Team = {
-	leagueRecord: {
-		wins: number
-		losses: number
-		type: string
-	}
-	score: number
-	team: {
-		id: number
-		name: string
-		link: string
-	}
+	id: number
+	name: string
 }
