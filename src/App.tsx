@@ -15,7 +15,7 @@ const App = () => {
 	useEffect(() => {
 		fetch(`${nhlApi}/schedule?date=${date}`)
 			.then(res => res.json())
-			.then(games => setGames(games.dates[0].games))
+			.then(games => games.totalGames ? setGames(games.dates[0].games) : setGames([]))
 			.catch(err => console.error(err))
 		getDateTitle()
 	}, [date])
@@ -50,7 +50,7 @@ const App = () => {
 	
 	return(
 		<>
-			<div className='row'>
+			<div className='row g-2'>
 				<div className='d-flex justify-content-between align-items-center my-3'>
 					<button
 						className='btn'
@@ -68,13 +68,19 @@ const App = () => {
 						<i className='bi bi-arrow-right-square'></i>
 					</button>
 				</div>
-				{games.map((game, index) => (
+				{!!games.length && games.map((game, index) => (
 					<GameCard
 						key={index}
-						data={game}
+						game={game}
 						showResults={showResults}
 					/>
 				))}
+				{!games.length && (
+					<div
+						className='alert alert-secondary'
+						role='alert'
+					>No games on this day</div>
+				)}
 			</div>
 
 			<div className='form-check form-switch mt-4'>
