@@ -8,29 +8,30 @@ import moment from 'moment'
 
 const App = () => {
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
-	const [dateTitle, setDateTitle] = useState('Loading')
+	const [dateTitle, setDateTitle] = useState('Loading...')
 	const [games, setGames] = useState<Game[]>([])
+	const [showResults, setShowResults] = useState(false)
 	
 	useEffect(() => {
 		fetch(`${nhlApi}/schedule?date=${date}`)
 			.then(res => res.json())
 			.then(games => setGames(games.dates[0].games))
 			.catch(err => console.error(err))
-			getDateTitle()
+		getDateTitle()
 	}, [date])
 
 	const getDateTitle = () => {
 		switch (date) {
-			case moment(new Date()).format(dateFormat) : 
+			case moment(new Date()).format(dateFormat) :
 				setDateTitle('Tonight')
 				break
 			case moment(new Date()).add(1, 'days').format(dateFormat) :
 				setDateTitle('Tomorrow night')
 				break
-			case moment(new Date()).subtract(1, 'days').format(dateFormat) : 
+			case moment(new Date()).subtract(1, 'days').format(dateFormat) :
 				setDateTitle('Last night')
 				break
-			default:
+			default :
 				setDateTitle(date)
 				break
 		}
@@ -42,33 +43,53 @@ const App = () => {
 	const dateIncrease = () => {
 		setDate(moment(date).add(1, 'days').format(dateFormat))
 	}
+
+	const showResultsToggle = () => {
+		setShowResults(!showResults)
+	}
 	
 	return(
-		<div className='row'>
-			<div className='d-flex justify-content-between align-items-center p-3'>
-				<button
-					className='btn'
-					onClick={dateDecrease}
-				>
-					<i className='bi bi-arrow-left-square'></i>
-				</button>
-				<div className='fs-4'>
-					{dateTitle}
+		<>
+			<div className='row'>
+				<div className='d-flex justify-content-between align-items-center my-3'>
+					<button
+						className='btn'
+						onClick={dateDecrease}
+					>
+						<i className='bi bi-arrow-left-square'></i>
+					</button>
+					<div className='fs-4'>
+						{dateTitle}
+					</div>
+					<button
+						className='btn'
+						onClick={dateIncrease}
+					>
+						<i className='bi bi-arrow-right-square'></i>
+					</button>
 				</div>
-				<button
-					className='btn'
-					onClick={dateIncrease}
-				>
-					<i className='bi bi-arrow-right-square'></i>
-				</button>
+				{games.map((game, index) => (
+					<GameCard
+						key={index}
+						data={game}
+						showResults={showResults}
+					/>
+				))}
 			</div>
-			{games.map((game, index) => (
-				<GameCard
-					key={index}
-					data={game}
+
+			<div className='form-check form-switch mt-4'>
+				<input
+					className='form-check-input'
+					type='checkbox'
+					role='switch'
+					id='flexSwitchCheckDefault'
+					onChange={showResultsToggle}
 				/>
-			))}
-		</div>
+				<label className='form-check-label'>
+					Show results
+				</label>
+			</div>
+		</>
 	)
 }
 
