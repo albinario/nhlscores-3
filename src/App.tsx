@@ -27,11 +27,11 @@ const App = () => {
 
 							return await res.json()
 						})
-						)
-						.then((transformedGames: Game[]) => {
-							setGames(transformedGames)
-						})
-						.catch(err => console.error(err))
+					)
+					.then((transformedGames: Game[]) => {
+						setGames(transformedGames)
+					})
+					.catch(err => console.error(err))
 				} else {
 					setGames([])
 				}
