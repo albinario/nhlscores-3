@@ -2,16 +2,19 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import moment from 'moment'
-import { Game } from './types'
-import { dateFormat, nhlApi } from './util/config'
+import { Game, Player } from './types'
+import { dateFormat, nhlApi, tradesApi } from './util/config'
 import GameCard from './components/GameCard'
 
 const App = () => {
+	console.log("App()")
+	
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
 	const [dateTitle, setDateTitle] = useState('Loading...')
 	const [games, setGames] = useState<Game[]>([])
+	const [players, setPlayers] = useState<Player[]>([])
 	const [showResults, setShowResults] = useState(false)
-	
+
 	useEffect(() => {
 		fetch(`${nhlApi}/schedule?date=${date}`)
 			.then(res => res.json())
@@ -40,6 +43,13 @@ const App = () => {
 		getDateTitle()
 	}, [date])
 
+	useEffect(() => {
+		fetch(`${tradesApi}/players`)
+			.then(res => res.json())
+			.then(players => setPlayers(players.data.filter((player: Player) => player.picker !== '')))
+			.catch(err => console.error(err))
+	}, [])
+
 	const getDateTitle = () => {
 		switch (date) {
 			case moment(new Date()).format(dateFormat) :
@@ -67,7 +77,7 @@ const App = () => {
 	const showResultsToggle = () => {
 		setShowResults(!showResults)
 	}
-	
+
 	return(
 		<>
 			<div className='row g-2'>
@@ -92,6 +102,7 @@ const App = () => {
 					<GameCard
 						key={index}
 						game={game}
+						playersPicked={players.filter(player => player.team === game.gameData.teams.away.id || player.team === game.gameData.teams.home.id )}
 						showResults={showResults}
 					/>
 				))}

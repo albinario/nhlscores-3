@@ -1,4 +1,4 @@
-import { Team } from '../types'
+import { Player, Team } from '../types'
 import { logos } from '../util/config'
 
 const TeamResult = (
@@ -9,17 +9,22 @@ const TeamResult = (
 			score: number
 			winner: boolean
 			endType: string
+			playersPicked: Player[]
 			startTime?: string
 		}
 	) => {
 
 	return (
 		<div className='d-flex justify-content-between'>
-			<div>
+			<div className='d-flex align-items-center'>
 				<img
 					src={`${logos}/${props.team.id}.svg`}
 					alt={props.team.name}
-				/> {props.team.name}
+				/>
+				{props.team.name}
+				<span className='badge text-bg-dark'>
+					{props.playersPicked.length}
+				</span>
 			</div>
 			<div>
 				{props.showResults && props.winner && props.endType}

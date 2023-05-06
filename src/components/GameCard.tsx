@@ -1,9 +1,10 @@
-import { Game } from '../types'
+import { Game, Player } from '../types'
 import TeamResult from './TeamResult'
 
 const GameCard = (
 	props: {
 		game: Game
+		playersPicked: Player[]
 		showResults: boolean
 	}) => {
 
@@ -16,7 +17,7 @@ const GameCard = (
 	const endType = currentPeriodOrdinal !== '3rd' ? currentPeriodOrdinal+' ' : ''
 	const dateTime = new Date(gameData.datetime.dateTime)
 	const startTime = ('0'+dateTime.getHours()).slice(-2)+':'+('0'+dateTime.getMinutes()).slice(-2)
-
+	
 	return (
 		<div className='col-12 col-md-6 col-lg-4 col-xl'>
 			<div className='card'>
@@ -28,6 +29,7 @@ const GameCard = (
 						score={scoreAway}
 						winner={scoreAway > scoreHome}
 						endType={endType}
+						playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.away.id)}
 						startTime={startTime}
 						/>
 					<TeamResult
@@ -35,8 +37,9 @@ const GameCard = (
 						away={false}
 						showResults={showResults}
 						score={scoreHome}
-						endType={endType}
 						winner={scoreHome > scoreAway}
+						playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.home.id)}
+						endType={endType}
 					/>
 				</div>
 			</div>
