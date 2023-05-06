@@ -1,28 +1,12 @@
 export type Game = {
-	teams: TeamList
-}
-
-type TeamList = {
-	away: Team
-	home: Team
-}
-
-export type Team = {
-	leagueRecord: Record
-	score: number
-	team: TeamInfo
-}
-
-type TeamInfo = {
-	id: number
-	name: string
-	link: string
-}
-
-type Record = {
-	wins: number
-	losses: number
-	type: string
+	gameDate: string
+	teams: {
+		away: Team
+		home: Team
+	}
+	status: {
+		codedGameState: string
+	}
 }
 
 export type Player = {
@@ -34,3 +18,16 @@ export type Player = {
 	picker: string
 }
 
+export type Team = {
+	leagueRecord: {
+		wins: number
+		losses: number
+		type: string
+	}
+	score: number
+	team: {
+		id: number
+		name: string
+		link: string
+	}
+}
