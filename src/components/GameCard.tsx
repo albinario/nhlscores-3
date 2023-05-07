@@ -20,8 +20,8 @@ const GameCard = (
 	
 	return (
 		<div className='col-12 col-md-6 col-lg-4 col-xl'>
-			<div className='card'>
-				<div className='card-body g-1'>
+			<div className='card p-2'>
+				<div className='card-body p-0 g-1'>
 					<TeamResult
 						team={gameData.teams.away}
 						away={true}
