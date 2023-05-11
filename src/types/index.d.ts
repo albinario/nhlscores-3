@@ -1,10 +1,21 @@
 export type Game = {
 	gameDate: string
 	gamePk: number
+	teams: {
+		away: {
+			team: ITeam
+		},
+		home: {
+			team: ITeam
+		}
+	}
+}
+
+export type GameDetails = {
 	gameData: {
 		teams: {
-			away: Team
-			home: Team
+			away: ITeam
+			home: ITeam
 		}
 		datetime: {
 			dateTime: string
@@ -37,7 +48,7 @@ export type Player = {
 	picker: string
 }
 
-export type Team = {
+export type ITeam = {
 	id: number
 	name: string
 }

@@ -1,9 +1,9 @@
-import { Player, Team } from '../types'
+import { Player, ITeam } from '../types'
 import { logos } from '../util/config'
 
-const TeamResult = (
+const Team = (
 		props: {
-			team: Team
+			team: ITeam
 			away: boolean
 			showResults: boolean
 			score: number
@@ -35,4 +35,4 @@ const TeamResult = (
 	)
 }
 
-export default TeamResult
+export default Team
