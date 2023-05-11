@@ -1,4 +1,4 @@
-import { Player, ITeam } from '../types'
+import { IPlayer, ITeam } from '../interfaces'
 import { logos } from '../util/config'
 
 const Team = (
@@ -9,7 +9,7 @@ const Team = (
 			score: number
 			winner: boolean
 			endType: string
-			playersPicked: Player[]
+			playersPicked: IPlayer[]
 			startTime?: string
 		}
 	) => {

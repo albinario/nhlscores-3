@@ -1,4 +1,4 @@
-export type Game = {
+export interface IGame {
 	gameDate: string
 	gamePk: number
 	teams: {
@@ -11,7 +11,7 @@ export type Game = {
 	}
 }
 
-export type GameDetails = {
+export interface IGameDetails {
 	gameData: {
 		teams: {
 			away: ITeam
@@ -39,7 +39,7 @@ export type GameDetails = {
 	}
 }
 
-export type Player = {
+export interface IPlayer {
 	id: number
 	name: string
 	jersey: number
@@ -48,7 +48,7 @@ export type Player = {
 	picker: string
 }
 
-export type ITeam = {
+export interface ITeam {
 	id: number
 	name: string
 }

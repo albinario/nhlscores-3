@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Game, GameDetails, Player } from '../types'
+import { IGame, IGameDetails, IPlayer } from '../interfaces'
 import Team from './Team'
 import { nhlApi } from '../util/config'
 
 interface IProps {
-	game: Game
-	playersPicked: Player[]
+	game: IGame
+	playersPicked: IPlayer[]
 	showResults: boolean
 }
 
-const gameDetailsEmpty: GameDetails = {
+const gameDetailsEmpty: IGameDetails = {
 	gameData: {
 		teams: {
 			away: {
@@ -46,7 +46,7 @@ const gameDetailsEmpty: GameDetails = {
 const GameCard: React.FC<IProps> = (props) => {
 	console.log("GameCard()")
 	
-	const [gameDetails, setGameDetails] = useState<GameDetails>(gameDetailsEmpty)
+	const [gameDetails, setGameDetails] = useState<IGameDetails>(gameDetailsEmpty)
 	
 	useEffect(() => {
 		fetch(`${nhlApi}/game/${props.game.gamePk}/feed/live`)

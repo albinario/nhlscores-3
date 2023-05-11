@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import moment from 'moment'
-import { Game, Player } from './types'
+import { IGame, IPlayer } from './interfaces'
 import { dateFormat, nhlApi, tradesApi } from './util/config'
 import GameCard from './components/GameCard'
 
@@ -11,8 +11,8 @@ const App = () => {
 
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
 	const [dateTitle, setDateTitle] = useState('Loading...')
-	const [games, setGames] = useState<Game[]>([])
-	const [players, setPlayers] = useState<Player[]>([])
+	const [games, setGames] = useState<IGame[]>([])
+	const [players, setPlayers] = useState<IPlayer[]>([])
 	const [showResults, setShowResults] = useState(false)
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ const App = () => {
 	useEffect(() => {
 		fetch(`${tradesApi}/players`)
 			.then(res => res.json())
-			.then(players => setPlayers(players.data.filter((player: Player) => player.picker !== '')))
+			.then(players => setPlayers(players.data.filter((player: IPlayer) => player.picker !== '')))
 			.catch(err => console.error(err))
 	}, [])	
 
