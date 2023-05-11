@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import moment from 'moment'
 import { IGame, IPlayer } from './interfaces'
 import { dateFormat, nhlApi, tradesApi } from './util/config'
-import GameCard from './components/GameCard'
+import Game from './components/Game'
 
 const App = () => {
 	console.log("App()")
@@ -79,7 +79,7 @@ const App = () => {
 					</button>
 				</div>
 				{!!games.length && games.map((game, index) => (
-					<GameCard
+					<Game
 						key={index}
 						game={game}
 						playersPicked={players.filter(player => 

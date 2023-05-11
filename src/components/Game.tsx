@@ -43,7 +43,7 @@ const gameDetailsEmpty: IGameDetails = {
 	}
 }
 
-const GameCard: React.FC<IProps> = (props) => {
+const Game: React.FC<IProps> = (props) => {
 	console.log("GameCard()")
 	
 	const [gameDetails, setGameDetails] = useState<IGameDetails>(gameDetailsEmpty)
@@ -95,4 +95,4 @@ const GameCard: React.FC<IProps> = (props) => {
 	)
 }
 
-export default GameCard
+export default Game
