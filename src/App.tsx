@@ -7,8 +7,6 @@ import { dateFormat, nhlApi, tradesApi } from './util/config'
 import Game from './components/Game'
 
 const App = () => {
-	console.log("App()")
-
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
 	const [dateTitle, setDateTitle] = useState('Loading...')
 	const [games, setGames] = useState<IGame[]>([])

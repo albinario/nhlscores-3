@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IGame, IGameDetails, IPlayer } from '../interfaces'
 import Team from './Team'
 import { nhlApi } from '../util/config'
+import { gameDetailsEmpty } from '../util/variables'
 
 interface IProps {
 	game: IGame
@@ -9,43 +10,7 @@ interface IProps {
 	showResults: boolean
 }
 
-const gameDetailsEmpty: IGameDetails = {
-	gameData: {
-		teams: {
-			away: {
-				id: 0,
-				name: ""
-			},
-			home: {
-				id: 1,
-				name: ""
-			}
-		},
-		datetime: {
-			dateTime: ""
-		},
-		status: {
-			statusCode: ""
-		}
-	},
-	liveData: {
-		linescore: {
-			currentPeriodOrdinal: "",
-			teams: {
-				away: {
-					goals: 0
-				},
-				home: {
-					goals: 0
-				}
-			}
-		}
-	}
-}
-
 const Game: React.FC<IProps> = (props) => {
-	console.log("GameCard()")
-	
 	const [gameDetails, setGameDetails] = useState<IGameDetails>(gameDetailsEmpty)
 	
 	useEffect(() => {
@@ -53,7 +18,7 @@ const Game: React.FC<IProps> = (props) => {
 		.then(res => res.json())
 		.then(gameDetails => setGameDetails(gameDetails))
 		.catch(err => console.error(err))
-	}, [])
+	}, [props])
 
 	const dateTime = new Date(props.game.gameDate)
 	const startTime = ('0'+dateTime.getHours()).slice(-2)+':'+('0'+dateTime.getMinutes()).slice(-2)
