@@ -3,9 +3,19 @@ export interface IGame {
 	gamePk: number
 	teams: {
 		away: {
+			leagueRecord: {
+				losses: number
+				wins: number
+			}
+			score: number
 			team: ITeam
 		},
 		home: {
+			leagueRecord: {
+				losses: number
+				wins: number
+			}
+			score: number
 			team: ITeam
 		}
 	}
@@ -51,4 +61,13 @@ export interface IPlayer {
 export interface ITeam {
 	id: number
 	name: string
+}
+
+export interface ITeamStats {
+	leagueRecord: {
+		losses: number
+		wins: number
+	}
+	score: number
+	team: ITeam
 }

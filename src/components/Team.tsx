@@ -1,11 +1,10 @@
-import { IPlayer, ITeam } from '../interfaces'
+import { IPlayer, ITeamStats } from '../interfaces'
 import { logos } from '../util/config'
 
 interface IProps {
-	team: ITeam
+	team: ITeamStats
 	away: boolean
 	showResults: boolean
-	score: number
 	winner: boolean
 	endType: string
 	playersPicked: IPlayer[]
@@ -13,21 +12,33 @@ interface IProps {
 }
 
 const Team: React.FC<IProps> = (props) => {
+	const pickers = ['A', 'J', 'S', 'V']
+
 	return (
 		<div className='d-flex justify-content-between'>
 			<div className='d-flex align-items-center'>
 				<img
-					src={`${logos}/${props.team.id}.svg`}
-					alt={props.team.name}
+					src={`${logos}/${props.team.team.id}.svg`}
+					alt={props.team.team.name}
 				/>
-				{props.team.name}
-				<span className='badge text-bg-dark'>
-					{props.playersPicked.length}
+
+				<span className='d-none d-sm-block me-1'>
+					{props.team.team.name}
 				</span>
+
+				<span className='badge rounded-pill text-bg-secondary me-1'>
+					{props.team.leagueRecord.wins}-{props.team.leagueRecord.losses}
+				</span>
+
+				{pickers.map((picker, index) => (
+					<span key={index} className='badge rounded-pill text-bg-warning me-1'>
+						{picker}{props.playersPicked.filter(p => p.picker === picker).length}
+					</span>
+				))}
 			</div>
 			<div>
 				{props.showResults && props.winner && props.endType}
-				{props.showResults && props.score}
+				{props.showResults && props.team.score}
 				{props.away && !props.showResults && props.startTime}
 			</div>
 		</div>
