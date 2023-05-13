@@ -13,6 +13,7 @@ interface IProps {
 
 const Team: React.FC<IProps> = (props) => {
 	const pickers = ['A', 'J', 'S', 'V']
+	const picksAmount = pickers.map(picker => props.playersPicked.filter(p => p.picker === picker).length)
 
 	return (
 		<div className='d-flex justify-content-between'>
@@ -33,9 +34,13 @@ const Team: React.FC<IProps> = (props) => {
 				)}
 
 				{pickers.map((picker, index) => (
-					<span key={index} className='badge rounded-pill text-bg-warning me-1'>
-						{picker}{props.playersPicked.filter(p => p.picker === picker).length}
-					</span>
+					<>
+						{!!picksAmount[index] && (
+							<span key={index} className='badge rounded-pill text-bg-warning me-1'>
+								{picker}{picksAmount[index]}
+							</span>
+						)}
+					</>
 				))}
 			</div>
 			<div>
