@@ -11,7 +11,6 @@ const App = () => {
 	const [dateTitle, setDateTitle] = useState('Loading...')
 	const [games, setGames] = useState<IGame[]>([])
 	const [players, setPlayers] = useState<IPlayer[]>([])
-	const [showResults, setShowResults] = useState(false)
 
 	useEffect(() => {
 		fetch(`${nhlApi}/schedule?date=${date}`)
@@ -52,62 +51,42 @@ const App = () => {
 		setDate(moment(date).add(1, 'days').format(dateFormat))
 	}
 
-	const showResultsToggle = () => {
-		setShowResults(!showResults)
-	}
-
 	return(
-		<>
-			<div className='row g-2'>
-				<div className='d-flex justify-content-between align-items-center my-3'>
-					<button
-						className='btn'
-						onClick={dateDecrease}
-					>
-						<i className='bi bi-arrow-left-square'></i>
-					</button>
-					<div className='fs-4'>
-						{dateTitle}
-					</div>
-					<button
-						className='btn'
-						onClick={dateIncrease}
-					>
-						<i className='bi bi-arrow-right-square'></i>
-					</button>
+		<div className='row g-2'>
+			<div className='d-flex justify-content-between align-items-center my-3'>
+				<button
+					className='btn'
+					onClick={dateDecrease}
+				>
+					<i className='bi bi-arrow-left-square'></i>
+				</button>
+				<div className='fs-4'>
+					{dateTitle}
 				</div>
-				{!!games.length && games.map((game, index) => (
-					<Game
-						key={index}
-						game={game}
-						playersPicked={players.filter(player => 
-							player.team === game.teams.away.team.id || 
-							player.team === game.teams.home.team.id	
-						)}
-						showResults={showResults}
-					/>
-				))}
-				{!games.length && (
-					<div
-						className='alert alert-secondary'
-						role='alert'
-					>No games on this day</div>
-				)}
+				<button
+					className='btn'
+					onClick={dateIncrease}
+				>
+					<i className='bi bi-arrow-right-square'></i>
+				</button>
 			</div>
-
-			<div className='form-check form-switch mt-4'>
-				<input
-					className='form-check-input'
-					type='checkbox'
-					role='switch'
-					id='flexSwitchCheckDefault'
-					onChange={showResultsToggle}
+			{!!games.length && games.map((game, index) => (
+				<Game
+					key={index}
+					game={game}
+					playersPicked={players.filter(player => 
+						player.team === game.teams.away.team.id || 
+						player.team === game.teams.home.team.id	
+					)}
 				/>
-				<label className='form-check-label'>
-					Show results
-				</label>
-			</div>
-		</>
+			))}
+			{!games.length && (
+				<div
+					className='alert alert-secondary'
+					role='alert'
+				>No games on this day</div>
+			)}
+		</div>
 	)
 }
 
