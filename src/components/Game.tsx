@@ -25,11 +25,11 @@ const Game: React.FC<IProps> = (props) => {
 
 	const gameData = gameDetails.gameData
 	const linescore = gameDetails.liveData.linescore
-	const showResults = props.showResults && gameData.status.statusCode === "7"
+	const finished = gameData.status.statusCode === "7"
 	const scoreAway = linescore.teams.away.goals
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
-	const endType = endTypeDesc !== '3rd' ? endTypeDesc+' ' : ''
+	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
 	
 	return (
 		<div className='col-12'>
@@ -38,20 +38,24 @@ const Game: React.FC<IProps> = (props) => {
 					<Team
 						team={props.game.teams.away}
 						away={true}
-						showResults={showResults}
+						showResults={props.showResults}
+						finished={finished}
 						winner={scoreAway > scoreHome}
 						endType={endType}
 						playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.away.id)}
-						startTime={startTime}
-						/>
+					/>
 					<Team
 						team={props.game.teams.home}
 						away={false}
-						showResults={showResults}
+						showResults={props.showResults}
+						finished={finished}
 						winner={scoreHome > scoreAway}
 						endType={endType}
 						playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.home.id)}
 					/>
+					{(!props.showResults || !finished) && (
+						<div className='position-absolute end-0 top-0 p-2'>{startTime}</div>
+					)}
 				</div>
 			</div>
 		</div>

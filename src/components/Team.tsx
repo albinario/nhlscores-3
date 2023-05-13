@@ -5,10 +5,10 @@ interface IProps {
 	team: ITeamStats
 	away: boolean
 	showResults: boolean
+	finished: boolean
 	winner: boolean
 	endType: string
 	playersPicked: IPlayer[]
-	startTime?: string
 }
 
 const Team: React.FC<IProps> = (props) => {
@@ -26,9 +26,11 @@ const Team: React.FC<IProps> = (props) => {
 					{props.team.team.name}
 				</span>
 
-				<span className='badge rounded-pill text-bg-secondary me-1'>
-					{props.team.leagueRecord.wins}-{props.team.leagueRecord.losses}
-				</span>
+				{(props.showResults || !props.finished) && (
+					<span className='badge rounded-pill text-bg-secondary me-1'>
+						{props.team.leagueRecord.wins}-{props.team.leagueRecord.losses}
+					</span>
+				)}
 
 				{pickers.map((picker, index) => (
 					<span key={index} className='badge rounded-pill text-bg-warning me-1'>
@@ -37,9 +39,7 @@ const Team: React.FC<IProps> = (props) => {
 				))}
 			</div>
 			<div>
-				{props.showResults && props.winner && props.endType}
-				{props.showResults && props.team.score}
-				{props.away && !props.showResults && props.startTime}
+				{props.showResults && props.winner && props.endType} {(props.showResults && props.finished) && props.team.score}
 			</div>
 		</div>
 	)
