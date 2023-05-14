@@ -6,7 +6,7 @@ img {
 	top: 5px;
 }
 
-.rounded-pill {
+.score-clock .rounded-pill {
 	font-size: .5em;
 	margin-top: 1px;
 }

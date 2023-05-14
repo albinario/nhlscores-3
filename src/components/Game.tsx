@@ -73,7 +73,7 @@ const Game: React.FC<IProps> = (props) => {
 							team={props.game.teams.home}
 							away={false}
 							showResults={showResults}
-							playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.away.id)}
+							playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.home.id)}
 						/>
 					</div>
 				</div>

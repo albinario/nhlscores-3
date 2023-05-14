@@ -77,7 +77,7 @@ const App = () => {
 					playersPicked={players.filter(player => 
 						player.team === game.teams.away.team.id || 
 						player.team === game.teams.home.team.id	
-					)}
+					).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
 				/>
 			))}
 			{!games.length && (
