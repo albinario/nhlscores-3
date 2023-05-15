@@ -15,7 +15,7 @@ const App = () => {
 	useEffect(() => {
 		fetch(`${nhlApi}/schedule?date=${date}`)
 			.then(res => res.json())
-			.then(games => setGames(games.dates[0].games))
+			.then(games => (games.dates.length) ? setGames(games.dates[0].games) : setGames([]))
 			.catch(err => console.error(err))
 		getDateTitle()
 	}, [date])
