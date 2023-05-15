@@ -2,6 +2,11 @@ body {
 	font-size: 13px;
 }
 
+.bi-arrow-left-square, .bi-arrow-right-square {
+	font-size: 30px;
+	opacity: .3;
+}
+
 img {
 	width: 2em;
 	margin: 0 -3px;

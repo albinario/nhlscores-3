@@ -52,19 +52,19 @@ const App = () => {
 	}
 
 	return(
-		<div className='row g-2'>
-			<div className='d-flex justify-content-between align-items-center my-3'>
+		<div className='row'>
+			<div className='d-flex justify-content-between align-items-center'>
 				<button
-					className='btn'
+					className='btn ps-0'
 					onClick={dateDecrease}
 				>
 					<i className='bi bi-arrow-left-square'></i>
 				</button>
-				<div className='fs-4'>
+				<div className='fs-5'>
 					{dateTitle}
 				</div>
 				<button
-					className='btn'
+					className='btn pe-0'
 					onClick={dateIncrease}
 				>
 					<i className='bi bi-arrow-right-square'></i>
