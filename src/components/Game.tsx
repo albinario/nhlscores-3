@@ -30,7 +30,7 @@ const Game: React.FC<IProps> = (props) => {
 
 	const gameData = gameDetails.gameData
 	const linescore = gameDetails.liveData.linescore
-	// const finished = gameData.status.statusCode === "7"
+	const finished = gameData.status.statusCode === "7"
 	const scoreAway = linescore.teams.away.goals
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
@@ -53,9 +53,11 @@ const Game: React.FC<IProps> = (props) => {
 					<div className='position-absolute start-50 translate-middle-x score-clock'>
 						{showResults ? (
 							<>
-								<span className='badge text-bg-warning me-1'>{scoreAway}</span>
-								<span className='badge text-bg-warning'>{scoreHome}</span>
-								<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-secondary'>{endType}</span>
+								<span className={`badge text-bg-${finished ? 'success' : 'warning'} me-1`}>{scoreAway}</span>
+								<span className={`badge text-bg-${finished ? 'success' : 'warning'}`}>{scoreHome}</span>
+								{endType && (
+									<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-secondary'>{endType}</span>
+								)}
 							</>
 						) : (
 							<span className='badge text-bg-dark'>{startTime}</span>
@@ -65,12 +67,14 @@ const Game: React.FC<IProps> = (props) => {
 					<div className='row'>
 						<Team
 							team={props.game.teams.away}
+							teamName={gameData.teams.away.teamName}
 							away={true}
 							showResults={showResults}
 							playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.away.id)}
 						/>
 						<Team
 							team={props.game.teams.home}
+							teamName={gameData.teams.home.teamName}
 							away={false}
 							showResults={showResults}
 							playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.home.id)}

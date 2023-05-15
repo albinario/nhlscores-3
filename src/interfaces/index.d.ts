@@ -61,6 +61,7 @@ export interface IPlayer {
 export interface ITeam {
 	id: number
 	name: string
+	teamName: string
 }
 
 export interface ITeamStats {
