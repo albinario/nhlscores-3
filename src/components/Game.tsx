@@ -37,7 +37,7 @@ const Game: React.FC<IProps> = (props) => {
 	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
 	
 	return (
-		<div className='col-12'>
+		<div className='col-12 mb-2'>
 			<div className='card p-2'>
 				<div className='card-body p-0 g-1'>
 					<div className='form-check form-switch position-absolute'>
@@ -53,14 +53,22 @@ const Game: React.FC<IProps> = (props) => {
 					<div className='position-absolute start-50 translate-middle-x score-clock'>
 						{showResults ? (
 							<>
-								<span className={`badge text-bg-${finished ? 'success' : 'warning'} me-1`}>{scoreAway}</span>
-								<span className={`badge text-bg-${finished ? 'success' : 'warning'}`}>{scoreHome}</span>
+								<span className={`badge text-bg-${finished ? 'success' : 'warning'} me-1`}>
+									{scoreAway}
+								</span>
+								<span className={`badge text-bg-${finished ? 'success' : 'warning'}`}>
+									{scoreHome}
+								</span>
 								{endType && (
-									<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-secondary'>{endType}</span>
+									<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-secondary'>
+										{endType}
+									</span>
 								)}
 							</>
 						) : (
-							<span className='badge text-bg-dark'>{startTime}</span>
+							<span className='badge text-bg-info'>
+								{startTime}
+							</span>
 						)}
 					</div>
 

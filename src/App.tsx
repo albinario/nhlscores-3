@@ -52,7 +52,7 @@ const App = () => {
 	}
 
 	return(
-		<div className='row'>
+		<div className='row g-1'>
 			<div className='d-flex justify-content-between align-items-center'>
 				<button
 					className='btn ps-0'

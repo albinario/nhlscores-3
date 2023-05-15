@@ -11,9 +11,9 @@ interface IProps {
 
 const Team: React.FC<IProps> = (props) => {
 	return (
-		<div className={`col-6 d-flex flex-column ${props.away && 'align-items-end'}`}>
-			<div className={`d-flex mb-1 ${props.away ? 'me-3' : 'flex-row-reverse justify-content-end ms-3'}`}>
-				<span className='badge text-bg-dark'>
+		<div className={`col-6 d-flex flex-column ${props.away && 'align-items-end'} px-1`}>
+			<div className={`d-flex mb-2 ${props.away ? 'me-4' : 'flex-row-reverse justify-content-end ms-4'}`}>
+				<span className='small'>
 					<span className='d-none d-sm-inline'>{props.team.team.name}</span>
 					<span className='d-sm-none'>{props.teamName}</span>
 				</span>
@@ -28,7 +28,10 @@ const Team: React.FC<IProps> = (props) => {
 					className={`small d-flex align-items-center ${props.away ? 'text-end' : 'flex-row-reverse justify-content-end'}`}
 				>
 					<span>
-						<span className='small'>{player.jersey}</span> <span className='d-none d-sm-inline'>{player.name}</span><span className='d-sm-none'>{player.name.split(' ')[1]}</span> <span className='small'>{player.pos}</span>
+						<span className='small'>{player.jersey} </span>
+						<span className='d-none d-sm-inline'>{player.name}</span>
+						<span className='d-sm-none'>{player.name.split(' ')[1]}</span>
+						<span className='small'> {player.pos}</span>
 					</span>
 					<span className={`badge text-bg-primary ${props.away ? 'ms-1' : 'me-1'}`}>{player.picker}</span>
 				</div>
