@@ -5,11 +5,13 @@ export const gameDetailsEmpty: IGameDetails = {
 		teams: {
 			away: {
 				id: 0,
-				name: ""
+				name: "",
+				teamName: ""
 			},
 			home: {
 				id: 1,
-				name: ""
+				name: "",
+				teamName: ""
 			}
 		},
 		datetime: {
