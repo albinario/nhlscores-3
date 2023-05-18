@@ -11,11 +11,6 @@ img {
 	width: 2em;
 }
 
-.score-clock {
-	top: 5px;
-}
-
-.score-clock .rounded-pill {
+.text-bg-secondary {
 	font-size: .5em;
-	margin-top: 2px;
 }

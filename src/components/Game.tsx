@@ -50,7 +50,7 @@ const Game: React.FC<IProps> = (props) => {
 						/>
 					</div>
 
-					<div className='position-absolute start-50 translate-middle-x score-clock'>
+					<div className='position-absolute start-50 translate-middle-x'>
 						{showResults ? (
 							<>
 								<span className={`badge text-bg-${finished ? 'success' : 'warning'} me-1`}>
