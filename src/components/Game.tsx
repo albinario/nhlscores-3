@@ -17,6 +17,7 @@ const Game: React.FC<IProps> = (props) => {
 	
 	useEffect(() => {
 		setShowResults(false)
+		setLoading(true)
 		const fetchData = async () => {
 			const res = await fetch(`${nhlApi}/game/${props.game.gamePk}/feed/live`)
 			if (!res.ok) {
@@ -94,6 +95,12 @@ const Game: React.FC<IProps> = (props) => {
 							</span>
 						)}
 					</div>
+
+					{loading && (
+						<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-2'>
+							<span className='visually-hidden'>Loading...</span>
+						</div>
+					)}
 
 					<div className='row'>
 						<Team
