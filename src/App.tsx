@@ -10,22 +10,49 @@ const App = () => {
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
 	const [dateTitle, setDateTitle] = useState('Loading...')
 	const [games, setGames] = useState<IGame[]>([])
+	const [gamesError, setGamesError] = useState('')
 	const [players, setPlayers] = useState<IPlayer[]>([])
+	const [playersError, setPlayersError] = useState('')
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		fetch(`${nhlApi}/schedule?date=${date}`)
-			.then(res => res.json())
-			.then(games => (games.dates.length) ? setGames(games.dates[0].games) : setGames([]))
-			.catch(err => console.error(err))
+		setLoading(true)
+		const fetchData = async () => {
+			const res = await fetch(`${nhlApi}/schedule?date=${date}`)
+			if (!res.ok) {
+				setGamesError("Failed to load games")
+				setLoading(false)
+				return
+			}
+			const games = await res.json()
+			if (games.dates.length) {
+				setGames(games.dates[0].games)
+			} else {
+				setGames([])
+			}
+			setGamesError('')
+			setLoading(false)
+		}
+		fetchData()
 		getDateTitle()
 	}, [date])
 
 	useEffect(() => {
-		fetch(`${tradesApi}/players`)
-			.then(res => res.json())
-			.then(players => setPlayers(players.data.filter((player: IPlayer) => player.picker !== '')))
-			.catch(err => console.error(err))
-	}, [])	
+		setLoading(true)
+		const fetchData = async () => {
+			const res = await fetch(tradesApi)
+			if (!res.ok) {
+				setLoading(false)
+				setPlayersError("Failed to load players")
+				return
+			}
+			const players = await res.json()
+			setPlayers(players.data.filter((player: IPlayer) => player.picker))
+			setPlayersError('')
+			setLoading(false)
+		}
+		fetchData()
+	}, [])
 
 	const getDateTitle = () => {
 		switch (date) {
@@ -52,30 +79,52 @@ const App = () => {
 	}
 
 	return(
-		<div className='row g-1'>
-			<div className='d-flex justify-content-between align-items-center'>
+		<>
+			<section id='header' className='d-flex justify-content-between align-items-center'>
 				<button className='btn ps-0' onClick={dateDecrease}>
 					<i className='bi bi-arrow-left-square'></i>
 				</button>
-				<div className='fs-5'>
+
+				<div className='fs-5 opacity-50'>
 					{dateTitle}
 				</div>
+
 				<button className='btn pe-0' onClick={dateIncrease}>
 					<i className='bi bi-arrow-right-square'></i>
 				</button>
-			</div>
-			{!!games.length && games.map((game, index) => (
-				<Game
-					key={index}
-					game={game}
-					playersPicked={players.filter(player => 
-						player.team === game.teams.away.team.id || 
-						player.team === game.teams.home.team.id	
-					).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
-				/>
-			))}
-			{!games.length && <div className='alert alert-secondary' role='alert'>No games on this day</div>}
-		</div>
+
+				{loading && (
+					<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-5'>
+						<span className='visually-hidden'>Loading...</span>
+					</div>
+				)}
+			</section>
+
+			<section id='games' className='row g-1'>
+				{!!games.length && games.map((game, index) => (
+					<Game
+						key={index}
+						game={game}
+						playersPicked={players.filter(player => 
+							player.team === game.teams.away.team.id || 
+							player.team === game.teams.home.team.id	
+						).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
+					/>
+				))}
+
+				{!games.length && (
+					<div className='col-12'>
+						<div className='alert alert-secondary' role='alert'>No games on this day</div>
+					</div>
+				)}
+
+				{(gamesError || playersError) && (
+					<div className='col-12'>
+						<div className='alert alert-secondary' role='alert'>{gamesError} {playersError}</div>
+					</div>
+				)}
+			</section>
+		</>
 	)
 }
 
