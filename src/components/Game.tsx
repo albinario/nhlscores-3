@@ -11,14 +11,29 @@ interface IProps {
 
 const Game: React.FC<IProps> = (props) => {
 	const [gameDetails, setGameDetails] = useState<IGameDetails>(gameDetailsEmpty)
+	const [error, setError] = useState('')
 	const [showResults, setShowResults] = useState(false)
+	const [loading, setLoading] = useState(false)
 	
 	useEffect(() => {
 		setShowResults(false)
-		fetch(`${nhlApi}/game/${props.game.gamePk}/feed/live`)
-			.then(res => res.json())
-			.then(gameDetails => setGameDetails(gameDetails))
-			.catch(err => console.error(err))
+		const fetchData = async () => {
+			const res = await fetch(`${nhlApi}/game/${props.game.gamePk}/feed/live`)
+			if (!res.ok) {
+				setError("Failed to load game")
+				setLoading(false)
+				return
+			}
+			const gameDetails = await res.json()
+			if (gameDetails) {
+				setGameDetails(gameDetails)
+			} else {
+				setGameDetails(gameDetailsEmpty)
+			}
+			setError('')
+			setLoading(false)
+		}
+		fetchData()
 	}, [props.game])
 
 	const showResultsToggle = () => {
@@ -35,6 +50,14 @@ const Game: React.FC<IProps> = (props) => {
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
 	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
+
+	if (error) {
+		return (
+			<div className='col-12'>
+				<div className='alert alert-secondary' role='alert'>{error}</div>
+			</div>
+		)
+	}
 	
 	return (
 		<div className='col-12'>
