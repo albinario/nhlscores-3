@@ -1,16 +1,21 @@
 body {
-	font-size: .7em;
+	font-size: .75em;
 }
 
-.bi-arrow-left-square, .bi-arrow-right-square {
+header .bi-arrow-left-square, .bi-arrow-right-square {
 	font-size: 30px;
-	opacity: .3;
+	opacity: .2;
+}
+
+header button {
+	background: none;
+	border: none;
 }
 
 img {
 	width: 2em;
 }
 
-.text-bg-secondary {
+#games .text-bg-secondary {
 	font-size: .5em;
 }

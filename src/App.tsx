@@ -78,10 +78,19 @@ const App = () => {
 		setDate(moment(date).add(1, 'days').format(dateFormat))
 	}
 
+	if (gamesError) {
+		return (
+			<div className='col-12'>
+				<div className='alert alert-secondary' role='alert'>{gamesError}</div>
+			</div>
+		)
+	}
+	
+
 	return(
 		<>
-			<section id='header' className='d-flex justify-content-between align-items-center'>
-				<button className='btn ps-0' onClick={dateDecrease}>
+			<header className='d-flex justify-content-between align-items-center'>
+				<button className='ps-0' onClick={dateDecrease}>
 					<i className='bi bi-arrow-left-square'></i>
 				</button>
 
@@ -89,7 +98,7 @@ const App = () => {
 					{dateTitle}
 				</div>
 
-				<button className='btn pe-0' onClick={dateIncrease}>
+				<button className='pe-0' onClick={dateIncrease}>
 					<i className='bi bi-arrow-right-square'></i>
 				</button>
 
@@ -98,32 +107,38 @@ const App = () => {
 						<span className='visually-hidden'>Loading...</span>
 					</div>
 				)}
-			</section>
+			</header>
 
-			<section id='games' className='row g-1'>
-				{!!games.length && games.map((game, index) => (
-					<Game
-						key={index}
-						game={game}
-						playersPicked={players.filter(player => 
-							player.team === game.teams.away.team.id || 
-							player.team === game.teams.home.team.id	
-						).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
-					/>
-				))}
+			{gamesError ? (
+				<div className='col-12'>
+					<div className='alert alert-secondary' role='alert'>{gamesError}</div>
+				</div>
+			) : (
+				<section id='games' className='row g-1'>
+					{!!games.length && games.map((game, index) => (
+						<Game
+							key={index}
+							game={game}
+							playersPicked={players.filter(player => 
+								player.team === game.teams.away.team.id || 
+								player.team === game.teams.home.team.id	
+							).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
+						/>
+					))}
 
-				{!games.length && (
-					<div className='col-12'>
-						<div className='alert alert-secondary' role='alert'>No games on this day</div>
-					</div>
-				)}
+					{!games.length && (
+						<div className='col-12'>
+							<div className='alert alert-secondary' role='alert'>No games on this day</div>
+						</div>
+					)}
 
-				{(gamesError || playersError) && (
-					<div className='col-12'>
-						<div className='alert alert-secondary' role='alert'>{gamesError} {playersError}</div>
-					</div>
-				)}
-			</section>
+					{playersError && (
+						<div className='col-12'>
+							<div className='alert alert-secondary' role='alert'>{playersError}</div>
+						</div>
+					)}
+				</section>
+			)}
 		</>
 	)
 }
