@@ -54,19 +54,13 @@ const App = () => {
 	return(
 		<div className='row g-1'>
 			<div className='d-flex justify-content-between align-items-center'>
-				<button
-					className='btn ps-0'
-					onClick={dateDecrease}
-				>
+				<button className='btn ps-0' onClick={dateDecrease}>
 					<i className='bi bi-arrow-left-square'></i>
 				</button>
 				<div className='fs-5'>
 					{dateTitle}
 				</div>
-				<button
-					className='btn pe-0'
-					onClick={dateIncrease}
-				>
+				<button className='btn pe-0' onClick={dateIncrease}>
 					<i className='bi bi-arrow-right-square'></i>
 				</button>
 			</div>
@@ -80,12 +74,7 @@ const App = () => {
 					).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
 				/>
 			))}
-			{!games.length && (
-				<div
-					className='alert alert-secondary'
-					role='alert'
-				>No games on this day</div>
-			)}
+			{!games.length && <div className='alert alert-secondary' role='alert'>No games on this day</div>}
 		</div>
 	)
 }
