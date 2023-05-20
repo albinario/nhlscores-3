@@ -11,17 +11,18 @@ const App = () => {
 	const [dateTitle, setDateTitle] = useState('Loading...')
 	const [games, setGames] = useState<IGame[]>([])
 	const [gamesError, setGamesError] = useState('')
+	const [gamesLoading, setGamesLoading] = useState(true)
 	const [players, setPlayers] = useState<IPlayer[]>([])
 	const [playersError, setPlayersError] = useState('')
-	const [loading, setLoading] = useState(true)
+	const [playersLoading, setPlayersLoading] = useState(true)
 
 	useEffect(() => {
-		setLoading(true)
+		setGamesLoading(true)
 		const fetchData = async () => {
 			const res = await fetch(`${nhlApi}/schedule?date=${date}`)
 			if (!res.ok) {
 				setGamesError("Failed to load games")
-				setLoading(false)
+				setGamesLoading(false)
 				return
 			}
 			const games = await res.json()
@@ -31,25 +32,25 @@ const App = () => {
 				setGames([])
 			}
 			setGamesError('')
-			setLoading(false)
+			setGamesLoading(false)
 		}
 		fetchData()
 		getDateTitle()
 	}, [date])
 
 	useEffect(() => {
-		setLoading(true)
+		setPlayersLoading(true)
 		const fetchData = async () => {
 			const res = await fetch(tradesApi)
 			if (!res.ok) {
-				setLoading(false)
+				setPlayersLoading(false)
 				setPlayersError("Failed to load players")
 				return
 			}
 			const players = await res.json()
 			setPlayers(players.data.filter((player: IPlayer) => player.picker))
 			setPlayersError('')
-			setLoading(false)
+			setPlayersLoading(false)
 		}
 		fetchData()
 	}, [])
@@ -102,7 +103,7 @@ const App = () => {
 					<i className='bi bi-arrow-right-square'></i>
 				</button>
 
-				{loading && (
+				{(gamesLoading || playersLoading) && (
 					<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-5'>
 						<span className='visually-hidden'>Loading...</span>
 					</div>
