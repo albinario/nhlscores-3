@@ -21,7 +21,7 @@ const Team: React.FC<IProps> = (props) => {
 					alt={props.team.team.name}
 				/>
 			</div>
-			{props.playersPicked && props.playersPicked.map((player, index) => (
+			{!props.showResults && props.playersPicked && props.playersPicked.map((player, index) => (
 				<div key={index} className={`d-flex align-items-center ${props.away ? 'text-end' : 'flex-row-reverse justify-content-end'}`}>
 					<div>
 						<span className='small'>{player.jersey} </span>
@@ -29,7 +29,7 @@ const Team: React.FC<IProps> = (props) => {
 						<span className='d-sm-none'>{player.name.split(' ')[1]}</span>
 						<span className='small'> {player.pos}</span>
 					</div>
-					<span className={`badge text-bg-primary ${props.away ? 'ms-1' : 'me-1'}`}>
+					<span className={`badge ${player.picker} ${props.away ? 'ms-1' : 'me-1'}`}>
 						{player.picker}
 					</span>
 				</div>

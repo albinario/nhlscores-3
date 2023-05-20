@@ -19,3 +19,17 @@ img {
 #games .text-bg-secondary {
 	font-size: .5em;
 }
+
+.A {
+	color: var(--bs-warning-text-emphasis);
+	opacity: .8;
+}
+.J {
+	color: var(--bs-danger-text-emphasis)
+}
+.S {
+	color: var(--bs-primary-text-emphasis)
+}
+.V {
+	color: var(--bs-success-text-emphasis)
+}
