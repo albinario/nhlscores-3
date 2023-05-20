@@ -21,8 +21,7 @@ img {
 }
 
 .A {
-	color: var(--bs-warning-text-emphasis);
-	opacity: .8;
+	color: var(--bs-success-text-emphasis)
 }
 .J {
 	color: var(--bs-danger-text-emphasis)
@@ -31,5 +30,6 @@ img {
 	color: var(--bs-primary-text-emphasis)
 }
 .V {
-	color: var(--bs-success-text-emphasis)
+	color: var(--bs-warning-text-emphasis);
+	opacity: .8;
 }
