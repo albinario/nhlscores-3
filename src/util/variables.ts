@@ -32,6 +32,9 @@ export const gameDetailsEmpty: IGameDetails = {
 					goals: 0
 				}
 			}
+		},
+		plays: {
+			allPlays: []
 		}
 	}
 }

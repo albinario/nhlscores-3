@@ -3,6 +3,7 @@ import { IGame, IGameDetails, IPlayer } from '../interfaces'
 import Team from './Team'
 import { nhlApi } from '../util/config'
 import { gameDetailsEmpty } from '../util/variables'
+import Play from './Play'
 
 interface IProps {
 	game: IGame
@@ -46,11 +47,14 @@ const Game: React.FC<IProps> = (props) => {
 
 	const gameData = gameDetails.gameData
 	const linescore = gameDetails.liveData.linescore
-	const finished = gameData.status.statusCode === "7"
+	const finished = gameData.status.statusCode === '7'
 	const scoreAway = linescore.teams.away.goals
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
 	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
+	const plays = gameDetails.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
+
+	const playersPicked = props.playersPicked.filter(player => player.team === gameData.teams.away.id || player.team === gameData.teams.home.id)
 
 	if (error) {
 		return (
@@ -59,7 +63,7 @@ const Game: React.FC<IProps> = (props) => {
 			</div>
 		)
 	}
-	
+
 	return (
 		<div className='col-12'>
 			<div className='card p-2'>
@@ -90,7 +94,7 @@ const Game: React.FC<IProps> = (props) => {
 								)}
 							</div>
 						) : (
-							<span className='badge text-bg-info'>
+							<span className='badge text-bg-dark'>
 								{startTime}
 							</span>
 						)}
@@ -108,16 +112,23 @@ const Game: React.FC<IProps> = (props) => {
 							teamName={gameData.teams.away.teamName}
 							away={true}
 							showResults={showResults}
-							playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.away.id)}
+							playersPicked={playersPicked.filter(player => player.team === gameData.teams.away.id)}
 						/>
 						<Team
 							team={props.game.teams.home}
 							teamName={gameData.teams.home.teamName}
 							away={false}
 							showResults={showResults}
-							playersPicked={props.playersPicked.filter(player => player.team === gameData.teams.home.id)}
+							playersPicked={playersPicked.filter(player => player.team === gameData.teams.home.id)}
 						/>
 					</div>
+					{showResults && plays.map((play, index) => (
+						<Play
+							key={index}
+							play={play}
+							playersPicked={playersPicked}
+						/>
+					))}
 				</div>
 			</div>
 		</div>

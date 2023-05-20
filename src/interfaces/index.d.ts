@@ -46,7 +46,37 @@ export interface IGameDetails {
 				}
 			}
 		}
+		plays: {
+			allPlays: IPlay[]
+		}
 	}
+}
+
+interface IPlay {
+	about: {
+		goals: {
+			away: number
+			home: number
+		}
+	}
+	players: IPlayPlayer[]
+	result: {
+		event: string
+		gameWinningGoal: boolean
+	}
+	team: {
+		id: number
+		name: string
+	}
+}
+
+interface IPlayPlayer {
+	player: {
+		id: number
+		fullName: string
+	}
+	playerType: string
+	seasonTotal: number
 }
 
 export interface IPlayer {
