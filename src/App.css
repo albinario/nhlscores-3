@@ -16,8 +16,9 @@ img {
 	width: 2em;
 }
 
-#games .text-bg-secondary {
+#games .text-bg-warning {
 	font-size: .5em;
+	opacity: 0.8;
 }
 
 .A {
