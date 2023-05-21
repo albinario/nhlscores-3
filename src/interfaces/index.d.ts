@@ -35,6 +35,18 @@ export interface IGameDetails {
 		}
 	}
 	liveData: {
+		boxscore: {
+			teams: {
+				away: {
+					players: IGameDetailsPlayer[]
+					goalies: number[]
+				}
+				home: {
+					players: IGameDetailsPlayer[]
+					goalies: number[]
+				}
+			}
+		}
 		linescore: {
 			currentPeriodOrdinal: string
 			teams: {
@@ -48,6 +60,27 @@ export interface IGameDetails {
 		}
 		plays: {
 			allPlays: IPlay[]
+		}
+	}
+}
+
+export interface IGameDetailsPlayer {
+	jerseyNumber: number
+	person: {
+		fullName: string
+	}
+	stats: {
+		goalieStats: {
+			assists: number
+			decision: string
+			goals: number
+			pim: number
+			powerPlaySaves: number
+			powerPlayShotsAgainst: number
+			savePercentage: number
+			saves: number
+			shots: number
+			timeOnIce: string
 		}
 	}
 }

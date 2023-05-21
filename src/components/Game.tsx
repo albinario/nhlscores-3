@@ -4,6 +4,7 @@ import Team from './Team'
 import { nhlApi } from '../util/config'
 import { gameDetailsEmpty } from '../util/variables'
 import Play from './Play'
+import Goalie from './Goalie'
 
 interface IProps {
 	game: IGame
@@ -88,7 +89,7 @@ const Game: React.FC<IProps> = (props) => {
 									{scoreHome}
 								</span>
 								{endType && (
-									<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-secondary'>
+									<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-warning'>
 										{endType}
 									</span>
 								)}
@@ -122,13 +123,55 @@ const Game: React.FC<IProps> = (props) => {
 							playersPicked={playersPicked.filter(player => player.team === gameData.teams.home.id)}
 						/>
 					</div>
-					{showResults && plays.map((play, index) => (
-						<Play
-							key={index}
-							play={play}
-							playersPicked={playersPicked}
-						/>
-					))}
+
+					{showResults && (
+						<>
+							<div className='my-2'>
+								{plays.map((play, index) => (
+									<Play
+										key={index}
+										play={play}
+										playersPicked={playersPicked}
+									/>
+								))}
+							</div>
+
+							<section id='goalies'>
+								<table className='table table-sm table-borderless small text-center'>
+									<thead>
+										<tr>
+											<th colSpan={2}></th>
+											<th className='py-0 px-1'>Saves</th>
+											<th className='py-0 px-1'>%</th>
+											<th className='py-0 px-1'>PP</th>
+											<th className='py-0 px-1'>G</th>
+											<th className='py-0 px-1'>A</th>
+											<th className='py-0 px-1'>PIM</th>
+											<th className='py-0 px-1'>TOI</th>
+										</tr>
+									</thead>
+									<tbody>
+										{gameDetails.liveData.boxscore.teams.away.goalies.map((goalie, index) => (
+											<Goalie
+												key={index}
+												player={gameDetails.liveData.boxscore.teams.away.players['ID'+goalie as any]}
+												team={gameData.teams.away}
+												pickedBy={playersPicked.find(p => p.id === goalie)?.picker}
+											/>
+										))}
+										{gameDetails.liveData.boxscore.teams.home.goalies.map((goalie, index) => (
+											<Goalie
+												key={index}
+												player={gameDetails.liveData.boxscore.teams.home.players['ID'+goalie as any]}
+												team={gameData.teams.home}
+												pickedBy={playersPicked.find(p => p.id === goalie)?.picker}
+											/>
+										))}
+									</tbody>
+								</table>
+							</section>
+						</>
+					)}
 				</div>
 			</div>
 		</div>
