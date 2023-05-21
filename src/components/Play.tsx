@@ -25,12 +25,16 @@ const Play: React.FC<IProps> = (props) => {
 		<div>
 			<img src={`${logos}/${props.play.team.id}.svg`} alt={props.play.team.name} />
 			<span className='badge'>{props.play.about.goals.away}-{props.play.about.goals.home}</span>
+			<span className='small'></span>
+			
 			<span className='small'>
 				{!!goalTypes.length && (
-					<span className='small fst-italic me-1'>
+					<span className='small fst-italic'>
 						{goalTypes.map(scoreType => scoreType).join(' ')}
 					</span>
 				)}
+
+				<span className='badge'>{props.play.about.ordinalNum} {props.play.about.periodTime}</span>
 
 				{scoringPlayers.map((player, index) => (
 					<span key={index}>

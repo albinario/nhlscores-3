@@ -91,6 +91,8 @@ interface IPlay {
 			away: number
 			home: number
 		}
+		ordinalNum: string
+		periodTime: string
 	}
 	players: IPlayPlayer[]
 	result: {
