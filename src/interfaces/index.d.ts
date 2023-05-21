@@ -61,8 +61,12 @@ interface IPlay {
 	}
 	players: IPlayPlayer[]
 	result: {
+		emptyNet: boolean
 		event: string
 		gameWinningGoal: boolean
+		strength: {
+			code: string
+		}
 	}
 	team: {
 		id: number
