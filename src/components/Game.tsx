@@ -101,7 +101,7 @@ const Game: React.FC<IProps> = (props) => {
 					</div>
 
 					{loading && (
-						<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-2'>
+						<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-2 fs-6'>
 							<span className='visually-hidden'>Loading...</span>
 						</div>
 					)}

@@ -90,7 +90,7 @@ const App = () => {
 
 	return(
 		<>
-			<header className='d-flex justify-content-between align-items-center'>
+			<header className='d-flex justify-content-between align-items-center position-relative'>
 				<button className='ps-0' onClick={dateDecrease}>
 					<i className='bi bi-arrow-left-square'></i>
 				</button>
@@ -104,7 +104,7 @@ const App = () => {
 				</button>
 
 				{(gamesLoading || playersLoading) && (
-					<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-5'>
+					<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-5 fs-6'>
 						<span className='visually-hidden'>Loading...</span>
 					</div>
 				)}
