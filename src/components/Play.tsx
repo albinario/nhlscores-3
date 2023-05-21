@@ -37,7 +37,7 @@ const Play: React.FC<IProps> = (props) => {
 						<Score
 							key={index}
 							player={player}
-							pickedBy={props.playersPicked.find(p => p.id === player.player.id)}
+							pickedBy={props.playersPicked.find(p => p.id === player.player.id)?.picker}
 						/>
 						{index !== scoringPlayers.length-1 && ', '}
 					</span>

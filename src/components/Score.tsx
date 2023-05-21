@@ -1,15 +1,15 @@
-import { IPlayPlayer, IPlayer } from '../interfaces'
+import { IPlayPlayer } from '../interfaces'
 
 interface IProps {
 	player: IPlayPlayer
-	pickedBy?: IPlayer
+	pickedBy?: string
 }
 
 const Score: React.FC<IProps> = (props) => {
 	return (
-		<span className={`text-nowrap ${props.player.playerType === 'Assist' && 'small'} ${props.pickedBy?.picker}`}>
+		<span className={`text-nowrap ${props.player.playerType === 'Assist' && 'small'} ${props.pickedBy}`}>
 			{props.player.player.fullName} ({props.player.seasonTotal})
-			{(props.pickedBy) && ' '+props.pickedBy?.picker}
+			{(props.pickedBy) && ' '+props.pickedBy}
 		</span>
 	)
 }
