@@ -128,8 +128,8 @@ const Game: React.FC<IProps> = (props) => {
 					</div>
 
 					{showResults && started && (
-						<section id="game-details">
-							<section id="plays" className='my-2'>
+						<section id='game-details'>
+							<section id='plays' className='my-2'>
 								{plays.map((play, index) => (
 									<Play
 										key={index}

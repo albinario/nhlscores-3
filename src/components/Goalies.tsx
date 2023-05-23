@@ -1,5 +1,5 @@
-import { IGameDetailsTeam, IPlayer } from "../interfaces"
-import Goalie from "./Goalie"
+import { IGameDetailsTeam, IPlayer } from '../interfaces'
+import Goalie from './Goalie'
 
 interface IProps {
 	teamAway: IGameDetailsTeam
