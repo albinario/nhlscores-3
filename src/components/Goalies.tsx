@@ -24,20 +24,20 @@ const Goalies: React.FC<IProps> = (props) => {
 					</tr>
 				</thead>
 				<tbody>
-					{props.teamAway.goalies.map((goalie, index) => (
+					{props.teamAway.goalies.map((playerId, index) => (
 						<Goalie
 							key={index}
-							player={props.teamAway.players['ID'+goalie as any]}
+							player={props.teamAway.players['ID'+playerId as any]}
 							team={props.teamAway.team}
-							pickedBy={props.playersPicked.find(p => p.id === goalie)?.picker}
+							pickedBy={props.playersPicked.find(player => player.id === playerId)?.picker}
 						/>
 					))}
-					{props.teamHome.goalies.map((goalie, index) => (
+					{props.teamHome.goalies.map((playerId, index) => (
 						<Goalie
 							key={index}
-							player={props.teamHome.players['ID'+goalie as any]}
+							player={props.teamHome.players['ID'+playerId as any]}
 							team={props.teamHome.team}
-							pickedBy={props.playersPicked.find(p => p.id === goalie)?.picker}
+							pickedBy={props.playersPicked.find(player => player.id === playerId)?.picker}
 						/>
 					))}
 				</tbody>
