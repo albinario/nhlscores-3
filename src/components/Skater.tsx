@@ -1,4 +1,4 @@
-import { IGameDetailsPlayer } from "../interfaces"
+import { IGameDetailsPlayer } from '../interfaces'
 
 interface IProps {
 	player: IGameDetailsPlayer
@@ -46,6 +46,7 @@ const Skater: React.FC<IProps> = (props) => {
 			<td>{stats.penaltyMinutes}</td>
 			<td>{stats.hits}</td>
 			<td>{stats.blocked}</td>
+			<td>{stats.timeOnIce} | {stats.powerPlayTimeOnIce} | {stats.shortHandedTimeOnIce}</td>
 		</tr>
 	)
 }
