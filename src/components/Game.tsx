@@ -95,7 +95,7 @@ const Game: React.FC<IProps> = (props) => {
 								)}
 							</div>
 						) : (
-							<span className='badge text-bg-dark'>
+							<span className='badge text-bg-dark opacity-75'>
 								{startTime}
 							</span>
 						)}

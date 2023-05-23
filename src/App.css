@@ -34,3 +34,14 @@ img {
 	color: var(--bs-warning-text-emphasis);
 	opacity: .8;
 }
+
+.score {
+	font-size: .8em;
+	color: beige;
+	padding: 0 3px;
+}
+
+.time {
+	font-size: .75em;
+	padding: 0 3px;
+}
