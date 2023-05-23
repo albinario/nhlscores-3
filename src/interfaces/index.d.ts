@@ -37,14 +37,8 @@ export interface IGameDetails {
 	liveData: {
 		boxscore: {
 			teams: {
-				away: {
-					players: IGameDetailsPlayer[]
-					goalies: number[]
-				}
-				home: {
-					players: IGameDetailsPlayer[]
-					goalies: number[]
-				}
+				away: IGameDetailsTeam
+				home: IGameDetailsTeam
 			}
 		}
 		linescore: {
@@ -62,6 +56,12 @@ export interface IGameDetails {
 			allPlays: IPlay[]
 		}
 	}
+}
+
+export interface IGameDetailsTeam {
+	players: IGameDetailsPlayer[]
+	goalies: number[]
+	team: ITeam
 }
 
 export interface IGameDetailsPlayer {

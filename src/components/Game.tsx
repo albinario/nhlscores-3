@@ -3,7 +3,7 @@ import { IGame, IGameDetails, IPlayer } from '../interfaces'
 import Team from './Team'
 import { nhlApi } from '../util/config'
 import Play from './Play'
-import Goalie from './Goalie'
+import Players from './Players'
 
 interface IProps {
 	game: IGame
@@ -82,10 +82,10 @@ const Game: React.FC<IProps> = (props) => {
 					<div className='position-absolute start-50 translate-middle-x'>
 						{showResults ? (
 							<div>
-								<span className={`badge text-bg-${finished ? 'success' : 'warning'} me-1`}>
+								<span className={`badge text-bg-${finished ? 'success' : 'danger'} me-1`}>
 									{scoreAway}
 								</span>
-								<span className={`badge text-bg-${finished ? 'success' : 'warning'}`}>
+								<span className={`badge text-bg-${finished ? 'success' : 'danger'}`}>
 									{scoreHome}
 								</span>
 								{endType && (
@@ -136,40 +136,11 @@ const Game: React.FC<IProps> = (props) => {
 								))}
 							</div>
 
-							<section id='goalies'>
-								<table className='table table-sm table-borderless small text-center'>
-									<thead>
-										<tr>
-											<th colSpan={2}></th>
-											<th className='py-0 px-1'>Saves</th>
-											<th className='py-0 px-1'>%</th>
-											<th className='py-0 px-1'>PP</th>
-											<th className='py-0 px-1'>G</th>
-											<th className='py-0 px-1'>A</th>
-											<th className='py-0 px-1'>PIM</th>
-											<th className='py-0 px-1'>TOI</th>
-										</tr>
-									</thead>
-									<tbody>
-										{gameDetails.liveData.boxscore.teams.away.goalies.map((goalie, index) => (
-											<Goalie
-												key={index}
-												player={gameDetails.liveData.boxscore.teams.away.players['ID'+goalie as any]}
-												team={gameData.teams.away}
-												pickedBy={playersPicked.find(p => p.id === goalie)?.picker}
-											/>
-										))}
-										{gameDetails.liveData.boxscore.teams.home.goalies.map((goalie, index) => (
-											<Goalie
-												key={index}
-												player={gameDetails.liveData.boxscore.teams.home.players['ID'+goalie as any]}
-												team={gameData.teams.home}
-												pickedBy={playersPicked.find(p => p.id === goalie)?.picker}
-											/>
-										))}
-									</tbody>
-								</table>
-							</section>
+							<Players
+								teamAway={gameDetails.liveData.boxscore.teams.away}
+								teamHome={gameDetails.liveData.boxscore.teams.home}
+								playersPicked={playersPicked}
+							/>
 						</>
 					)}
 				</div>
