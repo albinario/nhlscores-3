@@ -79,15 +79,6 @@ const App = () => {
 		setDate(moment(date).add(1, 'days').format(dateFormat))
 	}
 
-	if (gamesError) {
-		return (
-			<div className='col-12'>
-				<div className='alert alert-secondary' role='alert'>{gamesError}</div>
-			</div>
-		)
-	}
-	
-
 	return(
 		<>
 			<header className='d-flex justify-content-between align-items-center position-relative'>
@@ -110,13 +101,21 @@ const App = () => {
 				)}
 			</header>
 
-			{gamesError ? (
+			{gamesError && (
 				<div className='col-12'>
 					<div className='alert alert-secondary' role='alert'>{gamesError}</div>
 				</div>
-			) : (
+			)}
+
+			{!games.length && (
+				<div className='col-12'>
+					<div className='alert alert-secondary' role='alert'>No games on this day</div>
+				</div>
+			)}
+
+			{!gamesError && !!games.length && (
 				<section id='games' className='row g-1'>
-					{!!games.length && games.map((game, index) => (
+					{games.map((game, index) => (
 						<Game
 							key={index}
 							game={game}
@@ -127,15 +126,9 @@ const App = () => {
 						/>
 					))}
 
-					{!games.length && (
-						<div className='col-12'>
-							<div className='alert alert-secondary' role='alert'>No games on this day</div>
-						</div>
-					)}
-
 					{playersError && (
 						<div className='col-12'>
-							<div className='alert alert-secondary' role='alert'>{playersError}</div>
+							<div className='alert alert-warning' role='alert'>{playersError}</div>
 						</div>
 					)}
 				</section>
