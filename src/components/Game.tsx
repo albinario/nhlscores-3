@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { IGame, IGameDetails, IPlayer } from '../interfaces'
 import Team from './Team'
 import { nhlApi } from '../util/config'
-import { gameDetailsEmpty } from '../util/variables'
 import Play from './Play'
 import Goalie from './Goalie'
 
@@ -12,7 +11,7 @@ interface IProps {
 }
 
 const Game: React.FC<IProps> = (props) => {
-	const [gameDetails, setGameDetails] = useState<IGameDetails>(gameDetailsEmpty)
+	const [gameDetails, setGameDetails] = useState<IGameDetails>()
 	const [error, setError] = useState('')
 	const [showResults, setShowResults] = useState(false)
 	const [loading, setLoading] = useState(false)
@@ -27,17 +26,26 @@ const Game: React.FC<IProps> = (props) => {
 				setLoading(false)
 				return
 			}
-			const gameDetails = await res.json()
-			if (gameDetails) {
-				setGameDetails(gameDetails)
-			} else {
-				setGameDetails(gameDetailsEmpty)
-			}
+			setGameDetails(await res.json())
 			setError('')
 			setLoading(false)
 		}
 		fetchData()
 	}, [props.game])
+
+	if (error) {
+		return (
+			<div className='col-12'>
+				<div className='alert alert-secondary' role='alert'>{error}</div>
+			</div>
+		)
+	}
+
+	if (!gameDetails) {
+		return (
+			<div className='alert alert-secondary'>No game details available</div>
+		)
+	}
 
 	const showResultsToggle = () => {
 		setShowResults(!showResults)
@@ -48,7 +56,7 @@ const Game: React.FC<IProps> = (props) => {
 
 	const gameData = gameDetails.gameData
 	const linescore = gameDetails.liveData.linescore
-	const finished = gameData.status.statusCode === '7'
+	const finished = gameDetails.gameData.status.statusCode === '7'
 	const scoreAway = linescore.teams.away.goals
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
@@ -56,14 +64,6 @@ const Game: React.FC<IProps> = (props) => {
 	const plays = gameDetails.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
 
 	const playersPicked = props.playersPicked.filter(player => player.team === gameData.teams.away.id || player.team === gameData.teams.home.id)
-
-	if (error) {
-		return (
-			<div className='col-12'>
-				<div className='alert alert-secondary' role='alert'>{error}</div>
-			</div>
-		)
-	}
 
 	return (
 		<div className='col-12'>
