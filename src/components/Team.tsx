@@ -23,7 +23,7 @@ const Team: React.FC<IProps> = (props) => {
 			</div>
 			{!props.showResults && props.playersPicked && props.playersPicked.map((player, index) => (
 				<div key={index} className={`d-flex align-items-center ${props.away ? 'text-end' : 'flex-row-reverse justify-content-end'}`}>
-					<div>
+					<div className={player.picker}>
 						<span className='small'>{player.jersey} </span>
 						<span className='d-none d-sm-inline'>{player.name}</span>
 						<span className='d-sm-none'>{player.name.split(' ')[1]}</span>
