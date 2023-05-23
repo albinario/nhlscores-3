@@ -45,3 +45,7 @@ img {
 	font-size: .75em;
 	padding: 0 3px;
 }
+
+.table-sm td {
+	padding: 0;
+}
