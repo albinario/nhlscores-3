@@ -56,6 +56,7 @@ const Game: React.FC<IProps> = (props) => {
 
 	const gameData = gameDetails.gameData
 	const linescore = gameDetails.liveData.linescore
+	const started = gameDetails.gameData.status.statusCode !== '1'
 	const finished = gameDetails.gameData.status.statusCode === '7'
 	const scoreAway = linescore.teams.away.goals
 	const scoreHome = linescore.teams.home.goals
@@ -69,15 +70,17 @@ const Game: React.FC<IProps> = (props) => {
 		<div className='col-12'>
 			<div className='card p-2'>
 				<div className='card-body p-0 g-1'>
-					<div className='form-check form-switch position-absolute'>
-						<input
-							className='form-check-input'
-							type='checkbox'
-							role='switch'
-							checked={showResults}
-							onChange={showResultsToggle}
-						/>
-					</div>
+					{started && (
+						<div className='form-check form-switch position-absolute'>
+							<input
+								className='form-check-input'
+								type='checkbox'
+								role='switch'
+								checked={showResults}
+								onChange={showResultsToggle}
+							/>
+						</div>
+					)}
 
 					<div className='position-absolute start-50 translate-middle-x'>
 						{showResults ? (
@@ -124,9 +127,9 @@ const Game: React.FC<IProps> = (props) => {
 						/>
 					</div>
 
-					{showResults && (
-						<>
-							<div className='my-2'>
+					{showResults && started && (
+						<section id="game-details">
+							<section id="plays" className='my-2'>
 								{plays.map((play, index) => (
 									<Play
 										key={index}
@@ -134,14 +137,14 @@ const Game: React.FC<IProps> = (props) => {
 										playersPicked={playersPicked}
 									/>
 								))}
-							</div>
+							</section>
 
 							<Players
 								teamAway={gameDetails.liveData.boxscore.teams.away}
 								teamHome={gameDetails.liveData.boxscore.teams.home}
 								playersPicked={playersPicked}
 							/>
-						</>
+						</section>
 					)}
 				</div>
 			</div>

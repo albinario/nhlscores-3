@@ -62,6 +62,7 @@ export interface IGameDetailsTeam {
 	players: IGameDetailsPlayer[]
 	goalies: number[]
 	team: ITeam
+	skaters: number[]
 }
 
 export interface IGameDetailsPlayer {
@@ -79,6 +80,19 @@ export interface IGameDetailsPlayer {
 			powerPlayShotsAgainst: number
 			savePercentage: number
 			saves: number
+			shots: number
+			timeOnIce: string
+		}
+		skaterStats: {
+			assists: number
+			blocked: number
+			evenTimeOnIce: string
+			goals: number
+			hits: number
+			penaltyMinutes: number
+			plusMinus: number
+			powerPlayTimeOnIce: number
+			shortHandedTimeOnIce: number
 			shots: number
 			timeOnIce: string
 		}
