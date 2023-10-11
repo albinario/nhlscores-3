@@ -117,10 +117,7 @@ interface IPlay {
 			code: string
 		}
 	}
-	team: {
-		id: number
-		name: string
-	}
+	team: ITeam
 }
 
 interface IPlayPlayer {
@@ -144,7 +141,7 @@ export interface IPlayer {
 export interface ITeam {
 	id: number
 	name: string
-	teamName?: string
+	teamName: string
 }
 
 export interface ITeamStats {
