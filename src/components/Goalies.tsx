@@ -27,6 +27,7 @@ const Goalies: React.FC<IProps> = (props) => {
 					{props.teamAway.goalies.map((playerId, index) => (
 						<Goalie
 							key={index}
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							player={props.teamAway.players['ID'+playerId as any]}
 							team={props.teamAway.team}
 							pickedBy={props.playersPicked.find(player => player.id === playerId)?.picker}
@@ -35,6 +36,7 @@ const Goalies: React.FC<IProps> = (props) => {
 					{props.teamHome.goalies.map((playerId, index) => (
 						<Goalie
 							key={index}
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							player={props.teamHome.players['ID'+playerId as any]}
 							team={props.teamHome.team}
 							pickedBy={props.playersPicked.find(player => player.id === playerId)?.picker}
