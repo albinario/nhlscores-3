@@ -1,5 +1,5 @@
+import Logo from './Logo'
 import { IPlayer, ITeamStats } from '../interfaces'
-import { logos } from '../util/config'
 
 interface IProps {
 	team: ITeamStats
@@ -16,10 +16,7 @@ const Team: React.FC<IProps> = (props) => {
 				<span className='d-none d-sm-inline'>{props.team.team.name}</span>
 				<span className='d-sm-none'>{props.teamName}</span>
 
-				<img
-					src={`${logos}/${props.team.team.id}.svg`}
-					alt={props.team.team.name}
-				/>
+				<Logo team={props.team.team} />
 			</div>
 			{!props.showResults && props.playersPicked && props.playersPicked.map((player, index) => (
 				<div key={index} className={`d-flex align-items-center ${props.away ? 'text-end' : 'flex-row-reverse justify-content-end'}`}>

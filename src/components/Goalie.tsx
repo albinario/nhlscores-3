@@ -1,5 +1,5 @@
+import Logo from './Logo'
 import { IGameDetailsPlayer, ITeam } from '../interfaces'
-import { logos } from '../util/config'
 
 interface IProps {
 	player: IGameDetailsPlayer
@@ -16,7 +16,7 @@ const Goalie: React.FC<IProps> = (props) => {
 
 	return (
 		<tr className={props.pickedBy}>
-			<td><img src={`${logos}/${props.team.id}.svg`} alt={props.team.name} /></td>
+			<td><Logo team={props.team} /></td>
 			<td className='text-start'>
 				<span className='small'>{props.player.jerseyNumber}</span>
 				<span className='d-none d-sm-inline'> {fullName}</span>

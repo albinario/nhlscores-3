@@ -1,6 +1,6 @@
-import { IPlay, IPlayer } from '../interfaces'
-import { logos } from '../util/config'
+import Logo from './Logo'
 import Score from './Score'
+import { IPlay, IPlayer } from '../interfaces'
 
 interface IProps {
 	play: IPlay
@@ -23,7 +23,7 @@ const Play: React.FC<IProps> = (props) => {
 	
 	return (
 		<div>
-			<img src={`${logos}/${props.play.team.id}.svg`} alt={props.play.team.name} />
+			<Logo team={props.play.team} />
 			<span className='score'>{props.play.about.goals.away}-{props.play.about.goals.home}</span>
 			<span className='time'>{props.play.about.ordinalNum} {props.play.about.periodTime}</span>
 
