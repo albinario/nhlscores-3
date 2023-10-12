@@ -1,4 +1,4 @@
-import { logosUrl } from '../util/config'
+export const getLogo = (id: number) => 'https://assets.nhle.com/logos/nhl/svg/' + teamsAbbr[id] + '_dark.svg'
 
 const teamsAbbr: {[key: number]: string} = {
 	24: 'ANA',
@@ -34,5 +34,3 @@ const teamsAbbr: {[key: number]: string} = {
 	15: 'WSH',
 	52: 'WPG'
 }
-
-export const getLogo = (id: number) => logosUrl + teamsAbbr[id] + '_dark.svg'

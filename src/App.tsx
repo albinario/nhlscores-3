@@ -1,61 +1,29 @@
-import { useEffect, useState } from 'react'
+import Fetching from './components/Fetching'
+import Game from './components/Game'
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import useGetGames from './hooks/useGetGames'
+import useGetPlayers from './hooks/useGetPlayers'
 import moment from 'moment'
-import { IGame, IPlayer } from './interfaces'
-import { dateFormat, nhlApi, tradesApi } from './util/config'
-import Game from './components/Game'
+import { useEffect, useState } from 'react'
 
 const App = () => {
+	const dateFormat = 'YYYY-MM-DD'
+
 	const [date, setDate] = useState(moment().subtract(1, 'days').format(dateFormat))
-	const [dateTitle, setDateTitle] = useState('Loading...')
-	const [games, setGames] = useState<IGame[]>([])
-	const [gamesError, setGamesError] = useState('')
-	const [gamesLoading, setGamesLoading] = useState(true)
-	const [players, setPlayers] = useState<IPlayer[]>([])
-	const [playersError, setPlayersError] = useState('')
-	const [playersLoading, setPlayersLoading] = useState(true)
+	const [dateTitle, setDateTitle] = useState('')
+
+	const games = useGetGames(date)
+	const players = useGetPlayers()
+
+	const dateDecrease = () => {
+		setDate(moment(date).subtract(1, 'days').format(dateFormat))
+	}
+	const dateIncrease = () => {
+		setDate(moment(date).add(1, 'days').format(dateFormat))
+	}
 
 	useEffect(() => {
-		setGamesLoading(true)
-		const fetchData = async () => {
-			const res = await fetch(`${nhlApi}/schedule?date=${date}`)
-			if (!res.ok) {
-				setGamesError("Failed to load games")
-				setGamesLoading(false)
-				return
-			}
-			const games = await res.json()
-			if (games.dates.length) {
-				setGames(games.dates[0].games)
-			} else {
-				setGames([])
-			}
-			setGamesError('')
-			setGamesLoading(false)
-		}
-		fetchData()
-		getDateTitle()
-	}, [date])
-
-	useEffect(() => {
-		setPlayersLoading(true)
-		const fetchData = async () => {
-			const res = await fetch(tradesApi)
-			if (!res.ok) {
-				setPlayersLoading(false)
-				setPlayersError("Failed to load players")
-				return
-			}
-			const players = await res.json()
-			setPlayers(players.data.filter((player: IPlayer) => player.picker))
-			setPlayersError('')
-			setPlayersLoading(false)
-		}
-		fetchData()
-	}, [])
-
-	const getDateTitle = () => {
 		switch (date) {
 			case moment(new Date()).format(dateFormat) :
 				setDateTitle('Tonight')
@@ -70,14 +38,7 @@ const App = () => {
 				setDateTitle(date)
 				break
 		}
-	}
-
-	const dateDecrease = () => {
-		setDate(moment(date).subtract(1, 'days').format(dateFormat))
-	}
-	const dateIncrease = () => {
-		setDate(moment(date).add(1, 'days').format(dateFormat))
-	}
+	}, [date])
 
 	return(
 		<>
@@ -94,43 +55,40 @@ const App = () => {
 					<i className='bi bi-arrow-right-square'></i>
 				</button>
 
-				{(gamesLoading || playersLoading) && (
-					<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-5 fs-6'>
-						<span className='visually-hidden'>Loading...</span>
-					</div>
-				)}
+				<Fetching />
+
 			</header>
 
-			{gamesError && (
+			{games.isError && (
 				<div className='col-12'>
-					<div className='alert alert-secondary' role='alert'>{gamesError}</div>
+					<div className='alert alert-secondary' role='alert'>Games error</div>
 				</div>
 			)}
 
-			{!games.length && (
+			{players.isError && (
+				<div className='col-12'>
+					<div className='alert alert-secondary' role='alert'>Players error</div>
+				</div>
+			)}
+
+			{!games.data?.length && (
 				<div className='col-12'>
 					<div className='alert alert-secondary' role='alert'>No games on this day</div>
 				</div>
 			)}
 
-			{!gamesError && !!games.length && (
+			{!games.isError && !!games.data?.length && (
 				<section id='games' className='row g-1'>
-					{games.map((game, index) => (
+					{games.data.map((game, index) => (
 						<Game
 							key={index}
 							game={game}
-							playersPicked={players.filter(player => 
-								player.team === game.teams.away.team.id || 
-								player.team === game.teams.home.team.id	
-							).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
+							// playersPicked={players.data?.filter(player => 
+							// 	player.team === game.teams.away.team.id || 
+							// 	player.team === game.teams.home.team.id	
+							// ).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
 						/>
 					))}
-
-					{playersError && (
-						<div className='col-12'>
-							<div className='alert alert-warning' role='alert'>{playersError}</div>
-						</div>
-					)}
 				</section>
 			)}
 		</>

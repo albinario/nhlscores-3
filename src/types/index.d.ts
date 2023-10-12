@@ -1,4 +1,4 @@
-export interface IGame {
+export type Game = {
 	gameDate: string
 	gamePk: number
 	teams: {
@@ -8,7 +8,7 @@ export interface IGame {
 				wins: number
 			}
 			score: number
-			team: ITeam
+			team: Team
 		},
 		home: {
 			leagueRecord: {
@@ -16,16 +16,16 @@ export interface IGame {
 				wins: number
 			}
 			score: number
-			team: ITeam
+			team: Team
 		}
 	}
 }
 
-export interface IGameDetails {
+export type GameDetails = {
 	gameData: {
 		teams: {
-			away: ITeam
-			home: ITeam
+			away: Team
+			home: Team
 		}
 		datetime: {
 			dateTime: string
@@ -37,8 +37,8 @@ export interface IGameDetails {
 	liveData: {
 		boxscore: {
 			teams: {
-				away: IGameDetailsTeam
-				home: IGameDetailsTeam
+				away: GameDetailsTeam
+				home: GameDetailsTeam
 			}
 		}
 		linescore: {
@@ -53,19 +53,26 @@ export interface IGameDetails {
 			}
 		}
 		plays: {
-			allPlays: IPlay[]
+			allPlays: Play[]
 		}
 	}
 }
 
-export interface IGameDetailsTeam {
-	players: IGameDetailsPlayer[]
+export type GameResponse = {
+	dates: {
+		date: string
+		games: Game[]
+	}[]
+}
+
+export type GameDetailsTeam = {
+	players: GameDetailsPlayer[]
 	goalies: number[]
-	team: ITeam
+	team: Team
 	skaters: number[]
 }
 
-export interface IGameDetailsPlayer {
+export type GameDetailsPlayer = {
 	jerseyNumber: number
 	person: {
 		fullName: string
@@ -99,7 +106,7 @@ export interface IGameDetailsPlayer {
 	}
 }
 
-interface IPlay {
+type Play = {
 	about: {
 		goals: {
 			away: number
@@ -108,7 +115,7 @@ interface IPlay {
 		ordinalNum: string
 		periodTime: string
 	}
-	players: IPlayPlayer[]
+	players: PlayPlayer[]
 	result: {
 		emptyNet: boolean
 		event: string
@@ -117,10 +124,10 @@ interface IPlay {
 			code: string
 		}
 	}
-	team: ITeam
+	team: Team
 }
 
-interface IPlayPlayer {
+type PlayPlayer = {
 	player: {
 		id: number
 		fullName: string
@@ -129,7 +136,7 @@ interface IPlayPlayer {
 	seasonTotal: number
 }
 
-export interface IPlayer {
+export type Player = {
 	id: number
 	name: string
 	jersey: number
@@ -138,17 +145,21 @@ export interface IPlayer {
 	picker: string
 }
 
-export interface ITeam {
+export type PlayerResponse = {
+	data: Player[]
+}
+
+export type Team = {
 	id: number
 	name: string
 	teamName: string
 }
 
-export interface ITeamStats {
+export type TeamStats = {
 	leagueRecord: {
 		losses: number
 		wins: number
 	}
 	score: number
-	team: ITeam
+	team: Team
 }

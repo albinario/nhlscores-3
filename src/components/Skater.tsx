@@ -1,7 +1,7 @@
-import { IGameDetailsPlayer } from '../interfaces'
+import type { GameDetailsPlayer } from '../types'
 
 interface IProps {
-	player: IGameDetailsPlayer
+	player: GameDetailsPlayer
 	pickedBy?: string
 }
 

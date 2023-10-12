@@ -1,9 +1,9 @@
 import Logo from './Logo'
-import { IGameDetailsPlayer, ITeam } from '../interfaces'
+import type { GameDetailsPlayer, Team } from '../types'
 
 interface IProps {
-	player: IGameDetailsPlayer
-	team: ITeam
+	player: GameDetailsPlayer
+	team: Team
 	pickedBy?: string
 }
 

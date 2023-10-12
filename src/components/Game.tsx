@@ -1,47 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { IGame, IGameDetails, IPlayer } from '../interfaces'
-import Team from './Team'
-import { nhlApi } from '../util/config'
+import Fetching from './Fetching'
 import Play from './Play'
 import Players from './Players'
+import Team from './Team'
+import useGetGame from '../hooks/useGetGame'
+import { useState } from 'react'
+import type { Game } from '../types'
 
 interface IProps {
-	game: IGame
-	playersPicked: IPlayer[]
+	game: Game
+	// playersPicked?: IPlayer[]
 }
 
 const Game: React.FC<IProps> = (props) => {
-	const [gameDetails, setGameDetails] = useState<IGameDetails>()
-	const [error, setError] = useState('')
 	const [showResults, setShowResults] = useState(false)
-	const [loading, setLoading] = useState(false)
-	
-	useEffect(() => {
-		setShowResults(false)
-		setLoading(true)
-		const fetchData = async () => {
-			const res = await fetch(`${nhlApi}/game/${props.game.gamePk}/feed/live`)
-			if (!res.ok) {
-				setError("Failed to load game")
-				setLoading(false)
-				return
-			}
-			setGameDetails(await res.json())
-			setError('')
-			setLoading(false)
-		}
-		fetchData()
-	}, [props.game])
 
-	if (error) {
+	const game = useGetGame(props.game.gamePk)
+
+	if (game.isError) {
 		return (
 			<div className='col-12'>
-				<div className='alert alert-secondary' role='alert'>{error}</div>
+				<div className='alert alert-secondary' role='alert'>Game details error</div>
 			</div>
 		)
 	}
 
-	if (!gameDetails) {
+	if (!game.data) {
 		return (
 			<div className='alert alert-secondary'>No game details available</div>
 		)
@@ -54,17 +37,17 @@ const Game: React.FC<IProps> = (props) => {
 	const dateTime = new Date(props.game.gameDate)
 	const startTime = ('0'+dateTime.getHours()).slice(-2)+':'+('0'+dateTime.getMinutes()).slice(-2)
 
-	const gameData = gameDetails.gameData
-	const linescore = gameDetails.liveData.linescore
-	const started = gameDetails.gameData.status.statusCode !== '1'
-	const finished = gameDetails.gameData.status.statusCode === '7'
+	const gameData = game.data.gameData
+	const linescore = game.data.liveData.linescore
+	const started = game.data.gameData.status.statusCode !== '1'
+	const finished = game.data.gameData.status.statusCode === '7'
 	const scoreAway = linescore.teams.away.goals
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
 	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
-	const plays = gameDetails.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
+	const plays = game.data.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
 
-	const playersPicked = props.playersPicked.filter(player => player.team === gameData.teams.away.id || player.team === gameData.teams.home.id)
+	// const playersPicked = props.playersPicked?.filter(player => player.team === gameData.teams.away.id || player.team === gameData.teams.home.id)
 
 	return (
 		<div className='col-12'>
@@ -104,10 +87,11 @@ const Game: React.FC<IProps> = (props) => {
 						)}
 					</div>
 
-					{loading && (
-						<div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-2 fs-6'>
-							<span className='visually-hidden'>Loading...</span>
-						</div>
+					{game.isFetching && (
+						// <div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-2 fs-6'>
+						// 	<span className='visually-hidden'>Loading...</span>
+						// </div>
+						<Fetching />
 					)}
 
 					<div className='row'>
@@ -116,14 +100,14 @@ const Game: React.FC<IProps> = (props) => {
 							teamName={gameData.teams.away.teamName}
 							away={true}
 							showResults={showResults}
-							playersPicked={playersPicked.filter(player => player.team === gameData.teams.away.id)}
+							// playersPicked={playersPicked?.filter(player => player.team === gameData.teams.away.id)}
 						/>
 						<Team
 							team={props.game.teams.home}
 							teamName={gameData.teams.home.teamName}
 							away={false}
 							showResults={showResults}
-							playersPicked={playersPicked.filter(player => player.team === gameData.teams.home.id)}
+							// playersPicked={playersPicked?.filter(player => player.team === gameData.teams.home.id)}
 						/>
 					</div>
 
@@ -134,15 +118,15 @@ const Game: React.FC<IProps> = (props) => {
 									<Play
 										key={index}
 										play={play}
-										playersPicked={playersPicked}
+										// playersPicked={playersPicked}
 									/>
 								))}
 							</section>
 
 							<Players
-								teamAway={gameDetails.liveData.boxscore.teams.away}
-								teamHome={gameDetails.liveData.boxscore.teams.home}
-								playersPicked={playersPicked}
+								teamAway={game.data.liveData.boxscore.teams.away}
+								teamHome={game.data.liveData.boxscore.teams.home}
+								// playersPicked={playersPicked}
 							/>
 						</section>
 					)}

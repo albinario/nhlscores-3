@@ -1,10 +1,10 @@
 import Logo from './Logo'
 import Score from './Score'
-import { IPlay, IPlayer } from '../interfaces'
+import type { Play } from '../types'
 
 interface IProps {
-	play: IPlay
-	playersPicked: IPlayer[]
+	play: Play
+	// playersPicked?: IPlayer[]
 }
 
 const Play: React.FC<IProps> = (props) => {
@@ -38,7 +38,7 @@ const Play: React.FC<IProps> = (props) => {
 					<Score
 						key={index}
 						player={player}
-						pickedBy={props.playersPicked.find(p => p.id === player.player.id)?.picker}
+						// pickedBy={props.playersPicked?.find(p => p.id === player.player.id)?.picker}
 					/>
 					{index !== scoringPlayers.length-1 && ', '}
 				</span>

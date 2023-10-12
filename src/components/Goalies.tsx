@@ -1,10 +1,10 @@
-import { IGameDetailsTeam, IPlayer } from '../interfaces'
 import Goalie from './Goalie'
+import type { GameDetailsTeam } from '../types'
 
 interface IProps {
-	teamAway: IGameDetailsTeam
-	teamHome: IGameDetailsTeam
-	playersPicked: IPlayer[]
+	teamAway: GameDetailsTeam
+	teamHome: GameDetailsTeam
+	// playersPicked?: IPlayer[]
 }
 
 const Goalies: React.FC<IProps> = (props) => {
@@ -30,7 +30,7 @@ const Goalies: React.FC<IProps> = (props) => {
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							player={props.teamAway.players['ID'+playerId as any]}
 							team={props.teamAway.team}
-							pickedBy={props.playersPicked.find(player => player.id === playerId)?.picker}
+							// pickedBy={props.playersPicked?.find(player => player.id === playerId)?.picker}
 						/>
 					))}
 					{props.teamHome.goalies.map((playerId, index) => (
@@ -39,7 +39,7 @@ const Goalies: React.FC<IProps> = (props) => {
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							player={props.teamHome.players['ID'+playerId as any]}
 							team={props.teamHome.team}
-							pickedBy={props.playersPicked.find(player => player.id === playerId)?.picker}
+							// pickedBy={props.playersPicked?.find(player => player.id === playerId)?.picker}
 						/>
 					))}
 				</tbody>

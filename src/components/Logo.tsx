@@ -1,8 +1,8 @@
 import { getLogo } from '../helpers/getLogo'
-import { ITeam } from '../interfaces'
+import type { Team } from '../types'
 
 interface IProps {
-	team: ITeam
+	team: Team
 }
 
 const Logo: React.FC<IProps> = (props) => (
