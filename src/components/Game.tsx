@@ -1,19 +1,17 @@
-import Fetching from './Fetching'
 import Play from './Play'
 import Players from './Players'
 import Team from './Team'
-import useGetGame from '../hooks/useGetGame'
+import { useGetGame } from '../hooks/useGetGame'
 import { useState } from 'react'
-import type { Game } from '../types'
+import type { Game, Player } from '../types'
 
 interface IProps {
 	game: Game
-	// playersPicked?: IPlayer[]
+	players?: Player[]
 }
 
 const Game: React.FC<IProps> = (props) => {
 	const [showResults, setShowResults] = useState(false)
-
 	const game = useGetGame(props.game.gamePk)
 
 	if (game.isError) {
@@ -46,8 +44,6 @@ const Game: React.FC<IProps> = (props) => {
 	const endTypeDesc = linescore.currentPeriodOrdinal
 	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
 	const plays = game.data.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
-
-	// const playersPicked = props.playersPicked?.filter(player => player.team === gameData.teams.away.id || player.team === gameData.teams.home.id)
 
 	return (
 		<div className='col-12'>
@@ -87,27 +83,20 @@ const Game: React.FC<IProps> = (props) => {
 						)}
 					</div>
 
-					{game.isFetching && (
-						// <div className='spinner-border spinner-border-sm text-seconus opacity-50 position-absolute end-0 me-2 fs-6'>
-						// 	<span className='visually-hidden'>Loading...</span>
-						// </div>
-						<Fetching />
-					)}
-
 					<div className='row'>
 						<Team
 							team={props.game.teams.away}
 							teamName={gameData.teams.away.teamName}
 							away={true}
 							showResults={showResults}
-							// playersPicked={playersPicked?.filter(player => player.team === gameData.teams.away.id)}
+							players={props.players?.filter(player => player.team === gameData.teams.away.id)}
 						/>
 						<Team
 							team={props.game.teams.home}
 							teamName={gameData.teams.home.teamName}
 							away={false}
 							showResults={showResults}
-							// playersPicked={playersPicked?.filter(player => player.team === gameData.teams.home.id)}
+							players={props.players?.filter(player => player.team === gameData.teams.home.id)}
 						/>
 					</div>
 
@@ -118,7 +107,7 @@ const Game: React.FC<IProps> = (props) => {
 									<Play
 										key={index}
 										play={play}
-										// playersPicked={playersPicked}
+										players={props.players}
 									/>
 								))}
 							</section>
@@ -126,7 +115,7 @@ const Game: React.FC<IProps> = (props) => {
 							<Players
 								teamAway={game.data.liveData.boxscore.teams.away}
 								teamHome={game.data.liveData.boxscore.teams.home}
-								// playersPicked={playersPicked}
+								players={props.players}
 							/>
 						</section>
 					)}

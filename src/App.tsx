@@ -2,8 +2,8 @@ import Fetching from './components/Fetching'
 import Game from './components/Game'
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import useGetGames from './hooks/useGetGames'
-import useGetPlayers from './hooks/useGetPlayers'
+import { useGetGames } from './hooks/useGetGames'
+import { useGetPlayers } from './hooks/useGetPlayers'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 
@@ -56,7 +56,6 @@ const App = () => {
 				</button>
 
 				<Fetching />
-
 			</header>
 
 			{games.isError && (
@@ -65,13 +64,7 @@ const App = () => {
 				</div>
 			)}
 
-			{players.isError && (
-				<div className='col-12'>
-					<div className='alert alert-secondary' role='alert'>Players error</div>
-				</div>
-			)}
-
-			{!games.data?.length && (
+			{!games.isFetching && !games.data?.length && (
 				<div className='col-12'>
 					<div className='alert alert-secondary' role='alert'>No games on this day</div>
 				</div>
@@ -79,14 +72,11 @@ const App = () => {
 
 			{!games.isError && !!games.data?.length && (
 				<section id='games' className='row g-1'>
-					{games.data.map((game, index) => (
+					{games.data.map(game => (
 						<Game
-							key={index}
+							key={game.gamePk}
 							game={game}
-							// playersPicked={players.data?.filter(player => 
-							// 	player.team === game.teams.away.team.id || 
-							// 	player.team === game.teams.home.team.id	
-							// ).sort((a, b) => a.jersey - b.jersey).sort((a,b) => a.picker.localeCompare(b.picker))}
+							players={players.data?.filter(player => player.team === game.teams.away.team.id || player.team === game.teams.home.team.id)}
 						/>
 					))}
 				</section>

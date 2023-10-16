@@ -1,12 +1,12 @@
 import Logo from './Logo'
-import type { TeamStats } from '../types'
+import type { Player, TeamStats } from '../types'
 
 interface IProps {
+	away: boolean
+	players?: Player[]
+	showResults: boolean
 	team: TeamStats
 	teamName: string
-	away: boolean
-	showResults: boolean
-	// playersPicked?: IPlayer[]
 }
 
 const Team: React.FC<IProps> = (props) => (
@@ -14,11 +14,14 @@ const Team: React.FC<IProps> = (props) => (
 		<div className={`d-flex mb-1 ${props.away ? 'me-3' : 'flex-row-reverse justify-content-end ms-3'}`}>
 			<span className='d-none d-sm-inline'>{props.team.team.name}</span>
 			<span className='d-sm-none'>{props.teamName}</span>
-
 			<Logo team={props.team.team} />
 		</div>
-		{/* {!props.showResults && props.playersPicked?.map((player, index) => (
-			<div key={index} className={`d-flex align-items-center ${props.away ? 'text-end' : 'flex-row-reverse justify-content-end'}`}>
+
+		{!props.showResults && props.players?.map(player => (
+			<div
+				className={`d-flex align-items-center ${props.away ? 'text-end' : 'flex-row-reverse justify-content-end'}`}
+				key={player.id}
+			>
 				<div className={player.picker}>
 					<span className='small'>{player.jersey} </span>
 					<span className='d-none d-sm-inline'>{player.name}</span>
@@ -29,7 +32,7 @@ const Team: React.FC<IProps> = (props) => (
 					{player.picker}
 				</span>
 			</div>
-		))} */}
+		))}
 	</div>
 )
 

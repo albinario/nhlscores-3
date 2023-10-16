@@ -1,13 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { getPlayers } from '../services/TradesAPI'
+import { getPlayersPicked } from '../services/TradesAPI'
 
-const useGetPlayers = () => {
+export const useGetPlayers = () => {
 	return useQuery(
-		['players'],
-		getPlayers, {
-			cacheTime: 1000 * 60 * 60 * 24 * 6
+		['playersPicked'],
+		getPlayersPicked, {
+			cacheTime: 1000 * 60 * 60 * 24
 		}
 	)
 }
-
-export default useGetPlayers

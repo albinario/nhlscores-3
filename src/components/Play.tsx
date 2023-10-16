@@ -1,10 +1,10 @@
 import Logo from './Logo'
 import Score from './Score'
-import type { Play } from '../types'
+import type { Play, Player } from '../types'
 
 interface IProps {
 	play: Play
-	// playersPicked?: IPlayer[]
+	players?: Player[]
 }
 
 const Play: React.FC<IProps> = (props) => {
@@ -20,7 +20,7 @@ const Play: React.FC<IProps> = (props) => {
 	if (props.play.result.strength.code !== 'EVEN') {
 		goalTypes.push(props.play.result.strength.code)
 	}
-	
+
 	return (
 		<div>
 			<Logo team={props.play.team} />
@@ -38,7 +38,7 @@ const Play: React.FC<IProps> = (props) => {
 					<Score
 						key={index}
 						player={player}
-						// pickedBy={props.playersPicked?.find(p => p.id === player.player.id)?.picker}
+						pickedBy={props.players?.find(p => p.id === player.player.id)?.picker}
 					/>
 					{index !== scoringPlayers.length-1 && ', '}
 				</span>

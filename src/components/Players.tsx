@@ -1,11 +1,11 @@
 import Goalies from './Goalies'
 import Skaters from './Skaters'
-import type { GameDetailsTeam } from '../types'
+import type { GameDetailsTeam, Player } from '../types'
 
 interface IProps {
 	teamAway: GameDetailsTeam
 	teamHome: GameDetailsTeam
-	// playersPicked?: IPlayer[]
+	players?: Player[]
 }
 
 const Players: React.FC<IProps> = (props) => (
@@ -13,16 +13,16 @@ const Players: React.FC<IProps> = (props) => (
 		<Goalies
 			teamAway={props.teamAway}
 			teamHome={props.teamHome}
-			// playersPicked={props.playersPicked}
+			players={props.players?.filter(player => player.pos === 'G')}
 		/>
 		<section id='skaters' className='row'>
 			<Skaters
 				team={props.teamAway}
-				// playersPicked={props.playersPicked?.filter(player => player.team === props.teamAway.team.id)}
+				players={props.players?.filter(player => player.team === props.teamAway.team.id)}
 			/>
 			<Skaters
 				team={props.teamHome}
-				// playersPicked={props.playersPicked?.filter(player => player.team === props.teamHome.team.id)}
+				players={props.players?.filter(player => player.team === props.teamHome.team.id)}
 			/>
 		</section>
 	</section>

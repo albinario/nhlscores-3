@@ -1,10 +1,10 @@
 import Logo from './Logo'
 import Skater from './Skater'
-import type { GameDetailsTeam } from '../types'
+import type { GameDetailsTeam, Player } from '../types'
 
 interface IProps {
 	team: GameDetailsTeam
-	// playersPicked?: IPlayer[]
+	players?: Player[]
 }
 
 const Skaters: React.FC<IProps> = (props) => (
@@ -29,7 +29,7 @@ const Skaters: React.FC<IProps> = (props) => (
 						key={index}
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						player={props.team.players['ID'+playerId as any]}
-						// pickedBy={props.playersPicked?.find(player => player.id === playerId)?.picker}
+						pickedBy={props.players?.find(player => player.id === playerId)?.picker}
 					/>
 				))}
 			</tbody>
