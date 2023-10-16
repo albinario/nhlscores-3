@@ -3,7 +3,13 @@ import Players from './Players'
 import Team from './Team'
 import { useGetGame } from '../hooks/useGetGame'
 import { useState } from 'react'
+import Alert from 'react-bootstrap/Alert'
+import Col from 'react-bootstrap/Col'
 import type { Game, Player } from '../types'
+import Badge from 'react-bootstrap/Badge'
+import Card from 'react-bootstrap/Card'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
 
 interface IProps {
 	game: Game
@@ -14,23 +20,9 @@ const Game: React.FC<IProps> = (props) => {
 	const [showResults, setShowResults] = useState(false)
 	const game = useGetGame(props.game.gamePk)
 
-	if (game.isError) {
-		return (
-			<div className='col-12'>
-				<div className='alert alert-secondary' role='alert'>Game details error</div>
-			</div>
-		)
-	}
+	if (game.isError) return <Alert variant='secondary'>Game details error</Alert>
 
-	if (!game.data) {
-		return (
-			<div className='alert alert-secondary'>No game details available</div>
-		)
-	}
-
-	const showResultsToggle = () => {
-		setShowResults(!showResults)
-	}
+	if (!game.data) return <Alert variant='secondary'>Loading game...</Alert>
 
 	const dateTime = new Date(props.game.gameDate)
 	const startTime = ('0'+dateTime.getHours()).slice(-2)+':'+('0'+dateTime.getMinutes()).slice(-2)
@@ -46,44 +38,56 @@ const Game: React.FC<IProps> = (props) => {
 	const plays = game.data.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
 
 	return (
-		<div className='col-12'>
-			<div className='card p-2'>
-				<div className='card-body p-0 g-1'>
+		<Col>
+			<Card>
+				<Card.Body className='p-2'>
 					{started && (
-						<div className='form-check form-switch position-absolute'>
-							<input
-								className='form-check-input'
-								type='checkbox'
-								role='switch'
-								checked={showResults}
-								onChange={showResultsToggle}
-							/>
-						</div>
+						<Form.Switch
+							checked={showResults}
+							className='position-absolute'
+							onChange={() => setShowResults(!showResults)}
+						/>
 					)}
 
-					<div className='position-absolute start-50 translate-middle-x'>
+					<div
+						className='position-absolute start-50 translate-middle-x'
+						style={{ marginTop: '-1px' }}
+					>
 						{showResults ? (
-							<div>
-								<span className={`badge text-bg-${finished ? 'success' : 'danger'} me-1`}>
-									{scoreAway}
-								</span>
-								<span className={`badge text-bg-${finished ? 'success' : 'danger'}`}>
-									{scoreHome}
-								</span>
+							<>
+								<Badge
+									bg={finished ? 'success' : 'danger'}
+									className='me-1'
+									style={{ fontSize: '1em' }}
+								>{scoreAway}</Badge>
+
+								<Badge
+									bg={finished ? 'success' : 'danger'}
+									style={{ fontSize: '1em' }}
+								>{scoreHome}</Badge>
+
 								{endType && (
-									<span className='position-absolute translate-middle start-50 top-100 badge rounded-pill text-bg-warning'>
+									<Badge
+										bg='warning'
+										className='position-absolute translate-middle start-50 top-100'
+										pill
+										style={{ fontSize: '.6em'}}
+										text='dark'
+									>
 										{endType}
-									</span>
+									</Badge>
 								)}
-							</div>
+							</>
 						) : (
-							<span className='badge text-bg-dark opacity-75'>
-								{startTime}
-							</span>
+							<Badge
+								bg='warning'
+								className='opacity-50'
+								text='dark'
+							>{startTime}</Badge>
 						)}
 					</div>
 
-					<div className='row'>
+					<Row>
 						<Team
 							team={props.game.teams.away}
 							teamName={gameData.teams.away.teamName}
@@ -98,7 +102,7 @@ const Game: React.FC<IProps> = (props) => {
 							showResults={showResults}
 							players={props.players?.filter(player => player.team === gameData.teams.home.id)}
 						/>
-					</div>
+					</Row>
 
 					{showResults && started && (
 						<section id='game-details'>
@@ -119,9 +123,9 @@ const Game: React.FC<IProps> = (props) => {
 							/>
 						</section>
 					)}
-				</div>
-			</div>
-		</div>
+				</Card.Body>
+			</Card>
+		</Col>
 	)
 }
 

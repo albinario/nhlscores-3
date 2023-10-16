@@ -1,11 +1,13 @@
 import Fetching from './components/Fetching'
 import Game from './components/Game'
 import './App.css'
-import 'bootstrap-icons/font/bootstrap-icons.css'
 import { useGetGames } from './hooks/useGetGames'
 import { useGetPlayers } from './hooks/useGetPlayers'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
+import Alert from 'react-bootstrap/Alert'
+import Row from 'react-bootstrap/Row'
 
 const App = () => {
 	const dateFormat = 'YYYY-MM-DD'
@@ -59,19 +61,15 @@ const App = () => {
 			</header>
 
 			{games.isError && (
-				<div className='col-12'>
-					<div className='alert alert-secondary' role='alert'>Games error</div>
-				</div>
+				<Alert variant='secondary'>Games error</Alert>
 			)}
 
 			{!games.isFetching && !games.data?.length && (
-				<div className='col-12'>
-					<div className='alert alert-secondary' role='alert'>No games on this day</div>
-				</div>
+				<Alert variant='secondary'>No games on this day</Alert>
 			)}
 
 			{!games.isError && !!games.data?.length && (
-				<section id='games' className='row g-1'>
+				<Row xs={1} className='g-2'>
 					{games.data.map(game => (
 						<Game
 							key={game.gamePk}
@@ -79,7 +77,7 @@ const App = () => {
 							players={players.data?.filter(player => player.team === game.teams.away.team.id || player.team === game.teams.home.team.id)}
 						/>
 					))}
-				</section>
+				</Row>
 			)}
 		</>
 	)
