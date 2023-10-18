@@ -13,7 +13,7 @@ const get = async <T>(endpoint: string) => {
 	return response.data
 }
 
-export const getPlayersPicked = async () => {
+export const getPlayers = async () => {
 	const playersResponse = await get<PlayerResponse>('/players')
 	return playersResponse.data.filter(player => player.picker)
 }
