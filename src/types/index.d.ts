@@ -2,22 +2,8 @@ export type Game = {
 	gameDate: string
 	gamePk: number
 	teams: {
-		away: {
-			leagueRecord: {
-				losses: number
-				wins: number
-			}
-			score: number
-			team: Team
-		},
-		home: {
-			leagueRecord: {
-				losses: number
-				wins: number
-			}
-			score: number
-			team: Team
-		}
+		away: TeamStats
+		home: TeamStats
 	}
 }
 
@@ -158,6 +144,7 @@ export type Team = {
 export type TeamStats = {
 	leagueRecord: {
 		losses: number
+		ot: number
 		wins: number
 	}
 	score: number

@@ -29,9 +29,11 @@ const Team: React.FC<IProps> = (props) => (
 					<span className='d-sm-none'>{player.name.split(' ')[1]}</span>
 					<span className='small'> {player.pos}</span>
 				</div>
-				<span className={`badge ${player.picker} ${props.away ? 'ms-1' : 'me-1'}`}>{player.picker}</span>
+				<span className={`badge ${player.picker}`} style={{ marginTop: '1px' }}>{player.picker}</span>
 			</div>
 		))}
+
+		{props.showResults && <span className='small'>{props.team.leagueRecord.wins}-{props.team.leagueRecord.losses}-{props.team.leagueRecord.ot}</span>}
 	</Col>
 )
 
