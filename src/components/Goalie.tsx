@@ -25,7 +25,7 @@ const Goalie: React.FC<IProps> = (props) => {
 				{props.pickedBy && <span className={`badge ${props.pickedBy}`}>{props.pickedBy}</span>}
 			</td>
 			<td>{stats.saves}/{stats.shots}</td>
-			<td>{stats.savePercentage.toFixed(2)}</td>
+			<td>{stats.savePercentage && stats.savePercentage.toFixed(2)}</td>
 			<td>{stats.powerPlayShotsAgainst-stats.powerPlaySaves}</td>
 			<td>{stats.goals}</td>
 			<td>{stats.assists}</td>
