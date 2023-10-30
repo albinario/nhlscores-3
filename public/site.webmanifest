@@ -1,6 +1,6 @@
 {
-	"background_color": "#212529",
-	"display": "standalone",
+	"background_color":"#212529",
+	"display":"standalone",
 	"icons": [
 		{
 			"src":"/android-chrome-192x192.png",
@@ -17,8 +17,7 @@
 			"type": "image/x-icon"
 		}
 	],
-	"name": "NHL Scores",
-	"short_name": "NHL Scores",
-	"start_url": ".",
-	"theme_color": "#212529"
+	"name":"NHL Scores",
+	"short_name":"NHL Scores",
+	"theme_color":"#212529"
 }
