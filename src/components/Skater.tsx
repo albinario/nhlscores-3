@@ -15,6 +15,7 @@ const Skater: React.FC<IProps> = (props) => {
 
 	const plusMinusClass = classNames({
 		'text-danger': stats && stats.plusMinus < 0,
+		'text-muted': stats && stats.plusMinus === 0,
 		'text-success': stats && stats.plusMinus > 0,
 	})
 
