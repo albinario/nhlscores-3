@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import type { GameDetailsPlayer } from '../types'
 
 interface IProps {
@@ -12,6 +13,11 @@ const Skater: React.FC<IProps> = (props) => {
 
 	const stats = props.player.stats.skaterStats
 
+	const plusMinusClass = classNames({
+		'text-danger': stats && stats.plusMinus < 0,
+		'text-success': stats && stats.plusMinus > 0,
+	})
+
 	return (
 		<tr className={props.pickedBy}>
 			<td className='text-start'>
@@ -24,7 +30,7 @@ const Skater: React.FC<IProps> = (props) => {
 				<>
 					<td>{stats.goals}</td>
 					<td>{stats.assists}</td>
-					<td>
+					<td className={plusMinusClass}>
 						{stats.plusMinus > 0 && '+'}
 						{stats.plusMinus}
 					</td>

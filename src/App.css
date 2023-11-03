@@ -25,17 +25,16 @@ img {
 }
 
 .A {
-	color: var(--bs-success-text-emphasis);
+	color: #2ecc40;
 }
 .J {
-	color: var(--bs-danger-text-emphasis);
+	color: #ff851b;
 }
 .S {
-	color: var(--bs-primary-text-emphasis);
+	color: #0074d9;
 }
 .V {
-	color: var(--bs-warning-text-emphasis);
-	opacity: 0.8;
+	color: #b10dc9;
 }
 
 .table-sm td {
