@@ -1,4 +1,5 @@
 import Goalie from './Goalie'
+import Table from 'react-bootstrap/Table'
 import type { GameDetailsTeam, Player } from '../types'
 
 interface IProps {
@@ -9,17 +10,17 @@ interface IProps {
 
 const Goalies: React.FC<IProps> = (props) => (
 	<section id='goalies'>
-		<table className='table table-sm table-borderless small text-center'>
+		<Table borderless className='small text-center' size='sm'>
 			<thead>
 				<tr>
 					<th colSpan={2}></th>
-					<th className='py-0 px-1'>Saves</th>
-					<th className='py-0 px-1'>%</th>
-					<th className='py-0 px-1'>PP</th>
-					<th className='py-0 px-1'>G</th>
-					<th className='py-0 px-1'>A</th>
-					<th className='py-0 px-1'>PIM</th>
-					<th className='py-0 px-1'>TOI</th>
+					<th>Saves</th>
+					<th>%</th>
+					<th>PP</th>
+					<th>G</th>
+					<th>A</th>
+					<th>PIM</th>
+					<th className='text-end'>TOI</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,22 +28,26 @@ const Goalies: React.FC<IProps> = (props) => (
 					<Goalie
 						key={index}
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						player={props.teamAway.players['ID'+playerId as any]}
+						player={props.teamAway.players[('ID' + playerId) as any]}
 						team={props.teamAway.team}
-						pickedBy={props.players?.find(player => player.id === playerId)?.picker}
+						pickedBy={
+							props.players?.find((player) => player.id === playerId)?.picker
+						}
 					/>
 				))}
 				{props.teamHome.goalies.map((playerId, index) => (
 					<Goalie
 						key={index}
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						player={props.teamHome.players['ID'+playerId as any]}
+						player={props.teamHome.players[('ID' + playerId) as any]}
 						team={props.teamHome.team}
-						pickedBy={props.players?.find(player => player.id === playerId)?.picker}
+						pickedBy={
+							props.players?.find((player) => player.id === playerId)?.picker
+						}
 					/>
 				))}
 			</tbody>
-		</table>
+		</Table>
 	</section>
 )
 

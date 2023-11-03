@@ -1,5 +1,6 @@
 import Logo from './Logo'
 import Score from './Score'
+import { Fragment } from 'react'
 import type { Play, Player } from '../types'
 
 interface IProps {
@@ -8,7 +9,9 @@ interface IProps {
 }
 
 const Play: React.FC<IProps> = (props) => {
-	const scoringPlayers = props.play.players.filter(player => player.playerType !== 'Goalie')
+	const scoringPlayers = props.play.players.filter(
+		(player) => player.playerType !== 'Goalie'
+	)
 	const goalTypes: string[] = []
 
 	if (props.play.result.gameWinningGoal) {
@@ -24,24 +27,30 @@ const Play: React.FC<IProps> = (props) => {
 	return (
 		<div>
 			<Logo team={props.play.team} />
-			<span className='score'>{props.play.about.goals.away}-{props.play.about.goals.home}</span>
-			<span className='time'>{props.play.about.ordinalNum} {props.play.about.periodTime}</span>
+			<span className='small'>
+				{props.play.about.goals.away}-{props.play.about.goals.home} {}
+			</span>
+			<span className='small text-muted'>
+				{props.play.about.ordinalNum} {props.play.about.periodTime} {}
+			</span>
 
 			{!!goalTypes.length && (
-				<span className='small fst-italic me-1'>
-					{goalTypes.map(scoreType => scoreType).join(' ')}
+				<span className='small text-muted fst-italic'>
+					{goalTypes.map((scoreType) => scoreType).join(' ')} {}
 				</span>
 			)}
 
 			{scoringPlayers.map((player, index) => (
-				<span key={index}>
+				<Fragment key={index}>
 					<Score
 						key={index}
 						player={player}
-						pickedBy={props.players?.find(p => p.id === player.player.id)?.picker}
+						pickedBy={
+							props.players?.find((p) => p.id === player.player.id)?.picker
+						}
 					/>
-					{index !== scoringPlayers.length-1 && ', '}
-				</span>
+					{index !== scoringPlayers.length - 1 && ', '}
+				</Fragment>
 			))}
 		</div>
 	)

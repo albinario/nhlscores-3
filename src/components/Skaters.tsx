@@ -1,5 +1,6 @@
 import Logo from './Logo'
 import Skater from './Skater'
+import Table from 'react-bootstrap/Table'
 import type { GameDetailsTeam, Player } from '../types'
 
 interface IProps {
@@ -9,10 +10,12 @@ interface IProps {
 
 const Skaters: React.FC<IProps> = (props) => (
 	<div className='col-12 col-lg-6'>
-		<table className='table table-sm table-borderless small text-center'>
+		<Table borderless className='small text-center' size='sm'>
 			<thead>
 				<tr>
-					<th className='text-start'><Logo team={props.team.team} /></th>
+					<th className='text-start ps-0'>
+						<Logo team={props.team.team} />
+					</th>
 					<th>G</th>
 					<th>A</th>
 					<th>+/-</th>
@@ -20,7 +23,7 @@ const Skaters: React.FC<IProps> = (props) => (
 					<th>PIM</th>
 					<th>H</th>
 					<th>B</th>
-					<th>TOI | PP | SH </th>
+					<th className='text-end'>TOI | PP | SH </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,14 +31,15 @@ const Skaters: React.FC<IProps> = (props) => (
 					<Skater
 						key={index}
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						player={props.team.players['ID'+playerId as any]}
-						pickedBy={props.players?.find(player => player.id === playerId)?.picker}
+						player={props.team.players[('ID' + playerId) as any]}
+						pickedBy={
+							props.players?.find((player) => player.id === playerId)?.picker
+						}
 					/>
 				))}
 			</tbody>
-		</table>
+		</Table>
 	</div>
 )
-
 
 export default Skaters
