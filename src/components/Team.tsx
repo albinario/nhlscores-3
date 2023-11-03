@@ -23,19 +23,21 @@ const Team: React.FC<IProps> = (props) => (
 		</div>
 
 		{!props.showResults &&
-			props.players?.map((player) => (
-				<div className={`${props.away && 'text-end'}`} key={player.id}>
-					<div className={player.picker}>
-						<span className='small'>{player.jersey} </span>
-						<span className='d-none d-sm-inline'>{player.name}</span>
-						<span className='d-sm-none'>{player.name.split(' ')[1]}</span>
-						<span className='small'>
-							{' '}
-							{player.pos} {player.picker}
-						</span>
+			props.players
+				?.sort((a, b) => a.jersey - b.jersey)
+				.map((player) => (
+					<div className={`${props.away && 'text-end'}`} key={player.id}>
+						<div className={player.picker}>
+							<span className='small'>{player.jersey} </span>
+							<span className='d-none d-sm-inline'>{player.name}</span>
+							<span className='d-sm-none'>{player.name.split(' ')[1]}</span>
+							<span className='small'>
+								{' '}
+								{player.pos} {player.picker}
+							</span>
+						</div>
 					</div>
-				</div>
-			))}
+				))}
 
 		{props.showResults && (
 			<span className='small'>
