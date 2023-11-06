@@ -25,7 +25,10 @@ const Game: React.FC<IProps> = (props) => {
 	if (!game.data) return <Alert variant='secondary'>Loading game...</Alert>
 
 	const dateTime = new Date(props.game.gameDate)
-	const startTime = ('0'+dateTime.getHours()).slice(-2)+':'+('0'+dateTime.getMinutes()).slice(-2)
+	const startTime =
+		('0' + dateTime.getHours()).slice(-2) +
+		':' +
+		('0' + dateTime.getMinutes()).slice(-2)
 
 	const gameData = game.data.gameData
 	const linescore = game.data.liveData.linescore
@@ -35,7 +38,9 @@ const Game: React.FC<IProps> = (props) => {
 	const scoreHome = linescore.teams.home.goals
 	const endTypeDesc = linescore.currentPeriodOrdinal
 	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
-	const plays = game.data.liveData.plays.allPlays.filter(play => play.result.event === 'Goal')
+	const plays = game.data.liveData.plays.allPlays.filter(
+		(play) => play.result.event === 'Goal'
+	)
 
 	return (
 		<Col>
@@ -59,19 +64,23 @@ const Game: React.FC<IProps> = (props) => {
 									bg={finished ? 'success' : 'danger'}
 									className='me-1'
 									style={{ fontSize: '1em' }}
-								>{scoreAway}</Badge>
+								>
+									{scoreAway}
+								</Badge>
 
 								<Badge
 									bg={finished ? 'success' : 'danger'}
 									style={{ fontSize: '1em' }}
-								>{scoreHome}</Badge>
+								>
+									{scoreHome}
+								</Badge>
 
 								{endType && (
 									<Badge
 										bg='warning'
 										className='position-absolute translate-middle start-50 top-100'
 										pill
-										style={{ fontSize: '.6em'}}
+										style={{ fontSize: '.6em' }}
 										text='dark'
 									>
 										{endType}
@@ -79,11 +88,9 @@ const Game: React.FC<IProps> = (props) => {
 								)}
 							</>
 						) : (
-							<Badge
-								bg='warning'
-								className='opacity-50'
-								text='dark'
-							>{startTime}</Badge>
+							<Badge bg='warning' className='opacity-50' text='dark'>
+								{startTime}
+							</Badge>
 						)}
 					</div>
 
@@ -93,27 +100,34 @@ const Game: React.FC<IProps> = (props) => {
 							teamName={gameData.teams.away.teamName}
 							away={true}
 							showResults={showResults}
-							players={props.players?.filter(player => player.team === gameData.teams.away.id)}
+							players={props.players?.filter(
+								(player) => player.team === gameData.teams.away.id
+							)}
 						/>
 						<Team
 							team={props.game.teams.home}
 							teamName={gameData.teams.home.teamName}
 							away={false}
 							showResults={showResults}
-							players={props.players?.filter(player => player.team === gameData.teams.home.id)}
+							players={props.players?.filter(
+								(player) => player.team === gameData.teams.home.id
+							)}
 						/>
 					</Row>
 
 					{showResults && started && (
 						<section id='game-details'>
 							<section id='plays' className='my-2'>
-								{plays.map((play, index) => (
-									<Play
-										key={index}
-										play={play}
-										players={props.players}
-									/>
-								))}
+								{plays.map((play, index) => {
+									return (
+										<Play
+											key={index}
+											away={props.game.teams.away.team.id === play.team.id}
+											play={play}
+											players={props.players}
+										/>
+									)
+								})}
 							</section>
 
 							<Players
