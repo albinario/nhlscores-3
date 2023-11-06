@@ -10,8 +10,9 @@ header .bi-arrow-left-square,
 	opacity: 0.2;
 }
 
-header .btn {
-	background: none;
+.btn,
+.btn:hover {
+	background: transparent !important;
 	border: none;
 }
 
@@ -25,16 +26,16 @@ img {
 }
 
 .A {
-	color: #2ecc40;
+	color: #20c997;
 }
 .J {
-	color: #ff851b;
+	color: #dc3545;
 }
 .S {
-	color: #0074d9;
+	color: #0d6efd;
 }
 .V {
-	color: #b10dc9;
+	color: #ffc107;
 }
 
 .table-sm td {
