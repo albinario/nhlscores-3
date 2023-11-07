@@ -20,9 +20,10 @@ const Game: React.FC<IProps> = (props) => {
 	const [showResults, setShowResults] = useState(false)
 	const game = useGetGame(props.game.gamePk)
 
-	if (game.isError) return <Alert variant='secondary'>Game details error</Alert>
+	if (game.isError)
+		return <Alert variant='warning'>Error loading game details</Alert>
 
-	if (!game.data) return <Alert variant='secondary'>Loading game...</Alert>
+	if (!game.data) return <></>
 
 	const dateTime = new Date(props.game.gameDate)
 	const startTime =

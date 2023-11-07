@@ -62,9 +62,9 @@ const App = () => {
 				<Fetching />
 			</header>
 
-			{games.isError && <Alert variant='secondary'>Games error</Alert>}
+			{games.isError && <Alert variant='warning'>Error loading games</Alert>}
 
-			{!games.isFetching && !games.data?.length && (
+			{!games.isFetching && !games.isError && !games.data?.length && (
 				<Alert variant='secondary'>No games on this day</Alert>
 			)}
 
