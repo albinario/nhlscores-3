@@ -53,7 +53,7 @@ const App = () => {
 					<i className='bi bi-arrow-left-square'></i>
 				</Button>
 
-				<div className='fs-5 opacity-50'>{dateTitle}</div>
+				<div className='fs-5 opacity-75'>{dateTitle}</div>
 
 				<Button className='pe-0' onClick={dateIncrease}>
 					<i className='bi bi-arrow-right-square'></i>

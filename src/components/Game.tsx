@@ -78,7 +78,7 @@ const Game: React.FC<IProps> = (props) => {
 								{endType && (
 									<Badge
 										bg='warning'
-										className='position-absolute translate-middle start-50 top-100'
+										className='position-absolute translate-middle start-50 top-100 opacity-75'
 										pill
 										style={{ fontSize: '.6em' }}
 										text='dark'
@@ -88,7 +88,7 @@ const Game: React.FC<IProps> = (props) => {
 								)}
 							</>
 						) : (
-							<Badge bg='warning' className='opacity-50' text='dark'>
+							<Badge bg='warning' className='opacity-75' text='dark'>
 								{startTime}
 							</Badge>
 						)}
