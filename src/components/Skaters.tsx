@@ -2,6 +2,7 @@ import Logo from './Logo'
 import Skater from './Skater'
 import Table from 'react-bootstrap/Table'
 import type { GameDetailsTeam, Player } from '../types'
+import { Col } from 'react-bootstrap'
 
 interface IProps {
 	team: GameDetailsTeam
@@ -9,11 +10,11 @@ interface IProps {
 }
 
 const Skaters: React.FC<IProps> = (props) => (
-	<div className='col-12 col-lg-6'>
+	<Col>
 		<Table borderless className='small text-center' size='sm'>
 			<thead>
 				<tr>
-					<th className='text-start ps-0'>
+					<th className='ps-0 text-start'>
 						<Logo team={props.team.team} />
 					</th>
 					<th>G</th>
@@ -23,7 +24,7 @@ const Skaters: React.FC<IProps> = (props) => (
 					<th>PIM</th>
 					<th>H</th>
 					<th>B</th>
-					<th className='text-end'>TOI | PP | SH </th>
+					<th className='pe-0 text-end'>TOI | PP | SH </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,7 +40,7 @@ const Skaters: React.FC<IProps> = (props) => (
 				))}
 			</tbody>
 		</Table>
-	</div>
+	</Col>
 )
 
 export default Skaters

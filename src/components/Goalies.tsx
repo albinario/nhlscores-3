@@ -20,7 +20,7 @@ const Goalies: React.FC<IProps> = (props) => (
 					<th>G</th>
 					<th>A</th>
 					<th>PIM</th>
-					<th className='text-end'>TOI</th>
+					<th className='pe-0 text-end'>TOI</th>
 				</tr>
 			</thead>
 			<tbody>

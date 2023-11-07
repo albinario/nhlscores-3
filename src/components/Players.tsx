@@ -1,5 +1,6 @@
 import Goalies from './Goalies'
 import Skaters from './Skaters'
+import Row from 'react-bootstrap/Row'
 import type { GameDetailsTeam, Player } from '../types'
 
 interface IProps {
@@ -15,7 +16,7 @@ const Players: React.FC<IProps> = (props) => (
 			teamHome={props.teamHome}
 			players={props.players?.filter(player => player.pos === 'G')}
 		/>
-		<section id='skaters' className='row'>
+		<Row xs={1} md={2}>
 			<Skaters
 				team={props.teamAway}
 				players={props.players?.filter(player => player.team === props.teamAway.team.id)}
@@ -24,7 +25,7 @@ const Players: React.FC<IProps> = (props) => (
 				team={props.teamHome}
 				players={props.players?.filter(player => player.team === props.teamHome.team.id)}
 			/>
-		</section>
+		</Row>
 	</section>
 )
 

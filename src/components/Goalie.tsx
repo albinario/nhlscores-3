@@ -14,7 +14,7 @@ const Goalie: React.FC<IProps> = (props) => {
 
 	const stats = props.player.stats.goalieStats
 
-	return (
+	return stats.timeOnIce !== '0:00' ? (
 		<tr className={props.pickedBy}>
 			<td className='text-start'>
 				<Logo team={props.team} />
@@ -23,17 +23,10 @@ const Goalie: React.FC<IProps> = (props) => {
 				<span className='small'>{props.player.jerseyNumber}</span>
 				<span className='d-none d-sm-inline'> {fullName}</span>
 				<span className='d-sm-none'> {lastName}</span>
-				<span className='text-nowrap'>
-					{' '}
-					{stats.decision && `(${stats.decision})`}
-				</span>
-				{props.pickedBy && (
-					<span className={`badge ${props.pickedBy}`}>{props.pickedBy}</span>
-				)}
+				<span className='text-nowrap'> {stats.decision && `(${stats.decision})`} </span>
+				{props.pickedBy && props.pickedBy}
 			</td>
-			<td>
-				{stats.saves}/{stats.shots}
-			</td>
+			<td>{stats.saves}/{stats.shots}</td>
 			<td>{stats.savePercentage && stats.savePercentage.toFixed(2)}</td>
 			<td>{stats.powerPlayShotsAgainst - stats.powerPlaySaves}</td>
 			<td>{stats.goals}</td>
@@ -41,7 +34,7 @@ const Goalie: React.FC<IProps> = (props) => {
 			<td>{stats.pim}</td>
 			<td className='text-end'>{stats.timeOnIce}</td>
 		</tr>
-	)
+	) : <></>
 }
 
 export default Goalie
