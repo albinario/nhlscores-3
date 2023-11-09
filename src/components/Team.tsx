@@ -1,10 +1,10 @@
 import Logo from './Logo'
 import Col from 'react-bootstrap/Col'
-import type { Player, TeamStats } from '../types'
+import type { PlayerPicked, TeamStats } from '../types'
 
 interface IProps {
 	away: boolean
-	players?: Player[]
+	players?: PlayerPicked[]
 	showResults: boolean
 	team: TeamStats
 	teamName: string

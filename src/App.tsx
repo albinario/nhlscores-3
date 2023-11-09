@@ -72,12 +72,12 @@ const App = () => {
 				<Row xs={1} className='g-2'>
 					{games.data.map((game) => (
 						<Game
-							key={game.gamePk}
+							key={game.id}
 							game={game}
 							players={players.data?.filter(
 								(player) =>
-									player.team === game.teams.away.team.id ||
-									player.team === game.teams.home.team.id
+									player.teamAbbrev === game.awayTeam.abbrev ||
+									player.teamAbbrev === game.homeTeam.abbrev
 							)}
 						/>
 					))}

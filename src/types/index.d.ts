@@ -1,13 +1,52 @@
 export type Game = {
-	gameDate: string
-	gamePk: number
-	teams: {
-		away: TeamStats
-		home: TeamStats
+	id: number
+	startTimeUTC: string
+	awayTeam: GameTeam
+	homeTeam: GameTeam
+}
+
+type GameTeam = {
+	id: string
+	abbrev: string
+	score: number
+}
+
+export type GameBoxscore = {
+	awayTeam: {
+		defense: Skater[]
+		goalies: Goalie[]
+		forwards: Skater[]
+	}
+	homeTeam: {
+		defense: Skater[]
+		goalies: Goalie[]
+		forwards: Skater[]
 	}
 }
 
+export type GameLanding = {
+	clock: {
+		timeRemaining: string
+	}
+	summary: {
+		scoring: Scoring[]
+	}
+}
+
+type Scoring = {
+	goals: Goal[]
+	period: number
+}
+
+type Goal = {
+	assists: Assist[]
+	awayScore: number
+}
+
 export type GameDetails = {
+	id: string
+	gameState: string
+
 	gameData: {
 		teams: {
 			away: Team
@@ -122,17 +161,17 @@ type PlayPlayer = {
 	seasonTotal: number
 }
 
-export type Player = {
+export type PlayerPicked = {
 	id: number
 	name: string
 	jersey: number
 	pos: string
-	team: number
+	teamAbbrev: string
 	picker: string
 }
 
 export type PlayerResponse = {
-	data: Player[]
+	data: PlayerPicked[]
 }
 
 export type Team = {

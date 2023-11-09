@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { getGame } from '../services/NhlAPI'
 
-export const useGetGame = (gamePk: number) => {
+export const useGetGame = (gameId: number) => {
 	return useQuery({
-		queryKey: ['game', gamePk],
-		queryFn: () => getGame(gamePk),
+		queryKey: ['game', gameId],
+		queryFn: () => getGame(gameId),
 	})
 }

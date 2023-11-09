@@ -5,7 +5,7 @@ import { useGetGame } from '../hooks/useGetGame'
 import { useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Col from 'react-bootstrap/Col'
-import type { Game, Player } from '../types'
+import type { Game, PlayerPicked } from '../types'
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
@@ -13,19 +13,21 @@ import Row from 'react-bootstrap/Row'
 
 interface IProps {
 	game: Game
-	players?: Player[]
+	players?: PlayerPicked[]
 }
 
 const Game: React.FC<IProps> = (props) => {
 	const [showResults, setShowResults] = useState(false)
-	const game = useGetGame(props.game.gamePk)
+	const game = useGetGame(props.game.id)
+
+	console.log(game.data)
 
 	if (game.isError)
 		return <Alert variant='warning'>Error loading game details</Alert>
 
 	if (!game.data) return <></>
 
-	const dateTime = new Date(props.game.gameDate)
+	const dateTime = new Date(props.game.startTimeUTC)
 	const startTime =
 		('0' + dateTime.getHours()).slice(-2) +
 		':' +
@@ -96,8 +98,8 @@ const Game: React.FC<IProps> = (props) => {
 					</div>
 
 					<Row>
-						<Team
-							team={props.game.teams.away}
+						{/* <Team
+							team={props.game.awayTeam}
 							teamName={gameData.teams.away.teamName}
 							away={true}
 							showResults={showResults}
@@ -113,7 +115,7 @@ const Game: React.FC<IProps> = (props) => {
 							players={props.players?.filter(
 								(player) => player.team === gameData.teams.home.id
 							)}
-						/>
+						/> */}
 					</Row>
 
 					{showResults && started && (
@@ -121,12 +123,13 @@ const Game: React.FC<IProps> = (props) => {
 							<section id='plays' className='my-2'>
 								{plays.map((play, index) => {
 									return (
-										<Play
-											key={index}
-											away={props.game.teams.away.team.id === play.team.id}
-											play={play}
-											players={props.players}
-										/>
+										// <Play
+										// 	key={index}
+										// 	away={props.game.teams.away.team.id === play.team.id}
+										// 	play={play}
+										// 	players={props.players}
+										// />
+										<></>
 									)
 								})}
 							</section>

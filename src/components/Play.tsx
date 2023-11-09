@@ -1,11 +1,11 @@
 import Logo from './Logo'
-import type { Play, Player } from '../types'
+import type { Play, PlayerPicked } from '../types'
 import Score from './Score'
 
 interface IProps {
 	away: boolean
 	play: Play
-	players?: Player[]
+	players?: PlayerPicked[]
 }
 
 const Play: React.FC<IProps> = (props) => {
@@ -30,7 +30,11 @@ const Play: React.FC<IProps> = (props) => {
 
 	return (
 		<div className='mb-2'>
-			<div className={`d-flex align-items-center ${!props.away && 'flex-row-reverse'}`}>
+			<div
+				className={`d-flex align-items-center ${
+					!props.away && 'flex-row-reverse'
+				}`}
+			>
 				<Logo team={props.play.team} />
 
 				<div className={`small ${props.away ? 'me-1' : 'ms-1'}`}>
@@ -55,7 +59,11 @@ const Play: React.FC<IProps> = (props) => {
 				</div>
 			</div>
 
-			<div className={`d-flex small text-muted ${props.away ? 'ms-4' : 'justify-content-end me-4'}`}>
+			<div
+				className={`d-flex small text-muted ${
+					props.away ? 'ms-4' : 'justify-content-end me-4'
+				}`}
+			>
 				{assisters.map((assister, index) => (
 					<Score
 						key={index}

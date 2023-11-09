@@ -1,11 +1,13 @@
 import axios from 'axios'
-import type { GameDetails, GameResponse } from '../types'
-
-const BASE_URL = 'https://statsapi.web.nhl.com/api/v1'
+import type { Game, GameBoxscore, GameDetails } from '../types'
 
 const instance = axios.create({
-	baseURL: BASE_URL,
-	timeout: 10000
+	baseURL: 'http://localhost:3000',
+	timeout: 10000,
+	headers: {
+		'Content-Type': 'application/json',
+		Accept: 'application/json',
+	},
 })
 
 const get = async <T>(endpoint: string) => {
@@ -13,11 +15,16 @@ const get = async <T>(endpoint: string) => {
 	return response.data
 }
 
-export const getGames = async (date: string) => {
-	const gamesResponse = await get<GameResponse>('/schedule?date=' + date)
-	return gamesResponse.dates[0].games
-}
+export const getGames = (date: string) => get<Game[]>('/schedule/' + date)
 
-export const getGame = (gamePk: number) => {
-	return get<GameDetails>('/game/' + gamePk + '/feed/live')
+export const getGame = async (gameId: number) => {
+	const boxscore = await get<GameBoxscore>(
+		'/gamecenter/' + gameId + '/boxscore'
+	)
+	const landing = await get<GameDetails>('/gamecenter/' + gameId + '/landing')
+
+	return {
+		boxscore,
+		landing,
+	}
 }

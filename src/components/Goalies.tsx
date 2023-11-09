@@ -1,11 +1,11 @@
 import Goalie from './Goalie'
 import Table from 'react-bootstrap/Table'
-import type { GameDetailsTeam, Player } from '../types'
+import type { GameDetailsTeam, PlayerPicked } from '../types'
 
 interface IProps {
 	teamAway: GameDetailsTeam
 	teamHome: GameDetailsTeam
-	players?: Player[]
+	players?: PlayerPicked[]
 }
 
 const Goalies: React.FC<IProps> = (props) => (
