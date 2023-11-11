@@ -1,50 +1,38 @@
 import classNames from 'classnames'
-import type { GameDetailsPlayer } from '../types'
+import type { SkaterStats } from '../types'
 
 interface IProps {
-	player: GameDetailsPlayer
+	skater: SkaterStats
 	pickedBy?: string
 }
 
-const Skater: React.FC<IProps> = (props) => {
-	const fullName = props.player.person.fullName
-	const namesAmount = fullName.split(' ').length
-	const lastName = fullName.split(' ')[namesAmount - 1]
-
-	const stats = props.player.stats.skaterStats
-
+const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
 	const plusMinusClass = classNames({
-		'text-danger': stats && stats.plusMinus < 0,
-		'text-muted': stats && stats.plusMinus === 0,
-		'text-success': stats && stats.plusMinus > 0,
+		'text-danger': skater.plusMinus < 0,
+		'text-muted': skater.plusMinus === 0,
+		'text-success': skater.plusMinus > 0,
 	})
 
 	return (
-		<tr className={props.pickedBy}>
+		<tr className={pickedBy}>
 			<td className='text-start'>
-				{props.player.jerseyNumber}
-				<span className='d-none d-sm-inline'> {fullName} </span>
-				<span className='d-sm-none'> {lastName} </span>
-				{props.pickedBy && props.pickedBy}
+				<span className='small'>{skater.sweaterNumber} </span>
+				{skater.name.default}
+				{pickedBy && <span className='small'> {pickedBy}</span>}
 			</td>
-			{stats && (
-				<>
-					<td>{stats.goals}</td>
-					<td>{stats.assists}</td>
-					<td className={plusMinusClass}>
-						{stats.plusMinus > 0 && '+'}
-						{stats.plusMinus}
-					</td>
-					<td>{stats.shots}</td>
-					<td>{stats.penaltyMinutes}</td>
-					<td>{stats.hits}</td>
-					<td>{stats.blocked}</td>
-					<td className='text-end'>
-						{stats.timeOnIce} | {stats.powerPlayTimeOnIce} |{' '}
-						{stats.shortHandedTimeOnIce}
-					</td>
-				</>
-			)}
+			<td>{skater.goals}</td>
+			<td>{skater.assists}</td>
+			<td className={plusMinusClass}>
+				{skater.plusMinus > 0 && '+'}
+				{skater.plusMinus}
+			</td>
+			<td>{skater.shots}</td>
+			<td>{skater.pim}</td>
+			<td>{skater.hits}</td>
+			<td>{skater.blockedShots}</td>
+			<td className='text-end'>
+				{skater.toi} | {skater.powerPlayToi} | {skater.shorthandedToi}
+			</td>
 		</tr>
 	)
 }

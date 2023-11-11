@@ -1,12 +1,15 @@
-import Logo from './Logo'
 import Skater from './Skater'
+import Col from 'react-bootstrap/Col'
+import Image from 'react-bootstrap/Image'
 import Table from 'react-bootstrap/Table'
-import type { GameDetailsTeam, PlayerPicked } from '../types'
-import { Col } from 'react-bootstrap'
+import type { PlayerPicked, SkaterStats } from '../types'
+import { getLogoUrl } from '../helpers/getLogoUrl'
 
 interface IProps {
-	team: GameDetailsTeam
-	players?: PlayerPicked[]
+	defenders: SkaterStats[]
+	forwards: SkaterStats[]
+	playersPicked?: PlayerPicked[]
+	teamAbbrev: string
 }
 
 const Skaters: React.FC<IProps> = (props) => (
@@ -15,7 +18,7 @@ const Skaters: React.FC<IProps> = (props) => (
 			<thead>
 				<tr>
 					<th className='ps-0 text-start'>
-						<Logo team={props.team.team} />
+						<Image src={getLogoUrl(props.teamAbbrev)} />
 					</th>
 					<th>G</th>
 					<th>A</th>
@@ -28,16 +31,20 @@ const Skaters: React.FC<IProps> = (props) => (
 				</tr>
 			</thead>
 			<tbody>
-				{props.team.skaters.map((playerId, index) => (
-					<Skater
-						key={index}
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						player={props.team.players[('ID' + playerId) as any]}
-						pickedBy={
-							props.players?.find((player) => player.id === playerId)?.picker
-						}
-					/>
-				))}
+				{props.defenders
+					.concat(props.forwards)
+					.sort((a, b) => a.sweaterNumber - b.sweaterNumber)
+					.map((skater) => (
+						<Skater
+							key={skater.playerId}
+							pickedBy={
+								props.playersPicked?.find(
+									(player) => player.id === skater.playerId
+								)?.picker
+							}
+							skater={skater}
+						/>
+					))}
 			</tbody>
 		</Table>
 	</Col>

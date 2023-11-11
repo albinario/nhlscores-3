@@ -3,7 +3,7 @@ import Players from './Players'
 import Team from './Team'
 import { getPeriodType } from '../helpers/getPeriodType'
 import { useGetGame } from '../hooks/useGetGame'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
@@ -33,8 +33,8 @@ const Game: React.FC<IProps> = (props) => {
 		('0' + dateTime.getMinutes()).slice(-2)
 
 	const started = game.landing.gameState !== 'FUT'
-	const finished = game.landing.gameState === 'OFF'
-	const endTypeDesc = game.boxscore.gameOutcome.lastPeriodType
+	const ended = game.landing.gameState === 'OFF'
+	const endTypeDesc = ended ? game.boxscore.gameOutcome.lastPeriodType : ''
 	const endType = endTypeDesc !== 'REG' ? endTypeDesc : ''
 
 	return (
@@ -56,7 +56,7 @@ const Game: React.FC<IProps> = (props) => {
 						{showResults ? (
 							<>
 								<Badge
-									bg={finished ? 'success' : 'danger'}
+									bg={ended ? 'success' : 'danger'}
 									className='me-1'
 									style={{ fontSize: '1em' }}
 								>
@@ -64,7 +64,7 @@ const Game: React.FC<IProps> = (props) => {
 								</Badge>
 
 								<Badge
-									bg={finished ? 'success' : 'danger'}
+									bg={ended ? 'success' : 'danger'}
 									style={{ fontSize: '1em' }}
 								>
 									{game.landing.homeTeam.score}
@@ -112,12 +112,9 @@ const Game: React.FC<IProps> = (props) => {
 						<>
 							<div className='mt-2'>
 								{game.landing.summary.scoring.map((period) => (
-									<>
+									<Fragment key={period.periodDescriptor.number}>
 										{!!period.goals.length && (
-											<div
-												key={period.periodDescriptor.number}
-												className='period mb-1'
-											>
+											<div className='period mb-1'>
 												<div className='d-flex justify-content-center small text-muted'>
 													{getPeriodType(period.periodDescriptor)}
 												</div>
@@ -133,7 +130,7 @@ const Game: React.FC<IProps> = (props) => {
 												))}
 											</div>
 										)}
-									</>
+									</Fragment>
 								))}
 							</div>
 

@@ -24,12 +24,12 @@ export type GameBoxscore = {
 }
 
 type GameBoxscoreTeam = {
-	defense: Skater[]
+	defense: SkaterStats[]
 	goalies: GoalieStats[]
-	forwards: Skater[]
+	forwards: SkaterStats[]
 }
 
-type Skater = {
+type SkaterStats = {
 	assists: number
 	blockedShots: number
 	goals: number
@@ -40,7 +40,7 @@ type Skater = {
 	plusMinus: number
 	points: number
 	powerPlayToi: string
-	shortHandedToi: string
+	shorthandedToi: string
 	shots: number
 	sweaterNumber: number
 	toi: string

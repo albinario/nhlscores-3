@@ -8,22 +8,22 @@ interface IProps {
 	pickedBy?: string
 }
 
-const Goalie: React.FC<IProps> = (props) =>
-	props.goalie.toi !== '00:00' ? (
-		<tr className={props.pickedBy}>
+const Goalie: React.FC<IProps> = ({ goalie, teamAbbrev, pickedBy }) =>
+	goalie.toi !== '00:00' ? (
+		<tr className={pickedBy}>
 			<td className='text-start'>
-				<Image src={getLogoUrl(props.teamAbbrev)} />
+				<Image src={getLogoUrl(teamAbbrev)} />
 			</td>
 			<td className='text-start'>
-				<span className='small'>{props.goalie.sweaterNumber} </span>
-				{props.goalie.name.default} {}
-				{props.pickedBy && props.pickedBy}
+				<span className='small'>{goalie.sweaterNumber} </span>
+				{goalie.name.default}
+				{pickedBy && <span className='small'> {pickedBy}</span>}
 			</td>
-			<td>{props.goalie.saveShotsAgainst}</td>
-			<td>{(Number(props.goalie.savePctg) * 100).toFixed(2)}</td>
-			<td>{props.goalie.powerPlayGoalsAgainst}</td>
-			<td>{props.goalie.pim}</td>
-			<td className='text-end'>{props.goalie.toi}</td>
+			<td>{goalie.saveShotsAgainst}</td>
+			<td>{(Number(goalie.savePctg) * 100).toFixed(2)}</td>
+			<td>{goalie.powerPlayGoalsAgainst}</td>
+			<td>{goalie.pim}</td>
+			<td className='text-end'>{goalie.toi}</td>
 		</tr>
 	) : (
 		<></>

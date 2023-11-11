@@ -16,24 +16,30 @@ const Players: React.FC<IProps> = (props) => (
 		<Goalies
 			goaliesAway={props.playersAway.goalies}
 			goaliesHome={props.playersHome.goalies}
-			playersPicked={props.playersPicked?.filter((player) => player.pos === 'G')}
+			playersPicked={props.playersPicked?.filter(
+				(player) => player.pos === 'G'
+			)}
 			teamAbbrevAway={props.teamAbbrevAway}
 			teamAbbrevHome={props.teamAbbrevHome}
 		/>
-		{/* <Row xs={1} md={2}>
+		<Row xs={1} md={2}>
 			<Skaters
-				team={props.playersAway}
-				players={props.playersPicked?.filter(
+				defenders={props.playersAway.defense}
+				forwards={props.playersAway.forwards}
+				playersPicked={props.playersPicked?.filter(
 					(player) => player.teamAbbrev === props.teamAbbrevAway
 				)}
+				teamAbbrev={props.teamAbbrevAway}
 			/>
 			<Skaters
-				team={props.playersHome}
-				players={props.playersPicked?.filter(
+				defenders={props.playersHome.defense}
+				forwards={props.playersHome.forwards}
+				playersPicked={props.playersPicked?.filter(
 					(player) => player.teamAbbrev === props.teamAbbrevHome
 				)}
+				teamAbbrev={props.teamAbbrevHome}
 			/>
-		</Row> */}
+		</Row>
 	</>
 )
 
