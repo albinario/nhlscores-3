@@ -1,13 +1,12 @@
 import Logo from './Logo'
 import Col from 'react-bootstrap/Col'
-import type { PlayerPicked, TeamStats } from '../types'
+import type { PlayerPicked, Team } from '../types'
 
 interface IProps {
 	away: boolean
 	players?: PlayerPicked[]
 	showResults: boolean
-	team: TeamStats
-	teamName: string
+	team: Team
 }
 
 const Team: React.FC<IProps> = (props) => (
@@ -17,9 +16,9 @@ const Team: React.FC<IProps> = (props) => (
 				props.away ? 'me-3' : 'flex-row-reverse justify-content-end ms-3'
 			}`}
 		>
-			<span className='d-none d-sm-inline'>{props.team.team.name}</span>
-			<span className='d-sm-none'>{props.teamName}</span>
-			<Logo team={props.team.team} />
+			<span className='d-none d-sm-inline'>{props.team.placeName.default} {props.team.name.default}</span>
+			<span className='d-sm-none'>{props.team.name.default}</span>
+			<Logo team={props.team} />
 		</div>
 
 		{!props.showResults &&
@@ -39,12 +38,12 @@ const Team: React.FC<IProps> = (props) => (
 					</div>
 				))}
 
-		{props.showResults && (
+		{/* {props.showResults && (
 			<span className='small'>
 				{props.team.leagueRecord.wins}-{props.team.leagueRecord.losses}-
 				{props.team.leagueRecord.ot}
 			</span>
-		)}
+		)} */}
 	</Col>
 )
 

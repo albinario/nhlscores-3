@@ -42,6 +42,10 @@ img {
 	opacity: 0.8;
 }
 
+.period {
+	border-bottom: 1px solid #343a40;
+}
+
 .A {
 	color: #20c997;
 }

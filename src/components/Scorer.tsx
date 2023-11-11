@@ -1,19 +1,18 @@
-import type { PlayPlayer } from '../types'
-
 interface IProps {
 	last?: boolean
-	player: PlayPlayer
+	name: string
 	pickedBy?: string
+	toDate: number
 }
 
-const Score: React.FC<IProps> = (props) => (
+const Scorer: React.FC<IProps> = (props) => (
 	<span className='text-nowrap'>
 		{props.last && ', '}
 		<span className={props.pickedBy}>
-			{props.player.player.fullName} ({props.player.seasonTotal})
+			{props.name} ({props.toDate})
 			{props.pickedBy && ' ' + props.pickedBy}
 		</span>
 	</span>
 )
 
-export default Score
+export default Scorer

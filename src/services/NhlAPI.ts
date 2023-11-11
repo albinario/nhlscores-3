@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { Game, GameBoxscore, GameDetails } from '../types'
+import type { Game, GameBoxscore, GameDetails, GameLanding } from '../types'
 
 const instance = axios.create({
 	baseURL: 'http://localhost:3000',
@@ -21,10 +21,10 @@ export const getGame = async (gameId: number) => {
 	const boxscore = await get<GameBoxscore>(
 		'/gamecenter/' + gameId + '/boxscore'
 	)
-	const landing = await get<GameDetails>('/gamecenter/' + gameId + '/landing')
-
-	return {
+	const landing = await get<GameLanding>('/gamecenter/' + gameId + '/landing')
+	const gameDetails: GameDetails = {
 		boxscore,
 		landing,
 	}
+	return gameDetails
 }

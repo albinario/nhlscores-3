@@ -1,40 +1,32 @@
-import Logo from './Logo'
-import type { GameDetailsPlayer, Team } from '../types'
+import { getLogoUrl } from '../helpers/getLogoUrl'
+import { Image } from 'react-bootstrap'
+import type { GoalieStats } from '../types'
 
 interface IProps {
-	player: GameDetailsPlayer
-	team: Team
+	goalie: GoalieStats
+	teamAbbrev: string
 	pickedBy?: string
 }
 
-const Goalie: React.FC<IProps> = (props) => {
-	const fullName = props.player.person.fullName
-	const namesAmount = fullName.split(' ').length
-	const lastName = fullName.split(' ')[namesAmount - 1]
-
-	const stats = props.player.stats.goalieStats
-
-	return stats.timeOnIce !== '0:00' ? (
+const Goalie: React.FC<IProps> = (props) =>
+	props.goalie.toi !== '00:00' ? (
 		<tr className={props.pickedBy}>
 			<td className='text-start'>
-				<Logo team={props.team} />
+				<Image src={getLogoUrl(props.teamAbbrev)} />
 			</td>
 			<td className='text-start'>
-				<span className='small'>{props.player.jerseyNumber}</span>
-				<span className='d-none d-sm-inline'> {fullName}</span>
-				<span className='d-sm-none'> {lastName}</span>
-				<span className='text-nowrap'> {stats.decision && `(${stats.decision})`} </span>
+				<span className='small'>{props.goalie.sweaterNumber} </span>
+				{props.goalie.name.default} {}
 				{props.pickedBy && props.pickedBy}
 			</td>
-			<td>{stats.saves}/{stats.shots}</td>
-			<td>{stats.savePercentage && stats.savePercentage.toFixed(2)}</td>
-			<td>{stats.powerPlayShotsAgainst - stats.powerPlaySaves}</td>
-			<td>{stats.goals}</td>
-			<td>{stats.assists}</td>
-			<td>{stats.pim}</td>
-			<td className='text-end'>{stats.timeOnIce}</td>
+			<td>{props.goalie.saveShotsAgainst}</td>
+			<td>{(Number(props.goalie.savePctg) * 100).toFixed(2)}</td>
+			<td>{props.goalie.powerPlayGoalsAgainst}</td>
+			<td>{props.goalie.pim}</td>
+			<td className='text-end'>{props.goalie.toi}</td>
 		</tr>
-	) : <></>
-}
+	) : (
+		<></>
+	)
 
 export default Goalie

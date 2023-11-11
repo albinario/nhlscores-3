@@ -1,36 +1,40 @@
 import Goalies from './Goalies'
 import Skaters from './Skaters'
 import Row from 'react-bootstrap/Row'
-import type { GameDetailsTeam, PlayerPicked } from '../types'
+import type { GameBoxscoreTeam, PlayerPicked } from '../types'
 
 interface IProps {
-	teamAway: GameDetailsTeam
-	teamHome: GameDetailsTeam
-	players?: PlayerPicked[]
+	playersAway: GameBoxscoreTeam
+	playersHome: GameBoxscoreTeam
+	playersPicked?: PlayerPicked[]
+	teamAbbrevAway: string
+	teamAbbrevHome: string
 }
 
 const Players: React.FC<IProps> = (props) => (
-	<section id='players'>
+	<>
 		<Goalies
-			teamAway={props.teamAway}
-			teamHome={props.teamHome}
-			players={props.players?.filter((player) => player.pos === 'G')}
+			goaliesAway={props.playersAway.goalies}
+			goaliesHome={props.playersHome.goalies}
+			playersPicked={props.playersPicked?.filter((player) => player.pos === 'G')}
+			teamAbbrevAway={props.teamAbbrevAway}
+			teamAbbrevHome={props.teamAbbrevHome}
 		/>
-		<Row xs={1} md={2}>
+		{/* <Row xs={1} md={2}>
 			<Skaters
-				team={props.teamAway}
-				players={props.players?.filter(
-					(player) => player.team === props.teamAway.team.id
+				team={props.playersAway}
+				players={props.playersPicked?.filter(
+					(player) => player.teamAbbrev === props.teamAbbrevAway
 				)}
 			/>
 			<Skaters
-				team={props.teamHome}
-				players={props.players?.filter(
-					(player) => player.team === props.teamHome.team.id
+				team={props.playersHome}
+				players={props.playersPicked?.filter(
+					(player) => player.teamAbbrev === props.teamAbbrevHome
 				)}
 			/>
-		</Row>
-	</section>
+		</Row> */}
+	</>
 )
 
 export default Players

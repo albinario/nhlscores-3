@@ -23,7 +23,7 @@ app.get('/gamecenter/:gameId/boxscore', async (req, res) => {
 
 	try {
 		const response = await instance.get('/gamecenter/' + gameId + '/boxscore')
-		res.json(response.data.boxscore.playerByGameStats)
+		res.json(response.data)
 	} catch (error) {
 		res.status(500).json({
 			error: 'Server error when fetching schedule',

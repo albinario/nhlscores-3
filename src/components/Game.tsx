@@ -1,15 +1,16 @@
-import Play from './Play'
+import Goal from './Goal'
 import Players from './Players'
 import Team from './Team'
+import { getPeriodType } from '../helpers/getPeriodType'
 import { useGetGame } from '../hooks/useGetGame'
 import { useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
-import Col from 'react-bootstrap/Col'
-import type { Game, PlayerPicked } from '../types'
 import Badge from 'react-bootstrap/Badge'
 import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
+import type { Game, PlayerPicked } from '../types'
 
 interface IProps {
 	game: Game
@@ -18,14 +19,12 @@ interface IProps {
 
 const Game: React.FC<IProps> = (props) => {
 	const [showResults, setShowResults] = useState(false)
-	const game = useGetGame(props.game.id)
+	const { data: game, isError } = useGetGame(props.game.id)
 
-	console.log(game.data)
-
-	if (game.isError)
+	if (isError)
 		return <Alert variant='warning'>Error loading game details</Alert>
 
-	if (!game.data) return <></>
+	if (!game) return <></>
 
 	const dateTime = new Date(props.game.startTimeUTC)
 	const startTime =
@@ -33,17 +32,10 @@ const Game: React.FC<IProps> = (props) => {
 		':' +
 		('0' + dateTime.getMinutes()).slice(-2)
 
-	const gameData = game.data.gameData
-	const linescore = game.data.liveData.linescore
-	const started = game.data.gameData.status.statusCode !== '1'
-	const finished = game.data.gameData.status.statusCode === '7'
-	const scoreAway = linescore.teams.away.goals
-	const scoreHome = linescore.teams.home.goals
-	const endTypeDesc = linescore.currentPeriodOrdinal
-	const endType = endTypeDesc !== '3rd' ? endTypeDesc : ''
-	const plays = game.data.liveData.plays.allPlays.filter(
-		(play) => play.result.event === 'Goal'
-	)
+	const started = game.landing.gameState !== 'FUT'
+	const finished = game.landing.gameState === 'OFF'
+	const endTypeDesc = game.boxscore.gameOutcome.lastPeriodType
+	const endType = endTypeDesc !== 'REG' ? endTypeDesc : ''
 
 	return (
 		<Col>
@@ -68,14 +60,14 @@ const Game: React.FC<IProps> = (props) => {
 									className='me-1'
 									style={{ fontSize: '1em' }}
 								>
-									{scoreAway}
+									{game.landing.awayTeam.score}
 								</Badge>
 
 								<Badge
 									bg={finished ? 'success' : 'danger'}
 									style={{ fontSize: '1em' }}
 								>
-									{scoreHome}
+									{game.landing.homeTeam.score}
 								</Badge>
 
 								{endType && (
@@ -98,48 +90,61 @@ const Game: React.FC<IProps> = (props) => {
 					</div>
 
 					<Row>
-						{/* <Team
-							team={props.game.awayTeam}
-							teamName={gameData.teams.away.teamName}
+						<Team
+							team={game.landing.awayTeam}
 							away={true}
 							showResults={showResults}
 							players={props.players?.filter(
-								(player) => player.team === gameData.teams.away.id
+								(player) => player.teamAbbrev === game.landing.awayTeam.abbrev
 							)}
 						/>
 						<Team
-							team={props.game.teams.home}
-							teamName={gameData.teams.home.teamName}
+							team={game.landing.homeTeam}
 							away={false}
 							showResults={showResults}
 							players={props.players?.filter(
-								(player) => player.team === gameData.teams.home.id
+								(player) => player.teamAbbrev === game.landing.homeTeam.abbrev
 							)}
-						/> */}
+						/>
 					</Row>
 
 					{showResults && started && (
-						<section id='game-details'>
-							<section id='plays' className='my-2'>
-								{plays.map((play, index) => {
-									return (
-										// <Play
-										// 	key={index}
-										// 	away={props.game.teams.away.team.id === play.team.id}
-										// 	play={play}
-										// 	players={props.players}
-										// />
-										<></>
-									)
-								})}
-							</section>
+						<>
+							<div className='mt-2'>
+								{game.landing.summary.scoring.map((period) => (
+									<>
+										{!!period.goals.length && (
+											<div
+												key={period.periodDescriptor.number}
+												className='period mb-1'
+											>
+												<div className='d-flex justify-content-center small text-muted'>
+													{getPeriodType(period.periodDescriptor)}
+												</div>
+												{period.goals.map((goal, index) => (
+													<Goal
+														key={index}
+														away={
+															goal.teamAbbrev === game.landing.awayTeam.abbrev
+														}
+														goal={goal}
+														players={props.players}
+													/>
+												))}
+											</div>
+										)}
+									</>
+								))}
+							</div>
 
 							<Players
-								teamAway={game.data.liveData.boxscore.teams.away}
-								teamHome={game.data.liveData.boxscore.teams.home}
-								players={props.players}
+								playersAway={game.boxscore.boxscore.playerByGameStats.awayTeam}
+								playersHome={game.boxscore.boxscore.playerByGameStats.homeTeam}
+								playersPicked={props.players}
+								teamAbbrevAway={game.landing.awayTeam.abbrev}
+								teamAbbrevHome={game.landing.homeTeam.abbrev}
 							/>
-						</section>
+						</>
 					)}
 				</Card.Body>
 			</Card>
