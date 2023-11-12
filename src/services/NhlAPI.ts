@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { Game, GameBoxscore, GameDetails, GameLanding } from '../types'
 
 const instance = axios.create({
-	baseURL: 'http://localhost:3000',
+	baseURL: 'https://nhlscores-proxy.cyclic.app',
 	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json',
