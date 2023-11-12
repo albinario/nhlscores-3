@@ -45,6 +45,7 @@ const Game: React.FC<IProps> = (props) => {
 						<Form.Switch
 							checked={showResults}
 							className='position-absolute'
+							name='show-result-switcher'
 							onChange={() => setShowResults(!showResults)}
 						/>
 					)}
