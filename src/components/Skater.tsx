@@ -15,7 +15,7 @@ const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
 
 	return (
 		<tr className={pickedBy}>
-			<td className='text-start'>
+			<td className='text-start text-nowrap'>
 				<span className='small'>{skater.sweaterNumber} </span>
 				{skater.name.default}
 				{pickedBy && <span className='small'> {pickedBy}</span>}
@@ -30,7 +30,7 @@ const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
 			<td>{skater.pim}</td>
 			<td>{skater.hits}</td>
 			<td>{skater.blockedShots}</td>
-			<td className='text-end'>
+			<td className='text-end text-nowrap'>
 				{skater.toi} | {skater.powerPlayToi} | {skater.shorthandedToi}
 			</td>
 		</tr>
