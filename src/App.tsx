@@ -1,9 +1,10 @@
 import Fetching from './components/Fetching'
 import Game from './components/Game'
 import './App.css'
-import { useGetGames } from './hooks/useGetGames'
-import { useGetPlayers } from './hooks/useGetPlayers'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import { useGetGames } from './hooks/useGetGames'
+import { useGetPlayersPicked } from './hooks/useGetPlayersPicked'
+import { useGetTeamRecords } from './hooks/useGetTeamRecords'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
@@ -20,7 +21,8 @@ const App = () => {
 	const [dateTitle, setDateTitle] = useState('')
 
 	const games = useGetGames(date)
-	const players = useGetPlayers()
+	const { data: playersPicked } = useGetPlayersPicked()
+	const { data: teamRecords } = useGetTeamRecords()
 
 	const dateDecrease = () => {
 		setDate(moment(date).subtract(1, 'days').format(dateFormat))
@@ -74,10 +76,16 @@ const App = () => {
 						<Game
 							key={game.id}
 							game={game}
-							players={players.data?.filter(
+							playersPicked={playersPicked?.filter(
 								(player) =>
 									player.teamAbbrev === game.awayTeam.abbrev ||
 									player.teamAbbrev === game.homeTeam.abbrev
+							)}
+							teamRecordAway={teamRecords?.find(
+								(team) => team.teamAbbrev.default === game.awayTeam.abbrev
+							)}
+							teamRecordHome={teamRecords?.find(
+								(team) => team.teamAbbrev.default === game.homeTeam.abbrev
 							)}
 						/>
 					))}

@@ -1,12 +1,13 @@
 import Logo from './Logo'
 import Col from 'react-bootstrap/Col'
-import type { PlayerPicked, Team } from '../types'
+import type { PlayerPicked, Team, TeamRecord } from '../types'
 
 interface IProps {
 	away: boolean
-	players?: PlayerPicked[]
+	playersPicked?: PlayerPicked[]
 	showResults: boolean
 	team: Team
+	teamRecord?: TeamRecord
 }
 
 const Team: React.FC<IProps> = (props) => (
@@ -16,13 +17,15 @@ const Team: React.FC<IProps> = (props) => (
 				props.away ? 'me-3' : 'flex-row-reverse justify-content-end ms-3'
 			}`}
 		>
-			<span className='d-none d-sm-inline'>{props.team.placeName.default} {props.team.name.default}</span>
+			<span className='d-none d-sm-inline'>
+				{props.team.placeName.default} {props.team.name.default}
+			</span>
 			<span className='d-sm-none'>{props.team.name.default}</span>
 			<Logo team={props.team} />
 		</div>
 
 		{!props.showResults &&
-			props.players
+			props.playersPicked
 				?.sort((a, b) => a.jersey - b.jersey)
 				.map((player) => (
 					<div className={`${props.away && 'text-end'}`} key={player.id}>
@@ -38,12 +41,16 @@ const Team: React.FC<IProps> = (props) => (
 					</div>
 				))}
 
-		{/* {props.showResults && (
+		{props.showResults && props.teamRecord && (
 			<span className='small'>
-				{props.team.leagueRecord.wins}-{props.team.leagueRecord.losses}-
-				{props.team.leagueRecord.ot}
+				{props.teamRecord.wins}-{props.teamRecord.losses}-
+				{props.teamRecord.otLosses}{' '}
+				<span className='text-muted'>
+					{props.teamRecord.streakCode}
+					{props.teamRecord.streakCount}
+				</span>
 			</span>
-		)} */}
+		)}
 	</Col>
 )
 

@@ -5,7 +5,7 @@ const BASE_URL = 'https://trades.cyclic.app'
 
 const instance = axios.create({
 	baseURL: BASE_URL,
-	timeout: 10000
+	timeout: 10000,
 })
 
 const get = async <T>(endpoint: string) => {
@@ -13,7 +13,7 @@ const get = async <T>(endpoint: string) => {
 	return response.data
 }
 
-export const getPlayers = async () => {
-	const playersResponse = await get<PlayerResponse>('/players')
-	return playersResponse.data.filter(player => player.picker)
+export const getPlayersPicked = async () => {
+	const response = await get<PlayerResponse>('/players')
+	return response.data.filter((player) => player.picker)
 }

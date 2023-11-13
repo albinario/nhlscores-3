@@ -10,11 +10,13 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
-import type { Game, PlayerPicked } from '../types'
+import type { Game, PlayerPicked, TeamRecord } from '../types'
 
 interface IProps {
 	game: Game
-	players?: PlayerPicked[]
+	playersPicked?: PlayerPicked[]
+	teamRecordAway?: TeamRecord
+	teamRecordHome?: TeamRecord
 }
 
 const Game: React.FC<IProps> = (props) => {
@@ -92,20 +94,22 @@ const Game: React.FC<IProps> = (props) => {
 
 					<Row>
 						<Team
-							team={game.landing.awayTeam}
 							away={true}
-							showResults={showResults}
-							players={props.players?.filter(
+							playersPicked={props.playersPicked?.filter(
 								(player) => player.teamAbbrev === game.landing.awayTeam.abbrev
 							)}
+							showResults={showResults}
+							team={game.landing.awayTeam}
+							teamRecord={props.teamRecordAway}
 						/>
 						<Team
-							team={game.landing.homeTeam}
 							away={false}
-							showResults={showResults}
-							players={props.players?.filter(
+							playersPicked={props.playersPicked?.filter(
 								(player) => player.teamAbbrev === game.landing.homeTeam.abbrev
 							)}
+							showResults={showResults}
+							team={game.landing.homeTeam}
+							teamRecord={props.teamRecordHome}
 						/>
 					</Row>
 
@@ -126,7 +130,7 @@ const Game: React.FC<IProps> = (props) => {
 															goal.teamAbbrev === game.landing.awayTeam.abbrev
 														}
 														goal={goal}
-														players={props.players}
+														players={props.playersPicked}
 													/>
 												))}
 											</div>
@@ -138,7 +142,7 @@ const Game: React.FC<IProps> = (props) => {
 							<Players
 								playersAway={game.boxscore.boxscore.playerByGameStats.awayTeam}
 								playersHome={game.boxscore.boxscore.playerByGameStats.homeTeam}
-								playersPicked={props.players}
+								playersPicked={props.playersPicked}
 								teamAbbrevAway={game.landing.awayTeam.abbrev}
 								teamAbbrevHome={game.landing.homeTeam.abbrev}
 							/>
