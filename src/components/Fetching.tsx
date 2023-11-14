@@ -7,7 +7,7 @@ const Fetching = () => {
 	return isFetching ? (
 		<Spinner
 			animation='grow'
-			className='position-absolute end-0 opacity-75 me-5'
+			className='position-absolute end-0 me-5'
 			size='sm'
 			variant='warning'
 		/>

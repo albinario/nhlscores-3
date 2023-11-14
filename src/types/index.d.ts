@@ -1,13 +1,14 @@
 export type Game = {
-	id: number
-	startTimeUTC: string
 	awayTeam: GameTeam
 	homeTeam: GameTeam
+	id: number
+	gameState: string
+	startTimeUTC: string
 }
 
 type GameTeam = {
-	id: string
 	abbrev: string
+	placeName: Name
 	score: number
 }
 

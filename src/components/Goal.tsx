@@ -15,20 +15,19 @@ const Goal: React.FC<IProps> = ({ away, goal, players }) => {
 
 	return (
 		<div className='mb-2'>
-			<div
-				className={`d-flex ${
-					!away && 'flex-row-reverse'
-				}`}
-			>
-				<Image src={getLogoUrl(goal.teamAbbrev)} />
+			<div className={`d-flex ${!away && 'flex-row-reverse'}`}>
+				<Image
+					className={away ? 'me-1' : 'ms-1'}
+					src={getLogoUrl(goal.teamAbbrev)}
+				/>
 
-				<div className={`${away ? 'me-1' : 'ms-1'}`}>
+				<div className={away ? 'me-1' : 'ms-1'}>
 					{goal.awayScore}-{goal.homeScore}
 				</div>
 				<div className={`text-muted ${away ? 'me-1' : 'ms-1'}`}>
 					{goal.timeInPeriod}
 				</div>
-				
+
 				<div>
 					<Scorer
 						name={goal.firstName + ' ' + goal.lastName}
@@ -65,6 +64,5 @@ const Goal: React.FC<IProps> = ({ away, goal, players }) => {
 		</div>
 	)
 }
-
 
 export default Goal

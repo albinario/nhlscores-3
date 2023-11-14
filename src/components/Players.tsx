@@ -11,33 +11,37 @@ interface IProps {
 	teamAbbrevHome: string
 }
 
-const Players: React.FC<IProps> = (props) => (
+const Players: React.FC<IProps> = ({
+	playersAway,
+	playersHome,
+	playersPicked,
+	teamAbbrevAway,
+	teamAbbrevHome,
+}) => (
 	<>
 		<Goalies
-			goaliesAway={props.playersAway.goalies}
-			goaliesHome={props.playersHome.goalies}
-			playersPicked={props.playersPicked?.filter(
-				(player) => player.pos === 'G'
-			)}
-			teamAbbrevAway={props.teamAbbrevAway}
-			teamAbbrevHome={props.teamAbbrevHome}
+			goaliesAway={playersAway.goalies}
+			goaliesHome={playersHome.goalies}
+			playersPicked={playersPicked?.filter((player) => player.pos === 'G')}
+			teamAbbrevAway={teamAbbrevAway}
+			teamAbbrevHome={teamAbbrevHome}
 		/>
 		<Row xs={1} md={2}>
 			<Skaters
-				defenders={props.playersAway.defense}
-				forwards={props.playersAway.forwards}
-				playersPicked={props.playersPicked?.filter(
-					(player) => player.teamAbbrev === props.teamAbbrevAway
+				defenders={playersAway.defense}
+				forwards={playersAway.forwards}
+				playersPicked={playersPicked?.filter(
+					(player) => player.teamAbbrev === teamAbbrevAway
 				)}
-				teamAbbrev={props.teamAbbrevAway}
+				teamAbbrev={teamAbbrevAway}
 			/>
 			<Skaters
-				defenders={props.playersHome.defense}
-				forwards={props.playersHome.forwards}
-				playersPicked={props.playersPicked?.filter(
-					(player) => player.teamAbbrev === props.teamAbbrevHome
+				defenders={playersHome.defense}
+				forwards={playersHome.forwards}
+				playersPicked={playersPicked?.filter(
+					(player) => player.teamAbbrev === teamAbbrevHome
 				)}
-				teamAbbrev={props.teamAbbrevHome}
+				teamAbbrev={teamAbbrevHome}
 			/>
 		</Row>
 	</>

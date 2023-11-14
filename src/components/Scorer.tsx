@@ -5,12 +5,11 @@ interface IProps {
 	toDate: number
 }
 
-const Scorer: React.FC<IProps> = (props) => (
+const Scorer: React.FC<IProps> = ({ last, name, pickedBy, toDate }) => (
 	<span className='text-nowrap'>
-		{props.last && ', '}
-		<span className={props.pickedBy}>
-			{props.name} ({props.toDate})
-			{props.pickedBy && ' ' + props.pickedBy}
+		{last && ', '}
+		<span className={pickedBy}>
+			{name} ({toDate}){pickedBy && ' ' + pickedBy}
 		</span>
 	</span>
 )

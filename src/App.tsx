@@ -1,16 +1,13 @@
 import Fetching from './components/Fetching'
-import Game from './components/Game'
+import Games from './components/Games'
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { useGetGames } from './hooks/useGetGames'
-import { useGetPlayersPicked } from './hooks/useGetPlayersPicked'
-import { useGetTeamRecords } from './hooks/useGetTeamRecords'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 
 const App = () => {
 	const dateFormat = 'YYYY-MM-DD'
@@ -21,8 +18,6 @@ const App = () => {
 	const [dateTitle, setDateTitle] = useState('')
 
 	const games = useGetGames(date)
-	const { data: playersPicked } = useGetPlayersPicked()
-	const { data: teamRecords } = useGetTeamRecords()
 
 	const dateDecrease = () => {
 		setDate(moment(date).subtract(1, 'days').format(dateFormat))
@@ -70,27 +65,7 @@ const App = () => {
 				<Alert variant='secondary'>No games on this day</Alert>
 			)}
 
-			{!games.isError && !!games.data?.length && (
-				<Row xs={1} className='g-2'>
-					{games.data.map((game) => (
-						<Game
-							key={game.id}
-							game={game}
-							playersPicked={playersPicked?.filter(
-								(player) =>
-									player.teamAbbrev === game.awayTeam.abbrev ||
-									player.teamAbbrev === game.homeTeam.abbrev
-							)}
-							teamRecordAway={teamRecords?.find(
-								(team) => team.teamAbbrev.default === game.awayTeam.abbrev
-							)}
-							teamRecordHome={teamRecords?.find(
-								(team) => team.teamAbbrev.default === game.homeTeam.abbrev
-							)}
-						/>
-					))}
-				</Row>
-			)}
+			{!games.isError && !!games.data?.length && <Games games={games.data} />}
 		</Container>
 	)
 }

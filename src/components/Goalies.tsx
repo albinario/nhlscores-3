@@ -10,7 +10,13 @@ interface IProps {
 	teamAbbrevHome: string
 }
 
-const Goalies: React.FC<IProps> = (props) => (
+const Goalies: React.FC<IProps> = ({
+	goaliesAway,
+	goaliesHome,
+	playersPicked,
+	teamAbbrevAway,
+	teamAbbrevHome,
+}) => (
 	<Table borderless className='small text-center' size='sm'>
 		<thead>
 			<tr>
@@ -23,24 +29,24 @@ const Goalies: React.FC<IProps> = (props) => (
 			</tr>
 		</thead>
 		<tbody>
-			{props.goaliesAway.map((goalie) => (
+			{goaliesAway.map((goalie) => (
 				<Goalie
 					key={goalie.playerId}
 					goalie={goalie}
-					teamAbbrev={props.teamAbbrevAway}
+					teamAbbrev={teamAbbrevAway}
 					pickedBy={
-						props.playersPicked?.find((player) => player.id === goalie.playerId)
+						playersPicked?.find((player) => player.id === goalie.playerId)
 							?.picker
 					}
 				/>
 			))}
-			{props.goaliesHome.map((goalie) => (
+			{goaliesHome.map((goalie) => (
 				<Goalie
 					key={goalie.playerId}
 					goalie={goalie}
-					teamAbbrev={props.teamAbbrevHome}
+					teamAbbrev={teamAbbrevHome}
 					pickedBy={
-						props.playersPicked?.find((player) => player.id === goalie.playerId)
+						playersPicked?.find((player) => player.id === goalie.playerId)
 							?.picker
 					}
 				/>
