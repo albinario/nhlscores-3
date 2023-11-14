@@ -97,7 +97,6 @@ const Game: React.FC<IProps> = ({
 							key={game.id}
 							game={game}
 							playersPicked={playersPicked}
-							showResults={showResults}
 						/>
 					)}
 				</Card.Body>
