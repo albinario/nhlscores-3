@@ -32,7 +32,10 @@ const Team: React.FC<IProps> = ({
 					</span>
 					{getTeamName(team.abbrev)}
 				</div>
-				<Image src={getLogoUrl(team.abbrev)} />
+				<Image
+					src={getLogoUrl(team.abbrev)}
+					className={away ? 'ms-1' : 'me-1'}
+				/>
 			</div>
 
 			{!showResults &&
