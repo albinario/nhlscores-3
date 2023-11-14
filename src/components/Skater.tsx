@@ -7,22 +7,26 @@ interface IProps {
 }
 
 const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
-	const plusMinusClass = classNames({
+	const plusMinus = classNames({
 		'text-danger': skater.plusMinus < 0,
 		'text-muted': skater.plusMinus === 0,
 		'text-success': skater.plusMinus > 0,
 	})
 
+	const fullName = skater.name.default
+	const lastName = fullName.split(' ').pop()
+
 	return (
 		<tr className={pickedBy}>
 			<td className='text-start text-nowrap'>
-				<span className='small'>{skater.sweaterNumber} </span>
-				{skater.name.default}
+				<span className='small me-1'>{skater.sweaterNumber}</span>
+				<span className='d-none d-sm-inline'>{fullName}</span>
+				<span className='d-sm-none'>{lastName}</span>
 				{pickedBy && <span className='small'> {pickedBy}</span>}
 			</td>
 			<td>{skater.goals}</td>
 			<td>{skater.assists}</td>
-			<td className={plusMinusClass}>
+			<td className={plusMinus}>
 				{skater.plusMinus > 0 && '+'}
 				{skater.plusMinus}
 			</td>
