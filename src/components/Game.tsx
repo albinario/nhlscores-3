@@ -48,7 +48,7 @@ const Game: React.FC<IProps> = ({
 						{showResults && (
 							<>
 								<Badge
-									bg={ended ? 'success' : 'danger'}
+									bg={ended ? 'success' : 'primary'}
 									className='me-1'
 									style={{ fontSize: '.9em' }}
 								>
@@ -56,7 +56,7 @@ const Game: React.FC<IProps> = ({
 								</Badge>
 
 								<Badge
-									bg={ended ? 'success' : 'danger'}
+									bg={ended ? 'success' : 'primary'}
 									style={{ fontSize: '.9em' }}
 								>
 									{game.homeTeam.score}
