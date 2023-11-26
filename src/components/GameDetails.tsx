@@ -66,6 +66,8 @@ const GameDetails: React.FC<IProps> = ({ game, playersPicked }) => {
 				playersPicked={playersPicked}
 				teamAbbrevAway={gameDetails.landing.awayTeam.abbrev}
 				teamAbbrevHome={gameDetails.landing.homeTeam.abbrev}
+				winningGoalieId={game.winningGoalie?.playerId}
+				winningGoalScorerId={game.winningGoalScorer?.playerId}
 			/>
 		</>
 	)

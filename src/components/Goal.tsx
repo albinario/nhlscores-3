@@ -2,11 +2,11 @@ import Scorer from './Scorer'
 import { getGoalTypes } from '../helpers/getGoalTypes'
 import { getLogoUrl } from '../helpers/getLogoUrl'
 import Image from 'react-bootstrap/Image'
-import type { ScoringGoal, PlayerPicked } from '../types'
+import type { Goal as TGoal, PlayerPicked } from '../types'
 
 interface IProps {
 	away: boolean
-	goal: ScoringGoal
+	goal: TGoal
 	players?: PlayerPicked[]
 }
 

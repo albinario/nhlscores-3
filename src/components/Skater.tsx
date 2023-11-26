@@ -4,9 +4,10 @@ import type { SkaterStats } from '../types'
 interface IProps {
 	skater: SkaterStats
 	pickedBy?: string
+	winningGoalScorer: boolean
 }
 
-const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
+const Skater: React.FC<IProps> = ({ skater, pickedBy, winningGoalScorer }) => {
 	const plusMinus = classNames({
 		'text-danger': skater.plusMinus < 0,
 		'text-muted': skater.plusMinus === 0,
@@ -24,7 +25,10 @@ const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
 				<span className='d-sm-none'>{lastName}</span>
 				{pickedBy && <span className='small'> {pickedBy}</span>}
 			</td>
-			<td>{skater.goals}</td>
+			<td>
+				{skater.goals}
+				{winningGoalScorer && '*'}
+			</td>
 			<td>{skater.assists}</td>
 			<td className={plusMinus}>
 				{skater.plusMinus > 0 && '+'}

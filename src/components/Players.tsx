@@ -9,6 +9,8 @@ interface IProps {
 	playersPicked?: PlayerPicked[]
 	teamAbbrevAway: string
 	teamAbbrevHome: string
+	winningGoalieId?: number
+	winningGoalScorerId?: number
 }
 
 const Players: React.FC<IProps> = ({
@@ -17,6 +19,8 @@ const Players: React.FC<IProps> = ({
 	playersPicked,
 	teamAbbrevAway,
 	teamAbbrevHome,
+	winningGoalieId,
+	winningGoalScorerId,
 }) => (
 	<>
 		<Goalies
@@ -25,6 +29,7 @@ const Players: React.FC<IProps> = ({
 			playersPicked={playersPicked?.filter((player) => player.pos === 'G')}
 			teamAbbrevAway={teamAbbrevAway}
 			teamAbbrevHome={teamAbbrevHome}
+			winningGoalieId={winningGoalieId}
 		/>
 		<Row xs={1} md={2}>
 			<Skaters
@@ -34,6 +39,7 @@ const Players: React.FC<IProps> = ({
 					(player) => player.teamAbbrev === teamAbbrevAway
 				)}
 				teamAbbrev={teamAbbrevAway}
+				winningGoalScorerId={winningGoalScorerId}
 			/>
 			<Skaters
 				defenders={playersHome.defense}
@@ -42,6 +48,7 @@ const Players: React.FC<IProps> = ({
 					(player) => player.teamAbbrev === teamAbbrevHome
 				)}
 				teamAbbrev={teamAbbrevHome}
+				winningGoalScorerId={winningGoalScorerId}
 			/>
 		</Row>
 	</>

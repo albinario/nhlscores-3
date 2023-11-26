@@ -8,6 +8,7 @@ interface IProps {
 	playersPicked?: PlayerPicked[]
 	teamAbbrevAway: string
 	teamAbbrevHome: string
+	winningGoalieId?: number
 }
 
 const Goalies: React.FC<IProps> = ({
@@ -16,6 +17,7 @@ const Goalies: React.FC<IProps> = ({
 	playersPicked,
 	teamAbbrevAway,
 	teamAbbrevHome,
+	winningGoalieId,
 }) => (
 	<Table borderless className='small text-center' size='sm'>
 		<thead>
@@ -38,6 +40,7 @@ const Goalies: React.FC<IProps> = ({
 						playersPicked?.find((player) => player.id === goalie.playerId)
 							?.picker
 					}
+					winningGoalie={goalie.playerId === winningGoalieId}
 				/>
 			))}
 			{goaliesHome.map((goalie) => (
@@ -49,6 +52,7 @@ const Goalies: React.FC<IProps> = ({
 						playersPicked?.find((player) => player.id === goalie.playerId)
 							?.picker
 					}
+					winningGoalie={goalie.playerId === winningGoalieId}
 				/>
 			))}
 		</tbody>

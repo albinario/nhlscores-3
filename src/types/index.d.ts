@@ -4,6 +4,12 @@ export type Game = {
 	id: number
 	gameState: string
 	startTimeUTC: string
+	winningGoalie?: {
+		playerId: number
+	}
+	winningGoalScorer?: {
+		playerId: number
+	}
 }
 
 type GameTeam = {
@@ -84,7 +90,7 @@ type Name = {
 }
 
 type Scoring = {
-	goals: ScoringGoal[]
+	goals: Goal[]
 	periodDescriptor: PeriodDescriptor
 }
 
@@ -93,7 +99,7 @@ export type PeriodDescriptor = {
 	periodType: string
 }
 
-type ScoringGoal = {
+type Goal = {
 	assists: Assist[]
 	awayScore: number
 	firstName: string

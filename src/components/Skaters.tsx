@@ -10,6 +10,7 @@ interface IProps {
 	forwards: SkaterStats[]
 	playersPicked?: PlayerPicked[]
 	teamAbbrev: string
+	winningGoalScorerId?: number
 }
 
 const Skaters: React.FC<IProps> = ({
@@ -17,6 +18,7 @@ const Skaters: React.FC<IProps> = ({
 	forwards,
 	playersPicked,
 	teamAbbrev,
+	winningGoalScorerId,
 }) => (
 	<Col>
 		<Table borderless className='small text-center' size='sm'>
@@ -47,6 +49,7 @@ const Skaters: React.FC<IProps> = ({
 									?.picker
 							}
 							skater={skater}
+							winningGoalScorer={skater.playerId === winningGoalScorerId}
 						/>
 					))}
 			</tbody>
