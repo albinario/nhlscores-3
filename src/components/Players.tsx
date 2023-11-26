@@ -10,7 +10,6 @@ interface IProps {
 	teamAbbrevAway: string
 	teamAbbrevHome: string
 	winningGoalieId?: number
-	winningGoalScorerId?: number
 }
 
 const Players: React.FC<IProps> = ({
@@ -20,7 +19,6 @@ const Players: React.FC<IProps> = ({
 	teamAbbrevAway,
 	teamAbbrevHome,
 	winningGoalieId,
-	winningGoalScorerId,
 }) => (
 	<>
 		<Goalies
@@ -39,7 +37,6 @@ const Players: React.FC<IProps> = ({
 					(player) => player.teamAbbrev === teamAbbrevAway
 				)}
 				teamAbbrev={teamAbbrevAway}
-				winningGoalScorerId={winningGoalScorerId}
 			/>
 			<Skaters
 				defenders={playersHome.defense}
@@ -48,7 +45,6 @@ const Players: React.FC<IProps> = ({
 					(player) => player.teamAbbrev === teamAbbrevHome
 				)}
 				teamAbbrev={teamAbbrevHome}
-				winningGoalScorerId={winningGoalScorerId}
 			/>
 		</Row>
 	</>

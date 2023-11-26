@@ -14,6 +14,11 @@ interface IProps {
 const GameDetails: React.FC<IProps> = ({ game, playersPicked }) => {
 	const { data: gameDetails, isError, isFetching } = useGetGame(game.id)
 
+	const losingScore =
+		game.awayTeam.score < game.homeTeam.score
+			? game.awayTeam.score
+			: game.homeTeam.score
+
 	if (isFetching)
 		return (
 			<div className='d-flex justify-content-center'>
@@ -53,9 +58,11 @@ const GameDetails: React.FC<IProps> = ({ game, playersPicked }) => {
 					.map((scoring) => (
 						<Scoring
 							key={scoring.periodDescriptor.number}
+							losingScore={losingScore}
 							scoring={scoring}
 							playersPicked={playersPicked}
 							teamAbbrevAway={gameDetails.landing.awayTeam.abbrev}
+							winningGoalScorerId={game.winningGoalScorer?.playerId}
 						/>
 					))}
 			</div>
@@ -67,7 +74,6 @@ const GameDetails: React.FC<IProps> = ({ game, playersPicked }) => {
 				teamAbbrevAway={gameDetails.landing.awayTeam.abbrev}
 				teamAbbrevHome={gameDetails.landing.homeTeam.abbrev}
 				winningGoalieId={game.winningGoalie?.playerId}
-				winningGoalScorerId={game.winningGoalScorer?.playerId}
 			/>
 		</>
 	)

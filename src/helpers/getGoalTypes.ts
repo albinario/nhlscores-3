@@ -1,16 +1,15 @@
-import type { ScoringGoal } from '../types'
+import type { Goal } from '../types'
 
-export const getGoalTypes = (goal: ScoringGoal) => {
+export const getGoalTypes = (goal: Goal, gameWinner: boolean) => {
 	const goalTypes: string[] = []
 
-	if (goal.strength === 'pp') {
-		goalTypes.push('PP')
-	} else if (goal.strength === 'sh') {
-		goalTypes.push('SH')
-	}
-	if (goal.goalModifier === 'empty-net') {
-		goalTypes.push('EN')
-	}
+	goal.strength === 'pp'
+		? goalTypes.push('PP')
+		: goal.strength === 'sh' && goalTypes.push('SH')
+
+	goal.goalModifier === 'empty-net' && goalTypes.push('EN')
+
+	gameWinner && goalTypes.push('GW')
 
 	return goalTypes
 }

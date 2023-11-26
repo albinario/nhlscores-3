@@ -7,11 +7,23 @@ import type { Goal as TGoal, PlayerPicked } from '../types'
 interface IProps {
 	away: boolean
 	goal: TGoal
+	losingScore: number
 	players?: PlayerPicked[]
+	winningGoalScorerId?: number
 }
 
-const Goal: React.FC<IProps> = ({ away, goal, players }) => {
-	const goalTypes = getGoalTypes(goal)
+const Goal: React.FC<IProps> = ({
+	away,
+	goal,
+	losingScore,
+	players,
+	winningGoalScorerId,
+}) => {
+	const gameWinner =
+		goal.playerId === winningGoalScorerId &&
+		(goal.awayScore === losingScore + 1 || goal.homeScore === losingScore + 1)
+
+	const goalTypes = getGoalTypes(goal, gameWinner)
 
 	return (
 		<div className='mb-2'>

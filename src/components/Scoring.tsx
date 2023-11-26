@@ -3,15 +3,19 @@ import { getPeriodType } from '../helpers/getPeriodType'
 import type { PlayerPicked, Scoring } from '../types'
 
 interface IProps {
+	losingScore: number
 	playersPicked?: PlayerPicked[]
 	scoring: Scoring
 	teamAbbrevAway: string
+	winningGoalScorerId?: number
 }
 
 const Scoring: React.FC<IProps> = ({
+	losingScore,
 	playersPicked,
 	scoring,
 	teamAbbrevAway,
+	winningGoalScorerId,
 }) => (
 	<div className='period mb-1'>
 		<div className='d-flex justify-content-center small text-muted'>
@@ -22,7 +26,9 @@ const Scoring: React.FC<IProps> = ({
 				key={index}
 				away={goal.teamAbbrev === teamAbbrevAway}
 				goal={goal}
+				losingScore={losingScore}
 				players={playersPicked}
+				winningGoalScorerId={winningGoalScorerId}
 			/>
 		))}
 	</div>
