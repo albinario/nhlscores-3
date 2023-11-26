@@ -5,7 +5,7 @@ const teamsAbbr: { [key: string]: string } = {
 	ARI: 'Coyotes',
 	BOS: 'Bruins',
 	BUF: 'Sabres',
-	CGY: 'FLames',
+	CGY: 'Flames',
 	CAR: 'Hurricanes',
 	CHI: 'Blackhawks',
 	COL: 'Avalanche',
