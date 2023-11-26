@@ -7,7 +7,7 @@ const Footer = () => (
 			other proprietary materials posted here are the property of the NHL and
 			the respective NHL teams and may not be reproduced without the permission
 			of the NHL. All Rights Reserved.
-			<span className='d-flex align-items-center mt-2'>
+			<span className='d-flex align-items-center mt-1'>
 				<Copyright />
 				Albin Lindeborg {new Date().getFullYear()}
 			</span>
