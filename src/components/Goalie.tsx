@@ -18,13 +18,13 @@ const Goalie: React.FC<IProps> = ({
 	goalie.toi !== '00:00' ? (
 		<tr className={pickedBy}>
 			<td className='text-start'>
-				<Image src={getLogoUrl(teamAbbrev)} />
-			</td>
-			<td className='text-start'>
+				<Image className='me-1' src={getLogoUrl(teamAbbrev)} />
 				<span className='small'>{goalie.sweaterNumber} </span>
 				{goalie.name.default}
 				{pickedBy && <span className='small'> {pickedBy}</span>}
-				{winningGoalie && ' W'}
+				{winningGoalie && (
+					<span className='fst-italic opacity-75 small'> W</span>
+				)}
 			</td>
 			<td>{goalie.saveShotsAgainst}</td>
 			<td>{(Number(goalie.savePctg) * 100).toFixed(2)}</td>

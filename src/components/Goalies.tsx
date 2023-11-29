@@ -22,7 +22,7 @@ const Goalies: React.FC<IProps> = ({
 	<Table borderless className='small text-center' size='sm'>
 		<thead>
 			<tr>
-				<th colSpan={2}></th>
+				<th></th>
 				<th>Saves</th>
 				<th>%</th>
 				<th>PP</th>

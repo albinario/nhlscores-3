@@ -1,5 +1,6 @@
 import Goalies from './Goalies'
 import Skaters from './Skaters'
+import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import type { GameBoxscoreTeam, PlayerPicked } from '../types'
 
@@ -21,14 +22,18 @@ const Players: React.FC<IProps> = ({
 	winningGoalieId,
 }) => (
 	<>
-		<Goalies
-			goaliesAway={playersAway.goalies}
-			goaliesHome={playersHome.goalies}
-			playersPicked={playersPicked?.filter((player) => player.pos === 'G')}
-			teamAbbrevAway={teamAbbrevAway}
-			teamAbbrevHome={teamAbbrevHome}
-			winningGoalieId={winningGoalieId}
-		/>
+		<Row xs={1} md={2}>
+			<Col md={{ offset: 3 }}>
+				<Goalies
+					goaliesAway={playersAway.goalies}
+					goaliesHome={playersHome.goalies}
+					playersPicked={playersPicked?.filter((player) => player.pos === 'G')}
+					teamAbbrevAway={teamAbbrevAway}
+					teamAbbrevHome={teamAbbrevHome}
+					winningGoalieId={winningGoalieId}
+				/>
+			</Col>
+		</Row>
 		<Row xs={1} md={2}>
 			<Skaters
 				defenders={playersAway.defense}
