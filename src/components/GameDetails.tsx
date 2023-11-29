@@ -59,8 +59,8 @@ const GameDetails: React.FC<IProps> = ({ game, playersPicked }) => {
 						<Scoring
 							key={scoring.periodDescriptor.number}
 							losingScore={losingScore}
-							scoring={scoring}
 							playersPicked={playersPicked}
+							scoring={scoring}
 							teamAbbrevAway={gameDetails.landing.awayTeam.abbrev}
 							winningGoalScorerId={game.winningGoalScorer?.playerId}
 						/>
