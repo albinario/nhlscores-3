@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import type { SkaterStats } from '../types'
 
 interface IProps {
@@ -7,14 +6,8 @@ interface IProps {
 }
 
 const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
-	const plusMinus = classNames({
-		'text-danger': skater.plusMinus < 0,
-		'text-muted': skater.plusMinus === 0,
-		'text-success': skater.plusMinus > 0,
-	})
-
 	const fullName = skater.name.default
-	const lastName = fullName.split(' ').pop()
+	const lastName = fullName.replace(/^[A-Z]\. /, '')
 
 	return (
 		<tr className={pickedBy}>
@@ -26,7 +19,7 @@ const Skater: React.FC<IProps> = ({ skater, pickedBy }) => {
 			</td>
 			<td>{skater.goals}</td>
 			<td>{skater.assists}</td>
-			<td className={plusMinus}>
+			<td>
 				{skater.plusMinus > 0 && '+'}
 				{skater.plusMinus}
 			</td>
