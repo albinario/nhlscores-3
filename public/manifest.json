@@ -22,5 +22,5 @@
 	"short_name": "NHL Scores",
 	"start_url": ".",
 	"theme_color": "#212529",
-	"scope": "/app/"
+	"scope": "/"
 }
