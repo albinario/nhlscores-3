@@ -26,6 +26,7 @@ const Scoring: React.FC<IProps> = ({
 				key={index}
 				away={goal.teamAbbrev === teamAbbrevAway}
 				goal={goal}
+				isSo={scoring.periodDescriptor.periodType === 'SO'}
 				losingScore={losingScore}
 				players={playersPicked}
 				winningGoalScorerId={winningGoalScorerId}
