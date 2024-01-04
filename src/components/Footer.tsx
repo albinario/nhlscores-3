@@ -9,7 +9,7 @@ const Footer = () => (
 			of the NHL. All Rights Reserved.
 			<span className='d-flex align-items-center mt-1'>
 				<Copyright />
-				Albin Lindeborg {new Date().getFullYear()}
+				Albin Lindeborg 2018-{new Date().getFullYear()}
 			</span>
 		</p>
 	</footer>
