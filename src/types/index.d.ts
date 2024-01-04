@@ -102,21 +102,21 @@ export type PeriodDescriptor = {
 type Goal = {
 	assists: Assist[]
 	awayScore: number
-	firstName: string
+	firstName: Name
 	goalModifier: string
 	goalsToDate: number
 	homeScore: number
-	lastName: string
+	lastName: Name
 	playerId: number
 	strength: string
-	teamAbbrev: string
+	teamAbbrev: Name
 	timeInPeriod: string
 }
 
 type Assist = {
 	assistsToDate: number
-	firstName: string
-	lastName: string
+	firstName: Name
+	lastName: Name
 	playerId: number
 }
 

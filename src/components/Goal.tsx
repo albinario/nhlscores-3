@@ -32,7 +32,7 @@ const Goal: React.FC<IProps> = ({
 			<div className={`d-flex ${!away && 'flex-row-reverse'}`}>
 				<Image
 					className={away ? 'me-1' : 'ms-1'}
-					src={getLogoUrl(goal.teamAbbrev)}
+					src={getLogoUrl(goal.teamAbbrev.default)}
 				/>
 
 				<div className={away ? 'me-1' : 'ms-1'}>
@@ -47,7 +47,7 @@ const Goal: React.FC<IProps> = ({
 				<div>
 					<Scorer
 						isSo={isSo}
-						name={goal.firstName + ' ' + goal.lastName}
+						name={goal.firstName.default + ' ' + goal.lastName.default}
 						pickedBy={
 							players?.find((player) => player.id === goal.playerId)?.picker
 						}
@@ -70,7 +70,7 @@ const Goal: React.FC<IProps> = ({
 					<Scorer
 						key={index}
 						last={index !== 0}
-						name={assist.firstName + ' ' + assist.lastName}
+						name={assist.firstName.default + ' ' + assist.lastName.default}
 						toDate={assist.assistsToDate}
 						pickedBy={
 							players?.find((player) => player.id === assist.playerId)?.picker
