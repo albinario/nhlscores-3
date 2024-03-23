@@ -68,8 +68,8 @@ const GameDetails: React.FC<IProps> = ({ game, playersPicked }) => {
 			</div>
 
 			<Players
-				playersAway={gameDetails.boxscore.boxscore.playerByGameStats.awayTeam}
-				playersHome={gameDetails.boxscore.boxscore.playerByGameStats.homeTeam}
+				playersAway={gameDetails.boxscore.playerByGameStats.awayTeam}
+				playersHome={gameDetails.boxscore.playerByGameStats.homeTeam}
 				playersPicked={playersPicked}
 				teamAbbrevAway={gameDetails.landing.awayTeam.abbrev}
 				teamAbbrevHome={gameDetails.landing.homeTeam.abbrev}

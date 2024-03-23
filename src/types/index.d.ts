@@ -19,11 +19,9 @@ type GameTeam = {
 }
 
 export type GameBoxscore = {
-	boxscore: {
-		playerByGameStats: {
-			awayTeam: GameBoxscoreTeam
-			homeTeam: GameBoxscoreTeam
-		}
+	playerByGameStats: {
+		awayTeam: GameBoxscoreTeam
+		homeTeam: GameBoxscoreTeam
 	}
 	gameOutcome: {
 		lastPeriodType: string
