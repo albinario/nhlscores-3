@@ -8,7 +8,7 @@ import type {
 } from '../types'
 
 const instance = axios.create({
-	baseURL: 'https://nhlscores-proxy.cyclic.app',
+	baseURL: 'https://nhl-proxy.onrender.com',
 	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json',
